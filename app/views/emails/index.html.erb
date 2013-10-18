@@ -6,19 +6,15 @@
       <th>Address</th>
       <th>Destinations</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @emails.each do |email| %>
       <tr>
-        <td><%= email.address %></td>
-        <td><%= email.destinations %></td>
-        <td><%= link_to 'Show', email %></td>
-        <td><%= link_to 'Edit', edit_email_path(email) %></td>
-        <td><%= link_to 'Destroy', email, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= email['source'] %></td>
+        <td><%= email['destinations'].join(', ') %></td>
+        <td><%= link_to 'Destroy', email_path(email['source']), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +22,5 @@
 
 <br>
 
-<%= link_to 'New Email', new_email_path %>
+<h3>New email</h3>
+<%= render 'form' %>

@@ -1,10 +1,35 @@
+require 'xmlrpc/client'
+
 class EmailsController < ApplicationController
-  before_action :set_email, only: [:show, :edit, :update, :destroy]
+  #before_action :set_email, only: [:show, :edit, :update, :destroy]
+  before_action :setup_api
 
   # GET /emails
   # GET /emails.json
   def index
-    @emails = Email.all
+
+    #server.call("domain.forward.count", apikey, 'mydomain.net')
+    #1
+    #[{'destinations' => ['stephanie@example.com'], 'source' => 'admin'}]
+
+    #server.call("domain.forward.create", apikey, 'mydomain.net', 'admin',
+    #  {'destinations' => ['stephanie@example.com']})
+    #{'destinations' => ['stephanie@example.com'], 'source': 'admin'}
+
+    #server.call("domain.forward.update", apikey, 'mydomain.net', 'admin',
+    #  {'destinations' => ['stephanie@example.com', 'steph@example.com']})
+    #{'destinations' => ['stephanie@example.com', 'steph@example.com'],
+    #... 'source' => 'admin'}
+
+    #server.call("domain.forward.delete", apikey, 'mydomain.net', 'admin')
+    #True
+
+    #@emails = Email.all
+    #puts "GANDI API Version", @server.call("domain.info", @apikey, 'ollej.com')
+
+    #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
+    @email = Email.new
+    @emails = api_call("domain.forward.list")
   end
 
   # GET /emails/1
@@ -24,16 +49,13 @@ class EmailsController < ApplicationController
   # POST /emails
   # POST /emails.json
   def create
-    @email = Email.new(email_params)
+    #@email = Email.new(email_params)
+    api_call("domain.forward.create", email_params[:address],
+       { 'destinations' => parse_destinations(email_params[:destinations]) } )
 
     respond_to do |format|
-      if @email.save
-        format.html { redirect_to @email, notice: 'Email was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @email }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @email.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to emails_url }
+      format.json { head :no_content }
     end
   end
 
@@ -54,7 +76,8 @@ class EmailsController < ApplicationController
   # DELETE /emails/1
   # DELETE /emails/1.json
   def destroy
-    @email.destroy
+    #@email.destroy
+    api_call("domain.forward.delete", params[:id])
     respond_to do |format|
       format.html { redirect_to emails_url }
       format.json { head :no_content }
@@ -70,5 +93,23 @@ class EmailsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_params
       params.require(:email).permit(:address, :destinations)
+    end
+
+    def setup_api
+      @apikey = ENV['GANDI_API_KEY']
+      @mail_domain = ENV['GANDI_MAIL_DOMAIN']
+      @server = XMLRPC::Client.new2('https://rpc.gandi.net/xmlrpc/')
+      #@server = XMLRPC::Client.new2('https://rpc.ote.gandi.net/xmlrpc/')
+      # Remove line 505/506 in lib/ruby/2.0.0/xmlrpc/client.rb
+      #elsif expected != "<unknown>" and expected.to_i != data.bytesize and resp["Transfer-Encoding"].nil?
+      #  raise "Wrong size. Was #{data.bytesize}, should be #{expected}"
+    end
+
+    def api_call(command, *args)
+      @server.call(command, @apikey, @mail_domain, *args)
+    end
+
+    def parse_destinations(destinations)
+      destinations.split(/[\s,;]+/)
     end
 end
