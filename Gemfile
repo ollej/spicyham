@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 
 gem 'pg'
+gem 'libxml-xmlrpc'
 
 group :production do
   gem 'rails_12factor'

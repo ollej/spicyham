@@ -1,4 +1,6 @@
-require 'xmlrpc/client'
+#require 'xmlrpc/client'
+require 'xml/libxml/xmlrpc'
+require 'net/http'
 
 class EmailsController < ApplicationController
   #before_action :set_email, only: [:show, :edit, :update, :destroy]
@@ -98,7 +100,11 @@ class EmailsController < ApplicationController
     def setup_api
       @apikey = ENV['GANDI_API_KEY']
       @mail_domain = ENV['GANDI_MAIL_DOMAIN']
-      @server = XMLRPC::Client.new2('https://rpc.gandi.net/xmlrpc/')
+      net = Net::HTTP.new("rpc.gandi.net", Net::HTTP.https_default_port)
+      net.use_ssl = true
+      net.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      @server = XML::XMLRPC::Client.new(net, "/xmlrpc/")
+      #@server = XMLRPC::Client.new2('https://rpc.gandi.net/xmlrpc/')
       #@server = XMLRPC::Client.new2('https://rpc.ote.gandi.net/xmlrpc/')
       # Remove line 505/506 in lib/ruby/2.0.0/xmlrpc/client.rb
       #elsif expected != "<unknown>" and expected.to_i != data.bytesize and resp["Transfer-Encoding"].nil?
@@ -106,7 +112,8 @@ class EmailsController < ApplicationController
     end
 
     def api_call(command, *args)
-      @server.call(command, @apikey, @mail_domain, *args)
+      parser = @server.call(command, @apikey, @mail_domain, *args)
+      parser.params.first
     end
 
     def parse_destinations(destinations)

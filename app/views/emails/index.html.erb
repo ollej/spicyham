@@ -12,9 +12,9 @@
   <tbody>
     <% @emails.each do |email| %>
       <tr>
-        <td><%= email['source'] %></td>
-        <td><%= email['destinations'].join(', ') %></td>
-        <td><%= link_to 'Destroy', email_path(email['source']), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= email[:source] %></td>
+        <td><%= email[:destinations].join(', ') %></td>
+        <td><%= link_to 'Destroy', email_path(email[:source]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
