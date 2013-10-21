@@ -1,10 +1,5 @@
-#require 'xmlrpc/client'
-require 'xml/libxml/xmlrpc'
-require 'net/http'
-
 class EmailsController < ApplicationController
   #before_action :set_email, only: [:show, :edit, :update, :destroy]
-  before_action :setup_api
 
   # GET /emails
   # GET /emails.json
@@ -31,7 +26,7 @@ class EmailsController < ApplicationController
 
     #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
     @email = Email.new
-    @emails = api_call("domain.forward.list")
+    @emails = @gandi.call_domain("forward.list")
   end
 
   # GET /emails/1
@@ -52,7 +47,7 @@ class EmailsController < ApplicationController
   # POST /emails.json
   def create
     #@email = Email.new(email_params)
-    api_call("domain.forward.create", email_params[:address],
+    @gandi.call_domain("forward.create", email_params[:address],
        { 'destinations' => parse_destinations(email_params[:destinations]) } )
 
     respond_to do |format|
@@ -79,7 +74,7 @@ class EmailsController < ApplicationController
   # DELETE /emails/1.json
   def destroy
     #@email.destroy
-    api_call("domain.forward.delete", params[:id])
+    @gandi.call_domain("forward.delete", params[:id])
     respond_to do |format|
       format.html { redirect_to emails_url }
       format.json { head :no_content }
@@ -95,25 +90,6 @@ class EmailsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_params
       params.require(:email).permit(:address, :destinations)
-    end
-
-    def setup_api
-      @apikey = ENV['GANDI_API_KEY']
-      @mail_domain = ENV['GANDI_MAIL_DOMAIN']
-      net = Net::HTTP.new("rpc.gandi.net", Net::HTTP.https_default_port)
-      net.use_ssl = true
-      net.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      @server = XML::XMLRPC::Client.new(net, "/xmlrpc/")
-      #@server = XMLRPC::Client.new2('https://rpc.gandi.net/xmlrpc/')
-      #@server = XMLRPC::Client.new2('https://rpc.ote.gandi.net/xmlrpc/')
-      # Remove line 505/506 in lib/ruby/2.0.0/xmlrpc/client.rb
-      #elsif expected != "<unknown>" and expected.to_i != data.bytesize and resp["Transfer-Encoding"].nil?
-      #  raise "Wrong size. Was #{data.bytesize}, should be #{expected}"
-    end
-
-    def api_call(command, *args)
-      parser = @server.call(command, @apikey, @mail_domain, *args)
-      parser.params.first
     end
 
     def parse_destinations(destinations)

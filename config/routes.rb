@@ -1,4 +1,11 @@
 Spicyham::Application.routes.draw do
+  get "zone", to: "zone#index"
+  get "zone/:zone", to: "zone#show", as: "zone_show"
+  post "zone/:zone/add", to: "zone#add_record", as: "add_record"
+  get "domain/info"
+  get "domain/list"
+  get "domain/webredir"
+
   resources :emails
 
   # The priority is based upon order of creation: first created -> highest priority.

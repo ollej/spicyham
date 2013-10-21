@@ -1,0 +1,16 @@
+<%= form_tag add_record_path(@zone_id), method: 'post' do %>
+  <div class="field">
+    <%= label_tag :name %><br>
+    <%= text_field_tag :name %>
+  </div>
+  <div class="field">
+    <%= select_tag :type, options_for_select(Gandi::TYPE::all) %>
+  </div>
+  <div class="field">
+    <%= label_tag :value %><br>
+    <%= text_area_tag :value %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Add record" %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+<h1>Zone list</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Updated</th>
+    <th>Version</th>
+  </tr>
+  <% @zones.each do |zone| %>
+    <tr>
+      <td><%= link_to zone[:name], zone_show_path(zone[:id]) %></td>
+      <td><%= zone[:date_updated] %></td>
+      <td><%= zone[:version] %></td>
+    </tr>
+  <% end %>
+</table>
