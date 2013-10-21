@@ -57,34 +57,17 @@ module Gandi
     validates_inclusion_of :type, in: Gandi::TYPE.all
     validates_numericality_of :ttl, allow_nil: true,
       greater_than: 5.minutes, less_than: 30.days
+    # TODO: Validate value based on type (A should be IP, CNAME end with .)
 
     def initialize(attributes = {})
       @attributes = attributes
       attributes.each do |name, value|
         send("#{name}=", value)
       end
-      # TODO: Validate type
-      # TODO: Validate value based on type
-      # ^(?:(?!-)[-_@a-zA-Z0-9]{1,63}(?<!-)(\.|$))*$
-      # TODO: Validate ttl
-      # TODO: Validate name
     end
 
     def to_hash
       @attributes
-    end
-
-    def adsf
-
-      hash = Hash.new
-      instance_variables.each do |key|
-        value = instance_variable_get(key)
-        unless value.nil?
-          key = key.to_s[1..-1].to_sym
-          hash[key] = value
-        end
-      end
-      hash
     end
 
     def persisted?

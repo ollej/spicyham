@@ -1,4 +1,5 @@
 <% if @record.errors.any? %>
+  <h1>Error adding record</h1>
   <div id="error_explanation">
     <h2><%= pluralize(@record.errors.count, "error") %> prohibited this record from being saved:</h2>
 
