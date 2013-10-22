@@ -1,7 +1,5 @@
-<%= render :partial => 'layouts/notice' %>
-
 <h1>Records</h1>
-<table>
+<table class="table table-striped">
   <tr>
     <th>Name</th>
     <th>Type</th>
@@ -15,10 +13,16 @@
       <td><%= record[:type] %></td>
       <td><%= record[:value] %></td>
       <td><%= record[:ttl] %></td>
-      <td><%= link_to "Delete", delete_record_path(@zone_id, record[:id]), method: 'delete' %></td>
+      <td>
+        <%= link_to '<i class="icon-remove"></i> Delete'.html_safe,
+          delete_record_path(@zone_id, record[:id]), class: "btn btn-danger",
+          method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
     </tr>
   <% end %>
 </table>
 
-<h2>Add new record</h2>
-<%= render 'record' %>
+<div class="well">
+  <h2>Add new record</h2>
+  <%= render 'record' %>
+</div>

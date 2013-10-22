@@ -1,8 +1,6 @@
-<%= render :partial => 'layouts/notice' %>
+<h1>Email forwards</h1>
 
-<h1>Listing emails</h1>
-
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Address</th>
@@ -16,8 +14,10 @@
       <tr>
         <td><%= email[:source] %></td>
         <td><%= email[:destinations].join(', ') %></td>
-        <td><%= link_to 'Delete', email_path(email[:source]),
-                  method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to '<i class="icon-remove"></i> Delete'.html_safe, email_path(email[:source]), class: "btn btn-danger",
+            method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -25,5 +25,7 @@
 
 <br>
 
-<h3>New email forwarding</h3>
-<%= render 'form' %>
+<div class="well">
+  <h3>Add forwarding</h3>
+  <%= render 'form' %>
+</div>
