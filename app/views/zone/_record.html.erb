@@ -10,6 +10,10 @@
     <%= label_tag :value %><br>
     <%= text_area_tag :value %>
   </div>
+  <div class="field">
+    <%= label_tag :ttl %><br>
+    <%= text_field_tag :ttl, nil, placeholder: 3.hours %>
+  </div>
   <div class="actions">
     <%= submit_tag "Add record" %>
   </div>

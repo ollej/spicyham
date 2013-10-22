@@ -16,27 +16,69 @@ module Gandi
   end
 
   class Zone
-    attr_reader :zone, :domain
+    attr_reader :zone, :records
 
     def initialize(server, zone_id)
       @server = server
       @zone_id = zone_id.to_i
-      @version = @server.call("domain.zone.version.new", @zone_id)
+      @records = []
     end
 
-    def list(version = nil)
+    def list(version = nil, *args)
       version ||= @version
-      @server.call("domain.zone.record.list", @zone_id, version)
+      @server.call("domain.zone.record.list", @zone_id, version, *args)
     end
 
     def add(record)
       # TODO: Check that record doesn't exist
       # TODO: Raise exception on failure
-      @server.call("domain.zone.record.add", @zone_id, @version, record.to_hash)
+      @records << record
     end
 
-    def save
-      # TODO: Raise exception on failure
+    def delete(filter)
+      create_new_version
+      # FIXME: Delete on id doesn't work.
+      deleted = 0
+      records = list(0, filter)
+      records.each do |record|
+        record.delete(:id)
+        record.stringify_keys
+        deleted += @server.call("domain.zone.record.delete", @zone_id, @version, record)
+      end
+      if deleted == records.size
+        activate
+        return true
+      else
+        delete_version(@version)
+        return false
+      end
+    end
+
+    def save(records = nil)
+      # TODO: Raise exception on any failure
+      @records += records unless records.nil?
+      if @records.size > 0
+        create_new_version
+        @records.each do |record|
+          new_record = @server.call("domain.zone.record.add", @zone_id, @version, record.to_hash)
+          if new_record.nil?
+            raise Gandi::ZoneException.new "Couldn't create a record."
+          end
+        end
+        activate
+        @records = []
+      end
+    end
+
+    def create_new_version
+      @version = @server.call("domain.zone.version.new", @zone_id)
+    end
+
+    def delete_version(version)
+      @server.call("domain.zone.version.new", @zone_id, version)
+    end
+
+    def activate
       unless @server.call("domain.zone.version.set", @zone_id, @version)
         raise Gandi::ZoneException.new "Couldn't set new version."
       end
@@ -48,7 +90,9 @@ module Gandi
     include ActiveModel::Conversion
     extend ActiveModel::Naming
 
-    attr_accessor :type, :name, :value, :ttl
+    @@attribs = [:type, :name, :value, :ttl]
+
+    attr_accessor(*@@attribs)
 
     validates_presence_of :type, :name, :value
     validates_format_of :name, with: /\A(?:(?!-)[-_*@a-zA-Z0-9]{1,63}(?<!-)(\.|$))*(?<!\.)\z/
@@ -60,14 +104,13 @@ module Gandi
     # TODO: Validate value based on type (A should be IP, CNAME end with .)
 
     def initialize(attributes = {})
-      @attributes = attributes
       attributes.each do |name, value|
-        send("#{name}=", value)
+        send("#{name}=", value) unless value.nil? or value == ""
       end
     end
 
     def to_hash
-      @attributes
+      Hash[@@attribs.map {|key| [key, send(key)] if send(key)}]
     end
 
     def persisted?

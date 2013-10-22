@@ -1,3 +1,6 @@
+<% if flash[:notice] %>
+  <div class="notice"><%= flash[:notice] %></div>
+<% end %>
 <h1>Records</h1>
 <table>
   <tr>
@@ -5,6 +8,7 @@
     <th>Type</th>
     <th>Value</th>
     <th>TTL</th>
+    <th></th>
   </tr>
   <% @records.each do |record| %>
     <tr>
@@ -12,6 +16,7 @@
       <td><%= record[:type] %></td>
       <td><%= record[:value] %></td>
       <td><%= record[:ttl] %></td>
+      <td><%= link_to "Delete", delete_record_path(@zone_id, record[:id]), method: 'delete' %></td>
     </tr>
   <% end %>
 </table>

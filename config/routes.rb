@@ -1,7 +1,9 @@
 Spicyham::Application.routes.draw do
   get "zone", to: "zone#index"
   get "zone/:zone", to: "zone#show", as: "zone_show"
-  post "zone/:zone/add", to: "zone#add_record", as: "add_record"
+  get "zone/:zone/record/:record", to: "zone#show_record", as: "show_record"
+  post "zone/:zone/record", to: "zone#add_record", as: "add_record"
+  delete "zone/:zone/record/:record", to: "zone#delete_record", as: "delete_record"
   get "domain/info"
   get "domain/list"
   get "domain/webredir"
