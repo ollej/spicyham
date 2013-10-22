@@ -1,7 +1,18 @@
 <h1>Domain list</h1>
-<ul>
-  <% @domains.each do |domains| %>
-    <li><%= domains.inspect %></li>
+<table class="table table-striped">
+  <tr>
+    <th>Domain</th>
+    <th>Created</th>
+    <th>Updated</th>
+    <th>Status</th>
+  </tr>
+  <% @domains.each do |domain| %>
+    <tr>
+      <td><%= domain[:fqdn] %></td>
+      <td><%= domain[:date_created] %></td>
+      <td><%= domain[:date_updated] %></td>
+      <td><%= domain[:status].join(', ') %></td>
+    </tr>
   <% end %>
-</ul>
+</table>
 

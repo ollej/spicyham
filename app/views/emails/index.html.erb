@@ -15,7 +15,7 @@
         <td><%= email[:source] %></td>
         <td><%= email[:destinations].join(', ') %></td>
         <td>
-          <%= link_to '<i class="icon-remove"></i> Delete'.html_safe, email_path(email[:source]), class: "btn btn-danger",
+          <%= link_to glyph('remove') + ' Delete'.html_safe, email_path(email[:source]), class: "btn btn-danger",
             method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>

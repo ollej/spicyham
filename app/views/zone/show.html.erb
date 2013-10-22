@@ -14,7 +14,7 @@
       <td><%= record[:value] %></td>
       <td><%= record[:ttl] %></td>
       <td>
-        <%= link_to '<i class="icon-remove"></i> Delete'.html_safe,
+        <%= link_to glyph('remove') + ' Delete'.html_safe,
           delete_record_path(@zone_id, record[:id]), class: "btn btn-danger",
           method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
