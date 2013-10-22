@@ -1,3 +1,5 @@
+<%= render :partial => 'layouts/notice' %>
+
 <h1>Listing emails</h1>
 
 <table>
@@ -14,7 +16,8 @@
       <tr>
         <td><%= email[:source] %></td>
         <td><%= email[:destinations].join(', ') %></td>
-        <td><%= link_to 'Destroy', email_path(email[:source]), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Delete', email_path(email[:source]),
+                  method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,5 +25,5 @@
 
 <br>
 
-<h3>New email</h3>
+<h3>New email forwarding</h3>
 <%= render 'form' %>

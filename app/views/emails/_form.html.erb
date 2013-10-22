@@ -1,25 +1,14 @@
-<%= form_for(@email) do |f| %>
-  <% if @email.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@email.errors.count, "error") %> prohibited this email from being saved:</h2>
-
-      <ul>
-      <% @email.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_tag emails_path, method: 'post' do %>
   <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
+    <%= label_tag :address %><br>
+    <%= text_field_tag :address %>
   </div>
   <div class="field">
-    <%= f.label :destinations %><br>
-    <%= f.text_area :destinations %>
+    <%= label_tag :destinations %><br>
+    <%= select_tag :default_dest, options_for_select(@destinations, @destinations.first), prompt: "[no email]" %><br>
+    <%= text_area_tag :destinations %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag %>
   </div>
 <% end %>

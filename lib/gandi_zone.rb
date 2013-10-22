@@ -5,9 +5,10 @@ module Gandi
     A = 'A'
     CNAME = 'CNAME'
     MX = 'MX'
+    TXT = 'TXT'
 
     def self.all
-      [Gandi::TYPE::A, Gandi::TYPE::CNAME, Gandi::TYPE::MX]
+      [Gandi::TYPE::A, Gandi::TYPE::CNAME, Gandi::TYPE::MX, Gandi::TYPE::TXT]
     end
 
     def self.exists(type)

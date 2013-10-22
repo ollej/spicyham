@@ -27,6 +27,7 @@ class EmailsController < ApplicationController
     #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
     @email = Email.new
     @emails = @gandi.call_domain("forward.list")
+    @destinations = find_email_destinations(@emails)
   end
 
   # GET /emails/1
@@ -47,26 +48,15 @@ class EmailsController < ApplicationController
   # POST /emails.json
   def create
     #@email = Email.new(email_params)
+    destinations = param_destinations(email_params)
     @gandi.call_domain("forward.create", email_params[:address],
-       { 'destinations' => parse_destinations(email_params[:destinations]) } )
+       { 'destinations' => destinations } )
+
+    logger.info "Created email forwarding from #{email_params[:address]}@#{@domain} to #{destinations.join(', ')}"
 
     respond_to do |format|
-      format.html { redirect_to emails_url }
+      format.html { redirect_to emails_url, notice: "Email forwarding created." }
       format.json { head :no_content }
-    end
-  end
-
-  # PATCH/PUT /emails/1
-  # PATCH/PUT /emails/1.json
-  def update
-    respond_to do |format|
-      if @email.update(email_params)
-        format.html { redirect_to @email, notice: 'Email was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @email.errors, status: :unprocessable_entity }
-      end
     end
   end
 
@@ -75,8 +65,11 @@ class EmailsController < ApplicationController
   def destroy
     #@email.destroy
     @gandi.call_domain("forward.delete", params[:id])
+
+    logger.info "Deleted email: #{params[:id]}@#{@domain}"
+
     respond_to do |format|
-      format.html { redirect_to emails_url }
+      format.html { redirect_to emails_url, notice: "Email forwarding deleted." }
       format.json { head :no_content }
     end
   end
@@ -89,10 +82,26 @@ class EmailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_params
-      params.require(:email).permit(:address, :destinations)
+      params.permit(:address, :default_dest, :destinations)
+    end
+
+    def param_destinations(prms)
+      destinations = Set.new
+      destinations << prms[:default_dest] unless prms[:default_dest].blank?
+      dests = parse_destinations(prms[:destinations])
+      destinations.merge(dests) unless dests.empty?
+      destinations.to_a
     end
 
     def parse_destinations(destinations)
       destinations.split(/[\s,;]+/)
+    end
+
+    def find_email_destinations(emails)
+      dests = Set.new
+      emails.map do |e|
+        dests.merge(e[:destinations])
+      end
+      dests.to_a
     end
 end
