@@ -58,14 +58,17 @@
 
     <div class="container-fluid">
       <div class="row-fluid">
-        <div class="span3">
+        <div class="span3 hidden-phone">
+
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
               <%= render partial: 'layouts/links' %>
             </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
+          </div>
+
+        </div>
+
         <div class="span9">
           <%= bootstrap_flash %>
           <%= yield %>
@@ -73,7 +76,7 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Olle Johansson 2013</p>
+      <p><small>&copy; <a href="http://github.com/ollej">Olle Johansson</a> 2013</small></p>
       </footer>
 
     </div> <!-- /container -->

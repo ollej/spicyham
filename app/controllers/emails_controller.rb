@@ -1,5 +1,7 @@
 class EmailsController < ApplicationController
   #before_action :set_email, only: [:show, :edit, :update, :destroy]
+  # TODO: Create Email class instead of calling @gandi directly.
+  # TODO: Support editing forwards for other domains.
 
   # GET /emails
   # GET /emails.json
@@ -25,6 +27,7 @@ class EmailsController < ApplicationController
     #puts "GANDI API Version", @server.call("domain.info", @apikey, 'ollej.com')
 
     #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
+    # TODO: Add template helper to select most popular email in destination list.
     @email = Email.new
     @emails = @gandi.call_domain("forward.list")
     @destinations = find_email_destinations(@emails)

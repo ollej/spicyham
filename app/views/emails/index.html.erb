@@ -1,6 +1,6 @@
 <h1>Email forwards</h1>
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th>Address</th>
@@ -12,10 +12,11 @@
   <tbody>
     <% @emails.each do |email| %>
       <tr>
-        <td><%= email[:source] %></td>
+        <td><%= email[:source] %><span class="muted">@<%= @domain %></span></td>
         <td><%= email[:destinations].join(', ') %></td>
         <td>
-          <%= link_to glyph('remove') + ' Delete'.html_safe, email_path(email[:source]), class: "btn btn-danger",
+          <%= link_to icon_button('Delete', 'remove'), email_path(email[:source]),
+            class: "btn btn-danger btn-mini",
             method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
@@ -25,7 +26,7 @@
 
 <br>
 
-<div class="well">
+<div class="well span4">
   <h3>Add forwarding</h3>
   <%= render 'form' %>
 </div>

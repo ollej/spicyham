@@ -1,15 +1,19 @@
 <h1>Web redirections</h1>
-<table class="table table-striped">
-  <tr>
-    <th>Host</th>
-    <th>Type</th>
-    <th>URL</th>
-  </tr>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th>Type</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  <tbody>
   <% @webredirs.each do |webredir| %>
     <tr>
       <td><%= webredir[:host] %></td>
       <td><%= webredir[:type] %></td>
-      <td><%= webredir[:url] %></td>
+      <td><a href="<%= webredir[:url] %>"><%= webredir[:url] %></a></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
