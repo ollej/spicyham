@@ -15,3 +15,10 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(function() {
+  // Fix input element click problem
+  $('.dropdown-menu form').on('click', function(e) {
+    e.stopPropagation();
+  });
+});
