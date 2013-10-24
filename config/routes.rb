@@ -1,4 +1,5 @@
 Spicyham::Application.routes.draw do
+  devise_for :users, :skip => :registrations, controllers: { omniauth_callbacks: "omniauth_callbacks" }
   get "zone", to: "zone#index"
   get "zone/:zone", to: "zone#show", as: "zone_show"
   get "zone/:zone/record/:record", to: "zone#show_record", as: "show_record"
@@ -15,7 +16,12 @@ Spicyham::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'emails#index'
+  #root 'emails#index'
+
+  authenticated :user do
+    root :to => 'home#index', :as => :authenticated_root
+  end
+  root :to => redirect('/users/sign_in')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -2,3 +2,10 @@
 <li><%= link_to glyph('globe') + " Zones", zone_path %></li>
 <li><%= link_to glyph('briefcase') + " Domains", domain_list_path %></li>
 <li><%= link_to glyph('share') + " Web redirs", domain_webredir_path %></li>
+<li>
+  <% if user_signed_in? %>
+    <%= link_to glyph('user') + " Log out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to glyph('user') + " Sign in", user_omniauth_authorize_path(:google_oauth2) %>
+  <% end %>
+</li>

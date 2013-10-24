@@ -1,4 +1,6 @@
 class DomainController < ApplicationController
+  before_action :authenticate_user!
+
   def list
     @domains = @gandi.call("domain.list", { 'sort_by' => 'fqdn' })
   end

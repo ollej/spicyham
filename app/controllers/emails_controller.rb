@@ -1,4 +1,5 @@
 class EmailsController < ApplicationController
+  before_action :authenticate_user!
   #before_action :set_email, only: [:show, :edit, :update, :destroy]
   # TODO: Create Email class instead of calling @gandi directly.
   # TODO: Support editing forwards for other domains.
