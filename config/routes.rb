@@ -19,9 +19,9 @@ Spicyham::Application.routes.draw do
   #root 'emails#index'
 
   authenticated :user do
-    root :to => 'home#index', :as => :authenticated_root
+    root 'emails#index', as: :authenticated_root
   end
-  root :to => redirect('/users/sign_in')
+  root to: redirect('/users/sign_in')
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
