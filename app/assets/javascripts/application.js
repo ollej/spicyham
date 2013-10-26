@@ -21,4 +21,7 @@ $(function() {
   $('.dropdown-menu form').on('click', function(e) {
     e.stopPropagation();
   });
+  $('.dropdown-menu').on('touchstart.dropdown.data-api', function(e) {
+        e.stopPropagation()
+  })
 });
