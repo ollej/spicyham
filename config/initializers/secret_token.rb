@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Spicyham::Application.config.secret_key_base = '4ade145430dc8fc802c45f71f8d281d4d298c3ab63ced0019b41f6fd5fe0f20899f9b8350d7f0dc35898f90dea7d9652fdddf62e5354b9ea112b414a82bd94b7'
+Spicyham::Application.config.secret_key_base = ENV['SECRET_TOKEN']
