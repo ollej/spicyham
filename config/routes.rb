@@ -5,9 +5,11 @@ Spicyham::Application.routes.draw do
   get "zone/:zone/record/:record", to: "zone#show_record", as: "show_record"
   post "zone/:zone/record", to: "zone#add_record", as: "add_record"
   delete "zone/:zone/record/:record", to: "zone#delete_record", as: "delete_record"
-  get "domain/info"
-  get "domain/list"
-  get "domain/webredir"
+  get "domain", to: "domain#index"
+  get "domain/search", to: "domain#search"
+  post "domain/create", to: "domain#create"
+  get "domain/:domain", to: "domain#show", as: "domain_show"
+  get "webredir", to: "domain#webredir"
 
   resources :emails
 

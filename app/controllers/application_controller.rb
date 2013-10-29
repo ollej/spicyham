@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   private
     def setup_api
-      @domain = ENV['GANDI_MAIL_DOMAIN']
-      @gandi = Gandi::API.new(ENV['GANDI_API_KEY'], @domain)
+      @email_domain = ENV['GANDI_MAIL_DOMAIN']
+      @gandi = Gandi::API.new(ENV['GANDI_HOST'], ENV['GANDI_API_KEY'])
     end
 end
