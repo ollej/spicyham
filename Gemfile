@@ -11,6 +11,7 @@ gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'protected_attributes'
+gem 'thin'
 
 group :production do
   gem 'rails_12factor'
