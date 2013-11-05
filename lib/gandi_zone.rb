@@ -58,8 +58,9 @@ module Gandi
     def save(records = nil)
       # TODO: Raise exception on any failure
       @records += records unless records.nil?
-      if @records.size > 0
-        create_new_version
+      return if @records.size == 0
+      begin
+        version = create_new_version
         @records.each do |record|
           new_record = @server.call("domain.zone.record.add", @zone_id, @version, record.to_hash)
           if new_record.nil?
@@ -68,6 +69,9 @@ module Gandi
         end
         activate
         @records = []
+      rescue
+        delete_version(version)
+        raise
       end
     end
 
@@ -76,7 +80,9 @@ module Gandi
     end
 
     def delete_version(version)
-      @server.call("domain.zone.version.new", @zone_id, version)
+      unless @server.call("domain.zone.version.delete", @zone_id, version)
+        raise Gandi::ZoneException.new "Couldn't delete version."
+      end
     end
 
     def activate
