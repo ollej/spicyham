@@ -5,7 +5,7 @@ class DomainController < ApplicationController
   before_action :get_domain_server
 
   def index
-    @domains = @domain_server.list
+    @domains = @domain_server.list + @domain_server_info.list
   end
 
   def show
@@ -84,6 +84,7 @@ class DomainController < ApplicationController
       gandi = Gandi::API.new(ENV['GANDI_DOMAIN_HOST'], ENV['GANDI_DOMAIN_API_KEY'])
       nameservers = %w(a.dns.gandi-ote.net b.dns.gandi-ote.net c.dns.gandi-ote.net)
       @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
+      @domain_server_info = Gandi::Domain.new(@gandi, ENV['GANDI_CONTACT'], nameservers)
     end
 
     def add_prices(domains)
