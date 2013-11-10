@@ -46,9 +46,10 @@ class DomainController < ApplicationController
       end
       return
     end
-    # TODO: Add action to find if create operation is done.
 
     logger.info "Created domain #{domain_params[:domain]}: #{@operation}"
+    # TODO: Add action to find if create operation is done.
+    # TODO: Store operation id in db
 
     respond_to do |format|
       format.html { redirect_to domain_path, notice: "Created domain #{domain_params[:domain]}." }
@@ -80,8 +81,8 @@ class DomainController < ApplicationController
 
     def get_domain_server
       # TODO: Switch to @gandi before release. Support using test automatically in development.
-      gandi = Gandi::API.new(ENV['GANDI_TEST_HOST'], ENV['GANDI_TEST_API_KEY'])
-      nameservers = ENV['GANDI_DNS'].split(' ')
+      gandi = Gandi::API.new(ENV['GANDI_DOMAIN_HOST'], ENV['GANDI_DOMAIN_API_KEY'])
+      nameservers = %w(a.dns.gandi-ote.net b.dns.gandi-ote.net c.dns.gandi-ote.net)
       @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
     end
 
