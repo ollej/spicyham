@@ -58,7 +58,7 @@ class DomainController < ApplicationController
   end
 
   def webredir
-    @webredirs = @domain_server.webredirs(@email_domain)
+    @webredirs = @domain_server_info.webredirs(@email_domain)
   end
 
   private
