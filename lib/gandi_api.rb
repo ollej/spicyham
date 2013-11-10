@@ -5,10 +5,9 @@ module Gandi
   class API
     attr_accessor :domain
 
-    def initialize(api_key, domain)
+    def initialize(host, api_key)
       @api_key = api_key
-      @domain = domain
-      @server = connect("rpc.gandi.net" || ENV['GANDI_HOST'])
+      @server = connect(host || "rpc.gandi.net")
     end
 
     def connect(host)
@@ -18,14 +17,14 @@ module Gandi
       XML::XMLRPC::Client.new(net, "/xmlrpc/")
     end
 
-    def call_domain(command, *args)
-      parser = @server.call("domain.#{command}", @api_key, @domain, *args)
-      parser.params.first
-    end
-
     def call(command, *args)
       parser = @server.call(command, @api_key, *args)
       parser.params.first
     end
+
+  end
+
+  def self.parse_error(msg)
+    /\[(?<error>.*)\]\z/.match(msg)[:error]
   end
 end

@@ -7,7 +7,7 @@ gem 'rails', '4.0.0'
 
 gem 'pg'
 gem 'libxml-xmlrpc'
-gem "twitter-bootstrap-rails"
+gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'protected_attributes'

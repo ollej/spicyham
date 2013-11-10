@@ -1,29 +1,14 @@
-<div class="form-horizontal">
-<%= form_tag emails_path, method: 'post' do %>
-  <div class="field control-group">
-    <%= label_tag :address, nil, class: "control-label" %>
-    <div class="controls">
-      <div class="input-append">
-        <%= text_field_tag :address, nil, class: "span7" %>
-        <span class="add-on">@<%= @domain %></span>
-      </div>
-    </div>
+<%= form_tag emails_path, method: 'post', class: "form-inline" do %>
+  <%= label_tag :address, nil, class: "hidden-desktop hidden-phone hidden-tablet" %>
+  <div class="input-append">
+    <%= text_field_tag :address, nil, class: "form-control",
+      placeholder: "Address" %>
+    <span class="add-on">@<%= @domain %></span>
   </div>
-  <div class="field control-group">
-    <%= label_tag :destinations, nil, class: "control-label" %>
-    <div class="controls">
-      <%= select_tag :default_dest, options_for_select(@destinations, @destinations.first), prompt: "[no email]" %><br>
-      <%= text_area_tag :destinations %>
-    </div>
-  </div>
-  <div class="field control-group">
-    <div class="controls">
-      <div class="actions">
-        <button type="submit" class="btn btn-success">
-          <%= glyph('ok') %> Add forwarding
-        </button>
-      </div>
-    </div>
-  </div>
+  <%= label_tag :destinations, nil, class: "hidden-desktop hidden-phone hidden-tablet" %>
+  <%= select_tag :destinations, options_for_select(@destinations, @destinations.first),
+    class: "form-control combobox" %>
+  <button type="submit" class="btn btn-primary">
+    <%= glyph('ok') %> Create
+  </button>
 <% end %>
-</div>

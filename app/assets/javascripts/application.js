@@ -22,6 +22,9 @@ $(function() {
     e.stopPropagation();
   });
   $('.dropdown-menu').on('touchstart.dropdown.data-api', function(e) {
-        e.stopPropagation()
+    e.stopPropagation()
   })
+
+  // Instantiate Twitter Combobox plugin
+  $('.combobox').combobox({ force_match: false });
 });
