@@ -28,6 +28,21 @@ module Gandi
       @server.call("contact.create", contact_spec)
     end
 
+    def catalog(opts, currency = 'EUR', grid='A')
+      @server.call("catalog.list", opts, currency, grid)
+    end
+
+    def price(domain, *args)
+      product_spec = {
+        product: { type: 'domain', description: domain.to_s },
+        'action' => { 'name' => 'create', 'duration' =>  1 }
+      }
+      puts "Domain price lookup: #{product_spec.inspect}"
+      result = catalog(product_spec, *args)
+      puts "Price result:", result.first.inspect
+      result.first[:unit_price].first
+    end
+
     def list(filter = nil)
       filter = filter || { 'sort_by' => 'fqdn' }
       @server.call("domain.list", filter)

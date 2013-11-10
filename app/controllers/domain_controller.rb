@@ -18,6 +18,7 @@ class DomainController < ApplicationController
     @domain_info = @domain_server.search(domains)
     logger.info "Domain search result: #{@domain_info.inspect}"
 
+    add_prices(@domain_info)
     # TODO: Find price for available domains.
     # TODO: Return result directly based on param, to allow ajax updates of search.
 
@@ -82,5 +83,15 @@ class DomainController < ApplicationController
       gandi = Gandi::API.new(ENV['GANDI_TEST_HOST'], ENV['GANDI_TEST_API_KEY'])
       nameservers = ENV['GANDI_DNS'].split(' ')
       @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
+    end
+
+    def add_prices(domains)
+      domains.each do |domain, status|
+        if status == "available"
+          price = @domain_server.price(domain)
+          logger.info "Price of #{domain}: #{price.inspect}"
+          domains[domain] = price
+        end
+      end
     end
 end
