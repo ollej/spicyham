@@ -21,5 +21,10 @@ module Gandi
       parser = @server.call(command, @api_key, *args)
       parser.params.first
     end
+
+  end
+
+  def self.parse_error(msg)
+    /\[(?<error>.*)\]\z/.match(msg)[:error]
   end
 end

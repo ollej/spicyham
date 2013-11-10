@@ -34,7 +34,7 @@ class EmailsController < ApplicationController
     # TODO: Add template helper to select most popular email in destination list.
     @email = Email.new
     @emails = @email_server.list
-    @destinations = find_email_destinations(@emails)
+    @destinations = ["", find_email_destinations(@emails)].flatten
   end
 
   # GET /emails/1
@@ -55,8 +55,20 @@ class EmailsController < ApplicationController
   # POST /emails.json
   def create
     #@email = Email.new(email_params)
-    destinations = param_destinations(email_params)
-    @email_server.create(email_params[:address], { 'destinations' => destinations })
+    destinations = parse_destinations(email_params[:destinations])
+    logger.debug "Destinations: #{destinations.inspect}"
+
+    begin
+      @email_server.create(email_params[:address], { 'destinations' => destinations })
+    rescue LibXML::XML::XMLRPC::RemoteCallError => e
+      respond_to do |format|
+        error = Gandi::parse_error(e.message)
+        logger.debug "Email forwarding creation error: #{error}"
+        format.html { redirect_to emails_path, alert: "Couldn't create email forwarding '#{destinations}': #{error}." }
+        format.json { head :no_content, status: :unprocessable_entity }
+      end
+      return
+    end
 
     logger.info "Created email forwarding from #{email_params[:address]}@#{@email_domain} to #{destinations.join(', ')}"
 
@@ -88,15 +100,7 @@ class EmailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_params
-      params.permit(:address, :default_dest, :destinations, :id, :domain)
-    end
-
-    def param_destinations(prms)
-      destinations = Set.new
-      destinations << prms[:default_dest] unless prms[:default_dest].blank?
-      dests = parse_destinations(prms[:destinations])
-      destinations.merge(dests) unless dests.empty?
-      destinations.to_a
+      params.permit(:address, :destinations, :id, :domain)
     end
 
     def parse_destinations(destinations)

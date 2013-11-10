@@ -38,7 +38,7 @@ class DomainController < ApplicationController
       @operation = @domain_server.create(domain_params[:domain])
     rescue LibXML::XML::XMLRPC::RemoteCallError => e
       respond_to do |format|
-        error = parse_error(e.message)
+        error = Gandi::parse_error(e.message)
         format.html { redirect_to domain_path, alert: "Couldn't create domain '#{domain_params[:domain]}': #{error}." }
         format.json { head :no_content, status: :unprocessable_entity }
       end
@@ -82,9 +82,5 @@ class DomainController < ApplicationController
       gandi = Gandi::API.new(ENV['GANDI_TEST_HOST'], ENV['GANDI_TEST_API_KEY'])
       nameservers = ENV['GANDI_DNS'].split(' ')
       @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
-    end
-
-    def parse_error(msg)
-      /\[(?<error>.*)\]\z/.match(msg)[:error]
     end
 end
