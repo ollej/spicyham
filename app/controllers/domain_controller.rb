@@ -13,9 +13,18 @@ class DomainController < ApplicationController
   end
 
   def search
-    @domain_info = @domain_server.search(domain_params[:domain])
+    domains = domain_list(domain_params[:domain])
+    logger.info "Searching for domains #{domains}"
+    @domain_info = @domain_server.search(domains)
+    logger.info "Domain search result: #{@domain_info.inspect}"
 
-    logger.info "Searched for domain #{domain_params[:domain]}: #{@domain_info.inspect}"
+    # TODO: Find price for available domains.
+
+    #result = @domain_server.create_contact
+    #logger.info "Create contact returned: #{result.inspect}"
+
+    #contacts = @domain_server.contacts
+    #logger.info "Contacts: #{contacts.inspect}"
 
     respond_to do |format|
       format.html { render action: "search" }
@@ -44,9 +53,23 @@ class DomainController < ApplicationController
       params.permit(:domain)
     end
 
+    def domain_list(domain)
+      default_tlds = %w(com net org se info io it)
+      if domain.include? '.'
+        domain, default_tld = domain.split('.')
+        default_tlds << default_tld unless default_tlds.include? default_tld
+      end
+      domains = []
+      default_tlds.each do |tld|
+        domains << "#{domain}.#{tld}"
+      end
+      domains
+    end
+
     def get_domain_server
-      # Switch to @gandi before release. Support using test automatically in development.
+      # TODO: Switch to @gandi before release. Support using test automatically in development.
       gandi = Gandi::API.new(ENV['GANDI_TEST_HOST'], ENV['GANDI_TEST_API_KEY'])
-      @domain_server = Gandi::Domain.new(gandi)
+      nameservers = ENV['GANDI_DNS'].split(' ')
+      @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
     end
 end

@@ -1,3 +1,15 @@
 <h1>Domain search result</h1>
-<p><%= @domain_info.inspect %></p>
 
+<ul>
+  <% @domain_info.each do |domain, status| %>
+    <li>
+      <%= domain %>
+      <% if status == "available" %>
+        <%= link_to icon_button('Buy', 'shopping-cart'),
+          domain_create_path + "?" + { domain: domain }.to_param,
+          class: "btn btn-success",
+          method: :post, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
