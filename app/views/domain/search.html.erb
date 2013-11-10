@@ -1,15 +1,21 @@
 <h1>Domain search result</h1>
 
-<ul>
+<table class="table table-striped table-hover">
+  <tbody>
   <% @domain_info.each do |domain, status| %>
-    <li>
-      <%= domain %>
+    <tr>
+      <td><%= domain %></td>
+      <td>
       <% if status == "available" %>
         <%= link_to icon_button('Buy', 'shopping-cart'),
           domain_create_path + "?" + { domain: domain }.to_param,
-          class: "btn btn-success",
+          class: "btn btn-success btn-small",
           method: :post, data: { confirm: 'Are you sure?' } %>
+      <% else %>
+        Unavailable
       <% end %>
-    </li>
+    </td>
+  </tr>
   <% end %>
-</ul>
+</tbody>
+</table>

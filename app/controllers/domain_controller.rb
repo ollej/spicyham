@@ -39,12 +39,12 @@ class DomainController < ApplicationController
     rescue LibXML::XML::XMLRPC::RemoteCallError => e
       respond_to do |format|
         error = Gandi::parse_error(e.message)
-        format.html { redirect_to domain_path, alert: "Couldn't create domain '#{domain_params[:domain]}': #{error}." }
+        logger.debug "Unable to create domain #{domain_params[:domain]}: #{error}"
+        format.html { redirect_to domain_path, alert: "Unable to create domain '#{domain_params[:domain]}': #{error}." }
         format.json { head :no_content, status: :unprocessable_entity }
       end
       return
     end
-    # TODO: Handle domain creation error
     # TODO: Add action to find if create operation is done.
 
     logger.info "Created domain #{domain_params[:domain]}: #{@operation}"
