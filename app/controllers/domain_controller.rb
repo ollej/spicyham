@@ -19,6 +19,7 @@ class DomainController < ApplicationController
     logger.info "Domain search result: #{@domain_info.inspect}"
 
     # TODO: Find price for available domains.
+    # TODO: Return result directly based on param, to allow ajax updates of search.
 
     #result = @domain_server.create_contact
     #logger.info "Create contact returned: #{result.inspect}"
@@ -33,8 +34,18 @@ class DomainController < ApplicationController
   end
 
   def create
-    @operation = @domain_server.create(domain_params[:domain])
+    begin
+      @operation = @domain_server.create(domain_params[:domain])
+    rescue LibXML::XML::XMLRPC::RemoteCallError => e
+      respond_to do |format|
+        error = parse_error(e.message)
+        format.html { redirect_to domain_path, alert: "Couldn't create domain '#{domain_params[:domain]}': #{error}." }
+        format.json { head :no_content, status: :unprocessable_entity }
+      end
+      return
+    end
     # TODO: Handle domain creation error
+    # TODO: Add action to find if create operation is done.
 
     logger.info "Created domain #{domain_params[:domain]}: #{@operation}"
 
@@ -71,5 +82,9 @@ class DomainController < ApplicationController
       gandi = Gandi::API.new(ENV['GANDI_TEST_HOST'], ENV['GANDI_TEST_API_KEY'])
       nameservers = ENV['GANDI_DNS'].split(' ')
       @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
+    end
+
+    def parse_error(msg)
+      /\[(?<error>.*)\]\z/.match(msg)[:error]
     end
 end
