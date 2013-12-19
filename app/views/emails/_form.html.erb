@@ -3,7 +3,7 @@
   <div class="input-append">
     <%= text_field_tag :address, nil, class: "form-control",
       placeholder: "Address" %>
-    <span class="add-on">@<%= @domain %></span>
+    <span class="add-on">@<%= @email_domain %></span>
   </div>
   <%= label_tag :destinations, nil, class: "hidden-desktop hidden-phone hidden-tablet" %>
   <%= select_tag :destinations, options_for_select(@destinations, @destinations.first),

@@ -16,7 +16,7 @@
   <tbody>
     <% @emails.each do |email| %>
       <tr>
-        <td><%= email[:source] %><span class="muted">@<%= @domain %></span></td>
+        <td><%= email[:source] %><span class="muted">@<%= @email_domain %></span></td>
         <td><%= email[:destinations].join(', ') %></td>
         <td>
           <%= link_to icon_button('Delete', 'remove'), email_path(email[:source]),
