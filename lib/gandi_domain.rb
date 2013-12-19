@@ -65,9 +65,15 @@ module Gandi
 
     def create(domain)
       # Create default params
-      result = create_contact
-      puts "Create contact returned: #{result.inspect}"
-      @contact = result[:handle]
+      puts Rails.env
+      if Rails.env == "development"
+        result = create_contact
+        puts "Create contact returned: #{result.inspect}"
+        @contact = result[:handle]
+      else
+        @contact = ENV['GANDI_CONTACT_OWNER']
+      end
+      puts "Setting Gandi contact: #{@contact}"
       domain_spec = {
         owner: @contact,
         admin: @contact,
