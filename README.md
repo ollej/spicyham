@@ -13,6 +13,7 @@ A small web app to modify domains and zones on Gandi.
 
 ### Setup
 
+```bash
  $ git clone git@github.com:ollej/spicyham.git
  $ cd spicyham
  $ bundle install
@@ -28,3 +29,4 @@ A small web app to modify domains and zones on Gandi.
  $ export GANDI_CONTACT_OWNER="XXNNN-GANDI"
  $ export SECRET_TOKEN="`rails secret`"
  $ rails s
+```
