@@ -12,6 +12,10 @@ module Gandi
       @server.call("contact.list")
     end
 
+    def nameservers(domain, nameservers)
+      @server.call("domain.nameservers.set", domain, nameservers)
+    end
+
     def create_contact
       contact_spec = {
         given: 'First Name',
@@ -37,9 +41,9 @@ module Gandi
         product: { type: 'domain', description: domain.to_s },
         'action' => { 'name' => 'create', 'duration' =>  1 }
       }
-      puts "Domain price lookup: #{product_spec.inspect}"
+      Gandi.logger.debug "Domain price lookup: #{product_spec.inspect}"
       result = catalog(product_spec, *args)
-      puts "Price result:", result.first.inspect
+      Gandi.logger.debug "Price result:", result.first.inspect
       result.first[:unit_price].first
     end
 
@@ -54,7 +58,7 @@ module Gandi
 
     def search(domains)
       #domains = [domains] unless domains.kind_of? Array
-      puts "domains: #{domains.inspect}"
+      Gandi.logger.debug "Searching domains: #{domains.inspect}"
       result = @server.call("domain.available", domains, {})
       while still_pending(result) do
         sleep 0.7
@@ -65,15 +69,8 @@ module Gandi
 
     def create(domain)
       # Create default params
-      puts Rails.env
-      if Rails.env == "development"
-        result = create_contact
-        puts "Create contact returned: #{result.inspect}"
-        @contact = result[:handle]
-      else
-        @contact = ENV['GANDI_CONTACT_OWNER']
-      end
-      puts "Setting Gandi contact: #{@contact}"
+      @contact = contact
+      Gandi.logger.debug "Setting Gandi contact: #{@contact}"
       domain_spec = {
         owner: @contact,
         admin: @contact,
@@ -88,6 +85,17 @@ module Gandi
 
     def webredirs(domain)
       @server.call("domain.webredir.list", domain)
+    end
+
+    def contact
+      if Rails.env == "development"
+        result = create_contact
+        Gandi.logger.debug "Create contact returned: #{result.inspect}"
+        contact = result[:handle]
+      else
+        contact = ENV['GANDI_CONTACT_OWNER']
+      end
+      contact
     end
 
     private

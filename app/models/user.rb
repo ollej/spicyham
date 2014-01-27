@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.save!
-      puts "logged in user:", user.inspect
+      logger.debug "logged in user:", user.inspect
       user
     else
       #where(auth.slice(:provider, :uid)).first_or_create do |u|
@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
       #  u.uid = auth.uid
       #  u.email = auth.info.email
       #end
-      puts "--------------> User not found."
+      logger.error "--------------> User not found."
       return nil
     end
   end

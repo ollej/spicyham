@@ -14,9 +14,9 @@ class DomainController < ApplicationController
 
   def search
     domains = domain_list(domain_params[:domain])
-    logger.info "Searching for domains #{domains}"
+    logger.debug "Searching for domains #{domains}"
     @domain_info = @domain_server.search(domains)
-    logger.info "Domain search result: #{@domain_info.inspect}"
+    logger.debug "Domain search result: #{@domain_info.inspect}"
 
     add_prices(@domain_info)
     # TODO: Find price for available domains.
@@ -82,7 +82,7 @@ class DomainController < ApplicationController
     def get_domain_server
       # TODO: Switch to @gandi before release. Support using test automatically in development.
       gandi = Gandi::API.new(ENV['GANDI_DOMAIN_HOST'], ENV['GANDI_DOMAIN_API_KEY'])
-      nameservers = %w(a.dns.gandi-ote.net b.dns.gandi-ote.net c.dns.gandi-ote.net)
+      nameservers = ENV['GANDI_NAMESERVERS'].split(' ')
       @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
       @domain_server_info = Gandi::Domain.new(@gandi, ENV['GANDI_CONTACT'], nameservers)
     end

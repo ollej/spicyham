@@ -21,5 +21,10 @@ A small web app to modify domains and zones on Gandi.
  $ export GANDI_API_KEY="<gandi api key>"
  $ export GANDI_HOST="rpc.gandi.net"
  $ export GANDI_MAIL_DOMAIN="example.com"
+ $ export GANDI_NAMESERVERS="a.dns.gandi.net b.dns.gandi.net c.dns.gandi.net"
+ $ export GANDI_DOMAIN_API_KEY="<gandi api key>"
+ $ export GANDI_DOMAIN_HOST="rpc.gandi.net"
+ $ export GANDI_CONTACT="XXNNN-GANDI"
+ $ export GANDI_CONTACT_OWNER="XXNNN-GANDI"
  $ export SECRET_TOKEN="`rails secret`"
  $ rails s
