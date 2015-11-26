@@ -41,9 +41,9 @@ module Gandi
         product: { type: 'domain', description: domain.to_s },
         'action' => { 'name' => 'create', 'duration' =>  1 }
       }
-      Gandi.logger.debug "Domain price lookup: #{product_spec.inspect}"
+      Gandi.logger.debug { "Domain price lookup: #{product_spec.inspect}" }
       result = catalog(product_spec, *args)
-      Gandi.logger.debug "Price result:", result.first.inspect
+      Gandi.logger.debug { "Price result: #{result.first.inspect}" }
       result.first[:unit_price].first
     end
 
@@ -58,7 +58,7 @@ module Gandi
 
     def search(domains)
       #domains = [domains] unless domains.kind_of? Array
-      Gandi.logger.debug "Searching domains: #{domains.inspect}"
+      Gandi.logger.debug { "Searching domains: #{domains.inspect}" }
       result = @server.call("domain.available", domains, {})
       while still_pending(result) do
         sleep 0.7
@@ -70,7 +70,7 @@ module Gandi
     def create(domain)
       # Create default params
       @contact = contact
-      Gandi.logger.debug "Setting Gandi contact: #{@contact}"
+      Gandi.logger.debug { "Setting Gandi contact: #{@contact}" }
       domain_spec = {
         owner: @contact,
         admin: @contact,
@@ -90,7 +90,7 @@ module Gandi
     def contact
       if Rails.env == "development"
         result = create_contact
-        Gandi.logger.debug "Create contact returned: #{result.inspect}"
+        Gandi.logger.debug { "Create contact returned: #{result.inspect}" }
         contact = result[:handle]
       else
         contact = ENV['GANDI_CONTACT_OWNER']
