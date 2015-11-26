@@ -3,11 +3,11 @@ source 'https://rubygems.org'
 ruby '2.1.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.13'
+gem 'rails', '4.1.14'
 
 gem 'pg'
 gem 'libxml-xmlrpc'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'protected_attributes'
@@ -18,7 +18,7 @@ group :production do
 end
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
