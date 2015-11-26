@@ -17,8 +17,8 @@
   <% @domains.each do |domain| %>
     <tr>
       <td><%= domain[:fqdn] %></td>
-      <td><%= domain[:date_created].to_formatted_s(:db) %></td>
-      <td><%= domain[:date_updated].to_formatted_s(:db) %></td>
+      <td><%= format_date(domain[:date_created]) %></td>
+      <td><%= format_date(domain[:date_updated]) %></td>
       <td><%= domain[:status].join(', ') %></td>
     </tr>
   <% end %>
