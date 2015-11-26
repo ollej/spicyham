@@ -19,7 +19,7 @@
         <td><%= email[:source] %><span class="muted">@<%= @email_domain %></span></td>
         <td><%= email[:destinations].join(', ') %></td>
         <td>
-          <%= link_to icon_button('Delete', 'remove'), email_path(email[:source]),
+          <%= link_to icon_button('Delete', :remove), email_path(email[:source]),
             class: "btn btn-danger btn-mini",
             method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
