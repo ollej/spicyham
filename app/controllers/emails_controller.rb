@@ -33,8 +33,8 @@ class EmailsController < ApplicationController
     #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
     # TODO: Add template helper to select most popular email in destination list.
     @email = Email.new
-    @emails = @email_server.list
-    @destinations = ["", find_email_destinations(@emails)].flatten
+    @emails = get_emails
+    @destinations = get_destinations(@emails)
   end
 
   # GET /emails/1
@@ -118,5 +118,20 @@ class EmailsController < ApplicationController
     def get_email_server
       domain = email_params[:domain] || ENV['GANDI_MAIL_DOMAIN']
       @email_server = Gandi::Email.new(@gandi, domain)
+    end
+
+    def get_emails
+      opts = {
+        items_per_page: 20,
+        sort_by: 'source'
+      }
+      if params[:all].present?
+        opts[:items_per_page] = 500
+      end
+      @email_server.list(opts)
+    end
+
+    def get_destinations(emails)
+      ["", find_email_destinations(emails)].flatten.sort
     end
 end

@@ -12,8 +12,8 @@ module Gandi
       parser.params.first
     end
 
-    def list
-      @server.call("domain.forward.list", @domain)
+    def list(opts = {})
+      @server.call("domain.forward.list", @domain, opts)
     end
 
     def create(address, opts)
