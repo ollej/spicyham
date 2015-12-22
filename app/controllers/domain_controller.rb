@@ -66,8 +66,14 @@ class DomainController < ApplicationController
       params.permit(:domain)
     end
 
+    def search_tlds
+      tlds = ENV.fetch('SEARCH_TLDS', %w(com net org se info io it))
+      tlds = tlds.split(' ') if tlds.kind_of? String
+      tlds
+    end
+
     def domain_list(domain)
-      default_tlds = %w(com net org se info io it)
+      default_tlds = search_tlds
       if domain.include? '.'
         domain, default_tld = domain.split('.')
         default_tlds << default_tld unless default_tlds.include? default_tld
