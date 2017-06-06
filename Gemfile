@@ -14,7 +14,7 @@ gem 'protected_attributes'
 gem 'thin'
 
 group :production do
-  gem 'rails_12factor'
+  #gem 'rails_12factor'
 end
 
 # Use SCSS for stylesheets
