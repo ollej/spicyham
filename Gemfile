@@ -11,7 +11,9 @@ gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'devise'
 gem 'omniauth-google-oauth2', '~> 0.3.1'
 gem 'protected_attributes'
-gem 'thin'
+
+# Use unicorn as the app server
+gem 'unicorn-rails', '~> 2.2.1'
 
 group :production do
   #gem 'rails_12factor'
