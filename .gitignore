@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+vendor/bundle
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -15,3 +16,5 @@
 /log/*.log
 /tmp
 bin/start.sh
+
+.DS_Store
