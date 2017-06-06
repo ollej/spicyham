@@ -6,6 +6,6 @@
   <% if user_signed_in? %>
     <%= link_to glyph(:user) + " Log out", destroy_user_session_path, method: :delete %>
   <% else %>
-    <%= link_to glyph(:user) + " Sign in", user_omniauth_authorize_path(:google_oauth2) %>
+    <%= link_to glyph(:user) + " Sign in", user_google_oauth2_omniauth_authorize_path() %>
   <% end %>
 </li>

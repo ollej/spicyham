@@ -9,7 +9,7 @@ gem 'pg'
 gem 'libxml-xmlrpc'
 gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem 'devise'
-gem 'omniauth-google-oauth2'
+gem 'omniauth-google-oauth2', '~> 0.3.1'
 gem 'protected_attributes'
 gem 'thin'
 
