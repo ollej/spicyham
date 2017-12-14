@@ -3,14 +3,13 @@ source 'https://rubygems.org'
 ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.10'
+gem 'rails', '5.0.6'
 
 gem 'pg'
 gem 'libxml-xmlrpc'
 gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-google-oauth2'
-gem 'protected_attributes'
 
 # Use unicorn as the app server
 gem 'unicorn-rails', '~> 2.2.1'
