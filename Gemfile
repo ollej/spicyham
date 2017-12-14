@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.6'
+gem 'rails', '5.1.4'
 
 gem 'pg'
 gem 'xmlrpc'
@@ -50,4 +50,5 @@ end
 group :development do
   gem 'byebug'
   gem 'pry'
+  gem 'listen'
 end
