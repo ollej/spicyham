@@ -1,11 +1,11 @@
-<%= form_tag emails_path, method: 'post', class: "form-inline" do %>
-  <%= label_tag :address, nil, class: "hidden-desktop hidden-phone hidden-tablet" %>
-  <div class="input-append">
-    <%= text_field_tag :address, nil, class: "form-control",
-      placeholder: "Address", autocapitalize: 'none' %>
-    <span class="add-on">@<%= @email_domain %></span>
+<%= form_tag emails_path, method: 'post', class: 'form-inline' do %>
+  <%= label_tag :address, nil, class: 'hidden-md hidden-lg hidden-xs hidden-sm' %>
+  <div class="input-group">
+    <%= text_field_tag :address, nil, class: 'form-control',
+      placeholder: 'Address', autocapitalize: 'none' %>
+    <span class="input-group-addon">@<%= @email_domain %></span>
   </div>
-  <%= label_tag :destinations, nil, class: "hidden-desktop hidden-phone hidden-tablet" %>
+  <%= label_tag :destinations, nil, class: 'hidden-md hidden-lg hidden-xs hidden-sm' %>
   <%= select_tag :destinations, options_for_select(@destinations, @destinations.first),
     class: "form-control combobox" %>
   <button type="submit" class="btn btn-primary">

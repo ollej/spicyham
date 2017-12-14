@@ -1,30 +1,30 @@
 <div class="form-horizontal">
 <%= form_tag add_record_path(@zone_id), method: 'post' do %>
-  <div class="field control-group">
-    <%= label_tag :name, nil, class: "control-label" %>
+  <div class="field input-group">
+    <%= label_tag :name, nil, class: 'control-label' %>
     <div class="controls">
-      <%= text_field_tag :name, nil, class: "form-control" %>
+      <%= text_field_tag :name, nil, class: 'form-control' %>
     </div>
   </div>
-  <div class="field control-group">
-    <%= label_tag :type, nil, class: "control-label" %>
+  <div class="field input-group">
+    <%= label_tag :type, nil, class: 'control-label' %>
     <div class="controls">
       <%= select_tag :type, options_for_select(Gandi::TYPE::all) %>
     </div>
   </div>
-  <div class="field control-group">
-    <%= label_tag :value, nil, class: "control-label" %>
+  <div class="field input-group">
+    <%= label_tag :value, nil, class: 'control-label' %>
     <div class="controls">
-      <%= text_area_tag :value %>
+      <%= text_area_tag :value, nil, class: 'form-control' %>
     </div>
   </div>
-  <div class="field control-group">
-    <%= label_tag :ttl, 'TTL', class: "control-label" %>
+  <div class="field input-group">
+    <%= label_tag :ttl, 'TTL', class: 'control-label' %>
     <div class="controls">
-      <%= text_field_tag :ttl, nil, placeholder: 3.hours %>
+      <%= text_field_tag :ttl, nil, placeholder: 3.hours, class: 'form-control' %>
     </div>
   </div>
-  <div class="field control-group">
+  <div class="field input-group">
     <div class="controls">
       <div class="actions">
         <button type="submit" class="btn btn-success">

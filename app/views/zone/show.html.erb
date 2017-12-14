@@ -1,9 +1,11 @@
 <h1>Records</h1>
 <div class="btn-group">
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-plus icon-white"></i> New record <span class="caret"></span></a>
+  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+    <i class="glyphicon glyphicon-plus glyphicon-white"></i> New record <span class="caret"></span>
+  </a>
   <div class="dropdown-menu">
     <div class="container-fluid">
-      <div class="well well-sm">
+      <div class="well well-md">
         <%= render 'record' %>
       </div>
     </div>
@@ -30,7 +32,7 @@
       <td>
         <%= link_to icon_button('Delete', :remove),
           delete_record_path(@zone_id, record[:id]),
-          class: "btn btn-danger btn-mini",
+          class: "btn btn-danger btn-xs",
           method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>

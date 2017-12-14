@@ -1,11 +1,11 @@
-<li><%= link_to glyph(:envelope) + " Emails", emails_path %></li>
-<li><%= link_to glyph(:globe) + " Zones", zone_path %></li>
-<li><%= link_to glyph(:briefcase) + " Domains", domain_path %></li>
-<li><%= link_to glyph(:share) + " Web redirs", webredir_path %></li>
-<li>
-  <% if user_signed_in? %>
-    <%= link_to glyph(:user) + " Log out", destroy_user_session_path, method: :delete %>
-  <% else %>
-    <%= link_to glyph(:user) + " Sign in", user_google_oauth2_omniauth_authorize_path() %>
-  <% end %>
-</li>
+<%= menu_item glyph(:envelope) + ' Emails', emails_path, class: item_class %>
+<%= menu_item glyph(:globe) + ' Zones', zone_path, class: item_class %>
+<%= menu_item glyph(:briefcase) + ' Domains', domain_path, class: item_class %>
+<%= menu_item glyph(:share) + ' Web redirs', webredir_path, class: item_class %>
+<% if user_signed_in? %>
+  <%= menu_item glyph(:user) + ' Log out',
+    destroy_user_session_path, method: :delete, class: item_class %>
+<% else %>
+  <%= menu_item glyph(:user) + ' Sign in',
+    user_google_oauth2_omniauth_authorize_path(), class: item_class %>
+<% end %>

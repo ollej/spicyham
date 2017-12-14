@@ -1,0 +1,27 @@
+.sidebar-nav li {
+  list-style-type: none;
+}
+
+footer {
+  margin-top: 1em;
+}
+
+/* Zone record form */
+
+.form-horizontal {
+  .control-label {
+    width: 60px;
+  }
+  .controls {
+    margin-left: 80px;
+  }
+  form {
+    margin-bottom: 0;
+  }
+  form .form-group:last-child {
+    margin-bottom: 0;
+  }
+  .actions {
+    margin-top: 1em;
+  }
+}
