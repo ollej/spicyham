@@ -9,11 +9,11 @@ module Gandi
     end
 
     def contacts
-      @server.call("contact.list")
+      @server.call('contact.list')
     end
 
     def nameservers(domain, nameservers)
-      @server.call("domain.nameservers.set", domain, nameservers)
+      @server.call('domain.nameservers.set', domain, nameservers)
     end
 
     def create_contact
@@ -29,11 +29,11 @@ module Gandi
         type: 0,
         password: 'xxxxxxxx'
       }
-      @server.call("contact.create", contact_spec)
+      @server.call('contact.create', contact_spec)
     end
 
     def catalog(opts, currency = 'EUR', grid='A')
-      @server.call("catalog.list", opts, currency, grid)
+      @server.call('catalog.list', opts, currency, grid)
     end
 
     def price(domain, *args)
@@ -43,26 +43,25 @@ module Gandi
       }
       Gandi.logger.debug { "Domain price lookup: #{product_spec.inspect}" }
       result = catalog(product_spec, *args)
-      Gandi.logger.debug { "Price result: #{result.first.inspect}" }
-      result.first[:unit_price].first
+      Gandi.logger.debug { "Price result: #{result.inspect}" }
+      result.first['unit_price'].first
     end
 
-    def list(filter = nil)
-      filter = filter || { 'sort_by' => 'fqdn' }
-      @server.call("domain.list", filter)
+    def list(filter = { 'sort_by' => 'fqdn' })
+      @server.call('domain.list', filter)
     end
 
     def info(domain)
-      @server.call("domain.info", domain)
+      @server.call('domain.info', domain)
     end
 
     def search(domains)
       #domains = [domains] unless domains.kind_of? Array
       Gandi.logger.debug { "Searching domains: #{domains.inspect}" }
-      result = @server.call("domain.available", domains, {})
+      result = @server.call('domain.available', domains, {})
       while still_pending(result) do
         sleep 0.7
-        result = @server.call("domain.available", domains, {})
+        result = @server.call('domain.available', domains, {})
       end
       result
     end
@@ -80,18 +79,18 @@ module Gandi
         accept_contract: true,
         duration: 1
       }
-      @server.call("domain.create", domain, domain_spec)
+      @server.call('domain.create', domain, domain_spec)
     end
 
     def webredirs(domain)
-      @server.call("domain.webredir.list", domain)
+      @server.call('domain.webredir.list', domain)
     end
 
     def contact
-      if Rails.env == "development"
+      if Rails.env == 'development'
         result = create_contact
         Gandi.logger.debug { "Create contact returned: #{result.inspect}" }
-        contact = result[:handle]
+        contact = result['handle']
       else
         contact = ENV['GANDI_CONTACT_OWNER']
       end

@@ -60,7 +60,7 @@ class EmailsController < ApplicationController
 
     begin
       @email_server.create(email_params[:address], { 'destinations' => destinations })
-    rescue LibXML::XML::XMLRPC::RemoteCallError => e
+    rescue XMLRPC::FaultException => e
       respond_to do |format|
         error = Gandi::parse_error(e.message)
         logger.debug "Email forwarding creation error: #{error}"
@@ -108,11 +108,11 @@ class EmailsController < ApplicationController
     end
 
     def find_email_destinations(emails)
-      dests = Set.new
-      emails.map do |e|
-        dests.merge(e[:destinations])
+      destinations = Set.new
+      emails.map do |email|
+        destinations.merge(email['destinations'])
       end
-      dests.to_a
+      destinations.to_a
     end
 
     def get_email_server

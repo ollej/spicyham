@@ -10,9 +10,9 @@
   <tbody>
   <% @webredirs.each do |webredir| %>
     <tr>
-      <td><%= webredir[:host] %></td>
-      <td><%= webredir[:type] %></td>
-      <td><a href="<%= webredir[:url] %>"><%= webredir[:url] %></a></td>
+      <td><%= webredir['host'] %></td>
+      <td><%= webredir['type'] %></td>
+      <td><a href="<%= webredir['url'] %>"><%= webredir['url'] %></a></td>
     </tr>
   <% end %>
   </tbody>

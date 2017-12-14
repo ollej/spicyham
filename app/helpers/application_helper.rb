@@ -8,7 +8,7 @@ module ApplicationHelper
 
   def format_date(date)
     if date.present?
-      date.to_formatted_s(:db)
+      date.to_time.to_formatted_s(:db)
     else
       ''
     end

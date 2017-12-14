@@ -1,1 +1,1 @@
-json.extract! @email, :address, :destinations, :created_at, :updated_at
+json.extract! @email, 'address', 'destinations', 'created_at', 'updated_at'

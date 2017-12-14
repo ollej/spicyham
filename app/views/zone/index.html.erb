@@ -10,9 +10,9 @@
   <tbody>
   <% @zones.each do |zone| %>
     <tr>
-      <td><%= link_to zone[:name], zone_show_path(zone[:id]) %></td>
-      <td><%= zone[:date_updated].to_formatted_s(:db) %></td>
-      <td><%= zone[:version] %></td>
+      <td><%= link_to zone['name'], zone_show_path(zone['id']) %></td>
+      <td><%= format_date(zone['date_updated']) %></td>
+      <td><%= zone['version'] %></td>
     </tr>
   <% end %>
 </tbody>

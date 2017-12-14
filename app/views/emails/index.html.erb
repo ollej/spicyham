@@ -16,11 +16,11 @@
   <tbody>
     <% @emails.each do |email| %>
       <tr>
-        <td><%= email[:source] %><span class="text-muted">@<%= @email_domain %></span></td>
-        <td><%= email[:destinations].join(', ') %></td>
+        <td><%= email['source'] %><span class="text-muted">@<%= @email_domain %></span></td>
+        <td><%= email['destinations'].join(', ') %></td>
         <td>
-          <%= link_to icon_button('Delete', :remove), email_path(email[:source]),
-            class: "btn btn-danger btn-xs",
+          <%= link_to icon_button('Delete', :remove), email_path(email['source']),
+            class: 'btn btn-danger btn-xs',
             method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>

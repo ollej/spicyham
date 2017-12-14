@@ -16,10 +16,10 @@
   <tbody>
   <% @domains.each do |domain| %>
     <tr>
-      <td><%= domain[:fqdn] %></td>
-      <td><%= format_date(domain[:date_created]) %></td>
-      <td><%= format_date(domain[:date_updated]) %></td>
-      <td><%= domain[:status].join(', ') %></td>
+      <td><%= domain['fqdn'] %></td>
+      <td><%= format_date(domain['date_created']) %></td>
+      <td><%= format_date(domain['date_updated']) %></td>
+      <td><%= domain['status'].join(', ') %></td>
     </tr>
   <% end %>
   </tbody>

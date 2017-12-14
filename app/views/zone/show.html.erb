@@ -25,14 +25,14 @@
   <tbody>
   <% @records.each do |record| %>
     <tr>
-      <td><%= record[:name] %></td>
-      <td><%= record[:type] %></td>
-      <td><%= record[:value] %></td>
-      <td><%= record[:ttl] %></td>
+      <td><%= record['name'] %></td>
+      <td><%= record['type'] %></td>
+      <td><%= record['value'] %></td>
+      <td><%= record['ttl'] %></td>
       <td>
         <%= link_to icon_button('Delete', :remove),
-          delete_record_path(@zone_id, record[:id]),
-          class: "btn btn-danger btn-xs",
+          delete_record_path(@zone_id, record['id']),
+          class: 'btn btn-danger btn-xs',
           method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>

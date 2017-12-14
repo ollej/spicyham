@@ -1,6 +1,3 @@
-require 'xml/libxml/xmlrpc'
-require 'net/http'
-
 module Gandi
   mattr_accessor :logger
 
@@ -9,21 +6,20 @@ module Gandi
 
     def initialize(host, api_key)
       @api_key = api_key
-      @server = connect(host || "rpc.gandi.net")
+      @server = connect(host || 'rpc.gandi.net')
       Gandi.logger.debug("Setting up Gandi API with key #{@api_key} and host #{host}")
     end
 
     def connect(host)
-      net = Net::HTTP.new(host, Net::HTTP.https_default_port)
-      net.use_ssl = true
-      net.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      XML::XMLRPC::Client.new(net, "/xmlrpc/")
+      #net = Net::HTTP.new(host, Net::HTTP.https_default_port)
+      #net.use_ssl = true
+      #net.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      XMLRPC::Client.new(host, '/xmlrpc/', nil, nil, nil, nil, nil, true, 5)
     end
 
     def call(command, *args)
       Gandi.logger.debug("Gandi API call: #{command} with arguments: #{args.inspect}")
-      parser = @server.call(command, @api_key, *args)
-      parser.params.first
+      @server.call(command, @api_key, *args)
     end
 
   end

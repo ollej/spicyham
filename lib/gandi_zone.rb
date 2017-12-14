@@ -27,7 +27,7 @@ module Gandi
 
     def list(version = nil, *args)
       version ||= @version
-      @server.call("domain.zone.record.list", @zone_id, version, *args)
+      @server.call('domain.zone.record.list', @zone_id, version, *args)
     end
 
     def add(record)
@@ -44,7 +44,7 @@ module Gandi
       records.each do |record|
         record.delete(:id)
         record.stringify_keys
-        deleted += @server.call("domain.zone.record.delete", @zone_id, @version, record)
+        deleted += @server.call('domain.zone.record.delete', @zone_id, @version, record)
       end
       if deleted == records.size
         activate
@@ -62,7 +62,7 @@ module Gandi
       begin
         version = create_new_version
         @records.each do |record|
-          new_record = @server.call("domain.zone.record.add", @zone_id, @version, record.to_hash)
+          new_record = @server.call('domain.zone.record.add', @zone_id, @version, record.to_hash)
           if new_record.nil?
             msg = "Couldn't create record #{record.to_hash.inspect} in zone #{@zone_id}"
             Gandi.logger.debug msg
@@ -78,11 +78,11 @@ module Gandi
     end
 
     def create_new_version
-      @version = @server.call("domain.zone.version.new", @zone_id)
+      @version = @server.call('domain.zone.version.new', @zone_id)
     end
 
     def delete_version(version)
-      unless @server.call("domain.zone.version.delete", @zone_id, version)
+      unless @server.call('domain.zone.version.delete', @zone_id, version)
         msg = "Couldn't delete version #{version} in zone #{@zone_id}."
         Gandi.logger.error msg
         raise Gandi::ZoneException.new msg
@@ -90,7 +90,7 @@ module Gandi
     end
 
     def activate
-      unless @server.call("domain.zone.version.set", @zone_id, @version)
+      unless @server.call('domain.zone.version.set', @zone_id, @version)
         msg = "Couldn't set new version #{@version} in zone #{@zone_id}."
         Gandi.logger.error.msg
         raise Gandi::ZoneException.new msg
@@ -103,9 +103,14 @@ module Gandi
     include ActiveModel::Conversion
     extend ActiveModel::Naming
 
-    @@attribs = [:type, :name, :value, :ttl]
+    @@attribs = {
+      type: :string,
+      name: :string,
+      value: :string,
+      ttl: :integer
+    }
 
-    attr_accessor(*@@attribs)
+    attr_accessor(*@@attribs.keys)
 
     validates_presence_of :type, :name, :value
     validates_format_of :name, with: /\A(?:(?!-)[-_*@a-zA-Z0-9]{1,63}(?<!-)(\.|$))*(?<!\.)\z/
@@ -118,12 +123,14 @@ module Gandi
 
     def initialize(attributes = {})
       attributes.each do |name, value|
-        send("#{name}=", value) unless value.nil? or value == ""
+        return if value.nil? || value.empty?
+        value = value.to_i if @@attribs[name.to_sym] == :integer
+        send("#{name}=", value)
       end
     end
 
     def to_hash
-      Hash[@@attribs.map {|key| [key, send(key)] if send(key)}]
+      Hash[@@attribs.keys.map {|key| [key, send(key)] if send(key)}]
     end
 
     def persisted?

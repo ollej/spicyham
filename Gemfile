@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.6'
 
 gem 'pg'
-gem 'libxml-xmlrpc'
+gem 'xmlrpc'
 gem 'twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-google-oauth2'
@@ -15,7 +15,7 @@ gem 'omniauth-google-oauth2'
 gem 'unicorn-rails', '~> 2.2.1'
 
 group :production do
-  #gem 'rails_12factor'
+  gem 'rails_12factor'
 end
 
 # Use SCSS for stylesheets
@@ -47,11 +47,7 @@ end
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
+group :development do
+  gem 'byebug'
+  gem 'pry'
+end
