@@ -23,5 +23,17 @@ module Gandi
     def delete(id)
       @server.call("domain.forward.delete", @domain, id)
     end
+
+    def update(address, opts)
+      @server.call("domain.forward.update", @domain, address, opts)
+    end
+
+    def update_matching(old, new)
+      list(items_per_page: 500).each do |email|
+        if email["destinations"] == [old]
+          update(email["source"], { 'destinations' => [new] })
+        end
+      end
+    end
   end
 end
