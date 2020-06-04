@@ -25,5 +25,9 @@ $(function() {
   })
 
   // Instantiate Twitter Combobox plugin
-  $('.combobox').combobox({ force_match: false });
+  $('.combobox').combobox({
+    clearIfNoMatch: false,
+    bsVersion: 4,
+    iconCaret: 'caret'
+  });
 });
