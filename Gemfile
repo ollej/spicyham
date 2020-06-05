@@ -8,7 +8,6 @@ gem 'bootsnap', require: false
 
 gem 'pg'
 gem 'xmlrpc'
-gem 'twitter-bootstrap-rails', git: 'https://github.com/seyhunak/twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-google-oauth2'
 
@@ -19,20 +18,11 @@ group :production do
   gem 'rails_12factor'
 end
 
-# Use SCSS for stylesheets
-gem 'sass-rails'
-
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
+# Use webpacker for assets
+gem "webpacker", "~> 5.1"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'

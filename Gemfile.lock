@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/seyhunak/twitter-bootstrap-rails
-  revision: a9a5b41735cdb37e0dcb878eb25dcdf6174412cd
-  specs:
-    twitter-bootstrap-rails (4.0.0)
-      actionpack (>= 5.0, < 7.0)
-      execjs (~> 2.7)
-      less-rails (>= 3.0, < 5.0)
-      railties (>= 5.0, < 7.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -72,14 +62,6 @@ GEM
     builder (3.2.4)
     byebug (11.1.3)
     coderay (1.1.3)
-    coffee-rails (5.0.0)
-      coffee-script (>= 2.2.0)
-      railties (>= 5.2.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
-    commonjs (0.2.7)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
     devise (4.7.1)
@@ -89,7 +71,6 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.9.0)
-    execjs (2.7.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.0)
@@ -100,18 +81,8 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
-    jquery-rails (4.4.0)
-      rails-dom-testing (>= 1, < 3)
-      railties (>= 4.2.0)
-      thor (>= 0.14, < 2.0)
     jwt (2.2.1)
     kgio (2.11.3)
-    less (2.6.0)
-      commonjs (~> 0.2.7)
-    less-rails (4.0.0)
-      actionpack (>= 4)
-      less (~> 2.6.0)
-      sprockets (>= 2)
     libv8 (3.16.14.19)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -157,6 +128,8 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     rack (2.2.2)
+    rack-proxy (0.6.5)
+      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.3.1)
@@ -200,18 +173,9 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    sass-rails (6.0.0)
-      sassc-rails (~> 2.1, >= 2.1.1)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     sdoc (1.1.0)
       rdoc (>= 5.0)
+    semantic_range (2.3.0)
     sprockets (4.0.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -224,11 +188,8 @@ GEM
       ref
     thor (1.0.1)
     thread_safe (0.3.6)
-    tilt (2.0.10)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     unicorn (5.5.5)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -237,6 +198,11 @@ GEM
       unicorn
     warden (1.2.8)
       rack (>= 2.0.6)
+    webpacker (5.1.1)
+      activesupport (>= 5.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 5.2)
+      semantic_range (>= 2.3.0)
     websocket-driver (0.7.2)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -249,22 +215,18 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   byebug
-  coffee-rails
   devise
   jbuilder
-  jquery-rails
   listen
   omniauth-google-oauth2
   pg
   pry
   rails (= 6.0.3.1)
   rails_12factor
-  sass-rails
   sdoc
   therubyracer
-  twitter-bootstrap-rails!
-  uglifier
   unicorn-rails (~> 2.2.1)
+  webpacker (~> 5.1)
   xmlrpc
 
 RUBY VERSION

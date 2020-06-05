@@ -184,13 +184,13 @@
       if (this.options.bsVersion == '2') {
         return '<div class="combobox-container"><input type="hidden" /> <div class="input-append"> <input type="text" autocomplete="off" /> <span class="add-on dropdown-toggle" data-dropdown="dropdown"> <span class="caret pulldown" style="vertical-align: middle"/> <i class="icon-remove remove"/> </span> </div> </div>'
       } else if (this.options.bsVersion == '3') {
-        return '<div class="combobox-container"> <input type="hidden" /> <div class="input-group"> <input type="text" autocomplete="off" /> <span class="input-group-addon dropdown-toggle" data-dropdown="dropdown"> <span class="caret pulldown" /> <span class="glyphicon glyphicon-remove remove" /> </span> </div> </div>'
+        return '<div class="combobox-container"> <input type="hidden" /> <div class="input-group"> <input type="text" autocomplete="off" /> <span class="input-group-addon dropdown-toggle" data-dropdown="dropdown"> <span class="caret pulldown"></span> <span class="glyphicon glyphicon-remove remove"></span> </span> </div> </div>'
       } else {
         return '<div class="combobox-container"> <input type="hidden" /> <div class="input-group"> <input type="text" autocomplete="off" />'
           + '<span class="input-group-addon"' + (hasPopper ? ' data-toggle="dropdown" data-reference="parent"' : '') + '>'
             + '<span class="input-group-text dropdown-toggle' + (this.options.iconCaret ? ' custom-icon' : '') + '">'
-              + (this.options.iconCaret ? '<span class="' + this.options.iconCaret + ' pulldown" />' : '')
-              + (this.options.iconRemove ? '<span class="' + this.options.iconRemove + ' remove" />' : '<span class="utf-remove remove" />')
+              + (this.options.iconCaret ? '<span class="' + this.options.iconCaret + ' pulldown"></span>' : '')
+              + (this.options.iconRemove ? '<span class="' + this.options.iconRemove + ' remove"></span>' : '<span class="utf-remove remove"></span>')
             + '</span>'
           + '</span> </div> </div>';
       }
