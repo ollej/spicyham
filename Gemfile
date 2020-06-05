@@ -3,12 +3,12 @@ source 'https://rubygems.org'
 ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.4.3'
+gem 'rails', '6.0.3.1'
 gem 'bootsnap', require: false
 
-gem 'pg', '~> 0.18'
+gem 'pg'
 gem 'xmlrpc'
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', git: 'https://github.com/seyhunak/twitter-bootstrap-rails'
 gem 'devise'
 gem 'omniauth-google-oauth2'
 
