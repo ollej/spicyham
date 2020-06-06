@@ -112,13 +112,19 @@ class EmailsController < ApplicationController
 
     def parse_email_domain(email)
       if email
-        email.gsub!(/^https?:\/\//, "") # Strip protocol
-        email.gsub!(/#.*$/, "") # Strip all after anchor
-        email.gsub!(/\?.*$/, "") # Strip argument list
-        email.gsub!(/\/.*/, "") # Strip from first slash
-        email.gsub!(/:\d+$/, "") # Strip port
-        email.gsub!(/@/, "") # Strip @
-        email.gsub!(/\.[^.]*$/, "") # Strip TLD
+        return email.gsub(/^https?:\/\//, "") # Strip protocol
+          .gsub(/#.*$/, "") # Strip all after anchor
+          .gsub(/\?.*$/, "") # Strip argument list
+          .gsub(/\/.*/, "") # Strip from first slash
+          .gsub(/:\d+$/, "") # Strip port
+          .gsub(/@/, "") # Strip @
+          .gsub(/www\./, "") # Strip sub-domain
+          .gsub(/.(?:co|org|ltd|gov|net|me|mil|ac|mod|nhs|nic|plc|sch)(.uk)$/, '\1') # Strip second level TLD in UK
+          .gsub(/.(?:com|net|org|edu|gov|asn|id|csiro)(.au)$/, '\1') # Strip second level TLD in AU
+          .gsub(/.(?:co|or|priv|ac|gv)(.at)$/, '\1') # Strip second level TLD in AT
+          .gsub(/.(ac|co|geek|gen|kiwi|maori|net|org|school|cri|govt|health|iwi|mil|parliament)(.nz)$/, '\1') # Strip second level TLD in NZ
+          .gsub(/\.[^.]*$/, "") # Strip TLD
+          .gsub(/^.*\./, "") # Leave last sub-domain
       end
     end
 
