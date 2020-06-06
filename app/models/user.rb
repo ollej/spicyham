@@ -12,7 +12,7 @@ class User < ApplicationRecord
       user.provider = auth.provider
       user.uid = auth.uid
       user.save!
-      logger.debug("logged in user: #{user.inspect}")
+      logger.debug { "logged in user: #{user.inspect}" }
       user
     else
       #where(auth.slice(:provider, :uid)).first_or_create do |u|
@@ -20,7 +20,7 @@ class User < ApplicationRecord
       #  u.uid = auth.uid
       #  u.email = auth.info.email
       #end
-      logger.error("--------------> User not found.")
+      logger.error { "--------------> User not found." }
       return nil
     end
   end

@@ -57,14 +57,14 @@ class EmailsController < ApplicationController
   def create
     #@email = Email.new(email_params)
     destinations = parse_destinations(email_params[:destinations])
-    logger.debug "Destinations: #{destinations.inspect}"
+    logger.debug { "Destinations: #{destinations.inspect}" }
 
     begin
       @email_server.create(email_params[:address], { 'destinations' => destinations })
     rescue XMLRPC::FaultException => e
       respond_to do |format|
         error = Gandi::parse_error(e.message)
-        logger.debug "Email forwarding creation error: #{error}"
+        logger.debug { "Email forwarding creation error: #{error}" }
         format.html { redirect_to emails_path, alert: "Couldn't create email forwarding '#{destinations}': #{error}." }
         format.json { head :no_content, status: :unprocessable_entity }
       end
@@ -72,7 +72,7 @@ class EmailsController < ApplicationController
     end
 
     created_email = "#{email_params[:address]}@#{@email_domain}"
-    logger.info "Created email forwarding from #{created_email} to #{destinations.join(', ')}"
+    logger.info { "Created email forwarding from #{created_email} to #{destinations.join(', ')}" }
 
     respond_to do |format|
       format.html { redirect_to emails_url, notice: "Email forwarding created: #{created_email} to #{destinations.to_sentence}" }
@@ -87,7 +87,7 @@ class EmailsController < ApplicationController
     @email_server.delete(email_params[:id])
 
     destroyed_email = "#{email_params[:id]}@#{@email_domain}"
-    logger.info "Deleted email: #{destroyed_email}"
+    logger.info { "Deleted email: #{destroyed_email}" }
 
     respond_to do |format|
       format.html { redirect_to emails_url, notice: "Email forwarding removed: #{destroyed_email}" }

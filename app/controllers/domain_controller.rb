@@ -14,9 +14,9 @@ class DomainController < ApplicationController
 
   def search
     domains = domain_list(domain_params[:domain])
-    logger.debug "Searching for domains #{domains}"
+    logger.debug { "Searching for domains #{domains}" }
     @domain_info = @domain_server.search(domains)
-    logger.debug "Domain search result: #{@domain_info.inspect}"
+    logger.debug { "Domain search result: #{@domain_info.inspect}" }
 
     add_prices(@domain_info)
     # TODO: Find price for available domains.
@@ -40,14 +40,14 @@ class DomainController < ApplicationController
     rescue XMLRPC::FaultException => e
       respond_to do |format|
         error = Gandi::parse_error(e.message)
-        logger.debug "Unable to create domain #{domain_params[:domain]}: #{error}"
+        logger.debug { "Unable to create domain #{domain_params[:domain]}: #{error}" }
         format.html { redirect_to domain_path, alert: "Unable to create domain '#{domain_params[:domain]}': #{error}." }
         format.json { head :no_content, status: :unprocessable_entity }
       end
       return
     end
 
-    logger.info "Created domain #{domain_params[:domain]}: #{@operation}"
+    logger.info { "Created domain #{domain_params[:domain]}: #{@operation}" }
     # TODO: Add action to find if create operation is done.
     # TODO: Store operation id in db
 
@@ -97,7 +97,7 @@ class DomainController < ApplicationController
       domains.each do |domain, status|
         if status == "available"
           price = @domain_server.price(domain)
-          logger.info "Price of #{domain}: #{price.inspect}"
+          logger.info { "Price of #{domain}: #{price.inspect}" }
           domains[domain] = price
         end
       end
