@@ -65,7 +65,7 @@ module Gandi
           new_record = @server.call('domain.zone.record.add', @zone_id, @version, record.to_hash)
           if new_record.nil?
             msg = "Couldn't create record #{record.to_hash.inspect} in zone #{@zone_id}"
-            Gandi.logger.debug msg
+            Rails.logger.debug msg
             raise Gandi::ZoneException.new msg
           end
         end
@@ -84,7 +84,7 @@ module Gandi
     def delete_version(version)
       unless @server.call('domain.zone.version.delete', @zone_id, version)
         msg = "Couldn't delete version #{version} in zone #{@zone_id}."
-        Gandi.logger.error msg
+        Rails.logger.error msg
         raise Gandi::ZoneException.new msg
       end
     end
@@ -92,7 +92,7 @@ module Gandi
     def activate
       unless @server.call('domain.zone.version.set', @zone_id, @version)
         msg = "Couldn't set new version #{@version} in zone #{@zone_id}."
-        Gandi.logger.error.msg
+        Rails.logger.error.msg
         raise Gandi::ZoneException.new msg
       end
     end

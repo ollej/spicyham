@@ -1,5 +1,3 @@
-require 'gandi_email'
-
 class EmailsController < ApplicationController
   before_action :authenticate_user!
   before_action :get_email_server

@@ -1,7 +1,6 @@
-require 'gandi_domain'
-
 class DomainController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_admin!
   before_action :get_domain_server
 
   def index
@@ -57,17 +56,13 @@ class DomainController < ApplicationController
     end
   end
 
-  def webredir
-    @webredirs = @domain_server_info.webredirs(@email_domain)
-  end
-
   private
     def domain_params
       params.permit(:domain)
     end
 
     def search_tlds
-      tlds = ENV.fetch('SEARCH_TLDS', %w(com net org se info io it))
+      tlds = ENV.fetch('SEARCH_TLDS', %w(com net org se info io it beer xyz))
       tlds = tlds.split(' ') if tlds.kind_of? String
       tlds
     end
@@ -83,14 +78,6 @@ class DomainController < ApplicationController
         domains << "#{domain}.#{tld}"
       end
       domains
-    end
-
-    def get_domain_server
-      # TODO: Switch to @gandi before release. Support using test automatically in development.
-      gandi = Gandi::API.new(ENV['GANDI_DOMAIN_HOST'], ENV['GANDI_DOMAIN_API_KEY'])
-      nameservers = ENV['GANDI_NAMESERVERS'].split(' ')
-      @domain_server = Gandi::Domain.new(gandi, ENV['GANDI_CONTACT'], nameservers)
-      @domain_server_info = Gandi::Domain.new(@gandi, ENV['GANDI_CONTACT'], nameservers)
     end
 
     def add_prices(domains)

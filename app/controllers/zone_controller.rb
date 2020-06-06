@@ -1,7 +1,6 @@
-require 'gandi_zone'
-
 class ZoneController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_admin!
   before_action :get_zone, except: :index
 
   def index

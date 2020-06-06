@@ -18,7 +18,7 @@ Spicyham::Application.routes.draw do
   get "domain/search", to: "domain#search"
   post "domain/create", to: "domain#create"
   get "domain/:domain", to: "domain#show", as: "domain_show"
-  get "webredir", to: "domain#webredir"
+  get "webredir", to: "webredir#index"
 
   resources :emails, :constraints => {:id => /[^\/]+/}
 

@@ -1,13 +1,11 @@
 module Gandi
-  mattr_accessor :logger
-
   class API
     attr_accessor :domain
 
     def initialize(host, api_key)
       @api_key = api_key
       @server = connect(host || 'rpc.gandi.net')
-      Gandi.logger.debug { "Setting up Gandi API with key #{@api_key} and host #{host}" }
+      Rails.logger.debug { "Setting up Gandi API with key #{@api_key} and host #{host}" }
     end
 
     def connect(host)
@@ -18,7 +16,7 @@ module Gandi
     end
 
     def call(command, *args)
-      Gandi.logger.debug { "Gandi API call: #{command} with arguments: #{args.inspect}" }
+      Rails.logger.debug { "Gandi API call: #{command} with arguments: #{args.inspect}" }
       @server.call(command, @api_key, *args)
     end
 
