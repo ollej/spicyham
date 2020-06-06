@@ -97,6 +97,10 @@ module ApplicationHelper
 
   ALERT_TYPES = [:success, :info, :warning, :danger] unless const_defined?(:ALERT_TYPES)
 
+  def bootstrap_flash_close_button
+    content_tag(:button, raw("&times;"), type: "button", class: "close", "data-dismiss" => "alert", "aria-label" => "Close")
+  end
+
   def bootstrap_flash(options = {})
     flash_messages = []
     flash.each do |type, message|
@@ -115,10 +119,8 @@ module ApplicationHelper
         role: "alert"
       }.merge(options)
 
-      close_button = content_tag(:button, raw("&times;"), type: "button", class: "close", "data-dismiss" => "alert", "aria-label" => "Close")
-
       Array(message).each do |msg|
-        flash_messages << content_tag(:div, close_button + msg, tag_options) if msg
+        flash_messages << content_tag(:div, bootstrap_flash_close_button + msg, tag_options) if msg
       end
     end
     flash_messages.join("\n").html_safe

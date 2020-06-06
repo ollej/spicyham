@@ -8,10 +8,7 @@ class User < ApplicationRecord
   #attr_accessible :email, :password, :password_confirmation, :remember_me, :provider, :uid
 
   def self.from_omniauth(auth)
-    if user = User.find_by_email(auth.info.email)
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.save!
+    if user = User.find_by_uid(auth.uid)
       logger.debug { "logged in user: #{user.inspect}" }
       user
     else

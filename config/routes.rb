@@ -1,5 +1,14 @@
 Spicyham::Application.routes.draw do
-  devise_for :users, :skip => :registrations, controllers: { omniauth_callbacks: "omniauth_callbacks" }
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    omniauth_callbacks: "omniauth_callbacks"
+  }
+  as :user do
+    get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
+    put 'users/:id' => 'users/registrations#update', :as => 'user_registration'
+    delete 'users/:id' => 'users/registrations#update', :as => 'delete_user_registration'
+  end
+
   get "zone", to: "zone#index"
   get "zone/:zone", to: "zone#show", as: "zone_show"
   get "zone/:zone/record/:record", to: "zone#show_record", as: "show_record"

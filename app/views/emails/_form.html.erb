@@ -11,7 +11,7 @@
     </div>
     <div class="col-7 col-md-5">
       <div class="input-group">
-        <%= select_tag :destinations, options_for_select(@destinations, selected: @destinations.second),
+        <%= select_tag :destinations, options_for_select(@destinations, selected: current_user.default_forward),
           class: "form-control combobox" %>
       </div>
     </div>
