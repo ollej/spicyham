@@ -11,7 +11,7 @@ $(function() {
   $('.combobox').combobox({
     clearIfNoMatch: false,
     bsVersion: '4',
-    iconCaret: 'caret'
+    iconCaret: 'dropdown-toggle'
   });
 });
 

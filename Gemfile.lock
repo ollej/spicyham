@@ -112,6 +112,11 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    octicons (9.6.0)
+      nokogiri (>= 1.6.3.1)
+    octicons_helper (9.6.0)
+      octicons (= 9.6.0)
+      rails
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
@@ -176,7 +181,7 @@ GEM
     sdoc (1.1.0)
       rdoc (>= 5.0)
     semantic_range (2.3.0)
-    sprockets (4.0.1)
+    sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.2.1)
@@ -218,6 +223,7 @@ DEPENDENCIES
   devise
   jbuilder
   listen
+  octicons_helper
   omniauth-google-oauth2
   pg
   pry

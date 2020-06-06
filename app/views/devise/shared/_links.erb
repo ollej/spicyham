@@ -1,6 +1,6 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to glyph(:user) + " Sign in", new_session_path(resource_name),
-    class: "btn btn-primary btn-lg glyphicon-white" %><br />
+  <%= link_to icon(:person) + " Sign in", new_session_path(resource_name),
+    class: "btn btn-primary btn-lg" %><br />
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
@@ -21,8 +21,8 @@
 
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to glyph(:user) + " Sign in with #{provider.to_s.titleize}",
+    <%= link_to icon(:person) + " Sign in with #{provider.to_s.titleize}",
       omniauth_authorize_path(resource_name, provider),
-      class: 'btn btn-primary btn-lg glyphicon-white' %><br />
+      class: 'btn btn-primary btn-lg' %><br />
   <% end -%>
 <% end -%>

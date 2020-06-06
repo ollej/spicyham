@@ -19,38 +19,31 @@
     <script src="bootstrap-combobox.js"></script>
   </head>
   <body>
-
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-light bg-light navbar-expand-md" role="navigation">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="<%= root_path %>">Spicyham</a>
-        </div>
-
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span> &#x2630;
+        </button>
+        <a class="navbar-brand" href="<%= root_path %>">Spicyham</a>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav ">
-            <%= render partial: 'layouts/links', locals: { item_class: '' } %>
+            <%= render partial: 'layouts/links', locals: { item_class: 'nav-link' } %>
           </ul>
         </div>
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="main-content container-fluid">
       <div class="row">
 
-        <div class="col-md-3 hidden-xs hidden-sm sidebar-nav">
+        <div class="col-lg-3 sidebar-nav d-none d-lg-block">
           <ul class="list-group">
             <li class="list-group-item">Sidebar</li>
             <%= render partial: 'layouts/links', locals: { item_class: 'list-group-item' } %>
           </ul>
         </div>
 
-        <div class="col-md-9">
+        <div class="col-lg-9">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>

@@ -1,14 +1,24 @@
-<%= form_tag emails_path, method: 'post', class: 'form-inline' do %>
-  <%= label_tag :address, nil, class: 'hidden-md hidden-lg hidden-xs hidden-sm' %>
-  <div class="input-group">
-    <%= text_field_tag :address, nil, class: 'form-control',
-      placeholder: 'Address', autocapitalize: 'none' %>
-    <span class="input-group-addon">@<%= @email_domain %></span>
+<%= form_tag emails_path, method: 'post', class: 'form-inline toolbar' do %>
+  <div class="form-row">
+    <div class="col-12 col-md-5">
+      <div class="input-group">
+        <%= text_field_tag :address, nil, class: 'form-control',
+          placeholder: 'Address', autocapitalize: 'none' %>
+        <div class="input-group-append">
+          <span class="input-group-text">@<%= @email_domain %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-7 col-md-5">
+      <div class="input-group">
+        <%= select_tag :destinations, options_for_select(@destinations, selected: @destinations.second),
+          class: "form-control combobox" %>
+      </div>
+    </div>
+    <div class="col-5 col-md-2">
+      <button type="submit" class="btn btn-primary">
+        <%= icon(:check) %> Create
+      </button>
+    </div>
   </div>
-  <%= label_tag :destinations, nil, class: 'hidden-md hidden-lg hidden-xs hidden-sm' %>
-  <%= select_tag :destinations, options_for_select(@destinations, @destinations.first),
-    class: "form-control combobox" %>
-  <button type="submit" class="btn btn-primary">
-    <%= glyph(:ok) %> Create
-  </button>
 <% end %>

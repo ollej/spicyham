@@ -1,3 +1,7 @@
+.main-content {
+  margin-top: 1em;
+}
+
 .sidebar-nav li {
   list-style-type: none;
 }
@@ -6,22 +10,52 @@ footer {
   margin-top: 1em;
 }
 
-/* Zone record form */
+.toolbar {
+  margin-bottom: 1em;
+}
 
-.form-horizontal {
-  .control-label {
-    width: 60px;
-  }
-  .controls {
-    margin-left: 80px;
-  }
-  form {
-    margin-bottom: 0;
-  }
-  form .form-group:last-child {
-    margin-bottom: 0;
-  }
-  .actions {
-    margin-top: 1em;
-  }
+.octicon {
+  margin-bottom: 4px;
+  margin-right: 4px;
+}
+
+.btn-sm .octicon {
+  margin-bottom: 2px;
+  margin-right: 0px;
+}
+
+.navbar-light .navbar-collapse {
+  border-color: #e7e7e7;
+}
+
+.navbar {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.navbar.collapsed {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.navbar-toggler {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.navbar-nav .nav-item {
+  padding-top: 0.3rem;
+}
+
+.nav-item a {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.list-group-item {
+  padding: 0.5rem 1rem;
+}
+
+.btn .octicon path {
+  fill: white;
 }

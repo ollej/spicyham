@@ -1,37 +1,25 @@
-<div class="form-horizontal">
 <%= form_tag add_record_path(@zone_id), method: 'post' do %>
-  <div class="field input-group">
-    <%= label_tag :name, nil, class: 'control-label' %>
-    <div class="controls">
-      <%= text_field_tag :name, nil, class: 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= label_tag :name, nil, class: 'col-form-label' %>
+    <%= text_field_tag :name, nil, class: 'form-control' %>
   </div>
-  <div class="field input-group">
-    <%= label_tag :type, nil, class: 'control-label' %>
-    <div class="controls">
-      <%= select_tag :type, options_for_select(Gandi::TYPE::all) %>
-    </div>
+  <div class="form-group">
+    <%= label_tag :type, nil, class: 'col-form-label' %>
+    <%= select_tag :type, options_for_select(Gandi::TYPE::all) %>
   </div>
-  <div class="field input-group">
-    <%= label_tag :value, nil, class: 'control-label' %>
-    <div class="controls">
-      <%= text_area_tag :value, nil, class: 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= label_tag :value, nil, class: 'col-form-label' %>
+    <%= text_area_tag :value, nil, class: 'form-control' %>
   </div>
-  <div class="field input-group">
-    <%= label_tag :ttl, 'TTL', class: 'control-label' %>
-    <div class="controls">
-      <%= text_field_tag :ttl, nil, placeholder: 3.hours, class: 'form-control' %>
-    </div>
+  <div class="form-group">
+    <%= label_tag :ttl, 'TTL', class: 'col-form-label' %>
+    <%= text_field_tag :ttl, nil, placeholder: 3.hours, class: 'form-control' %>
   </div>
-  <div class="field input-group">
-    <div class="controls">
-      <div class="actions">
-        <button type="submit" class="btn btn-success">
-          <%= glyph(:ok) %> Add record
-        </button>
-      </div>
+  <div class="form-group">
+    <div class="actions">
+      <button type="submit" class="btn btn-success">
+        <%= icon(:check) %> Add record
+      </button>
     </div>
   </div>
 <% end %>
-</div>

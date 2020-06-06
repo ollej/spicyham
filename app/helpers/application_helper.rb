@@ -1,9 +1,13 @@
 module ApplicationHelper
-  def icon_button(label = "", icon = nil)
+  def icon_button(label = "", icon = nil, icon_options = {})
     btn = ""
-    btn += glyph(icon.to_sym) if icon
-    btn += "<span class='hidden-xs'> #{label}</span>" unless label.blank?
+    btn += icon(icon.to_sym, icon_options) if icon
+    btn += "<span class='d-none d-sm-inline'> #{label}</span>" unless label.blank?
     btn.html_safe
+  end
+
+  def icon(icon, options = {})
+    octicon(icon, { height: 24 }.merge(options))
   end
 
   def format_date(date)
@@ -19,7 +23,7 @@ module ApplicationHelper
   def menu_item(name=nil, path="#", *args, &block)
     path = name || path if block_given?
     options = args.extract_options!
-    content_tag :li, :class => is_active?(path, options) do
+    content_tag :li, :class => ['nav-item', is_active?(path, options)] do
       if block_given?
         link_to path, options, &block
       else
@@ -63,17 +67,6 @@ module ApplicationHelper
         :inactive
       end
     end
-  end
-
-  def glyph(*names)
-    options = names.last.kind_of?(Hash) ? names.pop : {}
-    names.map! { |name| name.to_s.tr('_', '-') }
-    names.map! do |name|
-      name =~ /pull-(?:left|right)/ ? name : "glyphicon glyphicon-#{name}"
-    end
-    options[:tag] = options[:tag] ||= :i
-    names.push options[:class] || ''
-    content_tag options[:tag], nil, class: names
   end
 
   ALERT_TYPES = [:success, :info, :warning, :danger] unless const_defined?(:ALERT_TYPES)

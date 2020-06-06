@@ -2,7 +2,7 @@
   "dependencies": {
     "@rails/ujs": "^6.0.3-1",
     "@rails/webpacker": "5.1.1",
-    "bootstrap3": "^3.3.5",
+    "bootstrap": "^4.5.0",
     "core-js": "^3.6.5",
     "expose-loader": "^0.7.5",
     "jquery": "^3.5.1",

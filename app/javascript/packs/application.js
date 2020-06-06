@@ -19,7 +19,7 @@ import "core-js/stable"
 import "regenerator-runtime/runtime"
 import "stylesheets/application"
 import "popper.js"
-import "bootstrap3"
+import "bootstrap"
 import "src/setup"
 import "src/bootstrap-setup"
 

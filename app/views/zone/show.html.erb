@@ -1,13 +1,11 @@
 <h1>Records</h1>
-<div class="btn-group">
+<div class="btn-group toolbar">
   <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-    <i class="glyphicon glyphicon-plus glyphicon-white"></i> New record <span class="caret"></span>
+    <%= icon(:plus) %> New record
   </a>
-  <div class="dropdown-menu">
+  <div class="dropdown-menu" style="width: 18rem;">
     <div class="container-fluid">
-      <div class="well well-md">
-        <%= render 'record' %>
-      </div>
+      <%= render 'record' %>
     </div>
   </div>
 </div>
@@ -30,9 +28,9 @@
       <td><%= record['value'] %></td>
       <td><%= record['ttl'] %></td>
       <td>
-        <%= link_to icon_button('Delete', :remove),
+        <%= link_to icon_button('Delete', :x),
           delete_record_path(@zone_id, record['id']),
-          class: 'btn btn-danger btn-xs',
+          class: 'btn btn-danger btn-sm',
           method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>

@@ -7,8 +7,11 @@
 <table class="table table-striped table-hover">
   <thead>
     <tr>
-      <th>Address</th>
-      <th>Destinations</th>
+      <th>
+        Address
+        <span class="d-inline d-sm-none"><br>Destinations</span>
+      </th>
+      <th class="d-none d-sm-table-cell">Destinations</th>
       <th></th>
     </tr>
   </thead>
@@ -16,11 +19,14 @@
   <tbody>
     <% @emails.each do |email| %>
       <tr>
-        <td><%= email['source'] %><span class="text-muted">@<%= @email_domain %></span></td>
-        <td><%= email['destinations'].join(', ') %></td>
         <td>
-          <%= link_to icon_button('Delete', :remove), email_path(email['source']),
-            class: 'btn btn-danger btn-xs',
+          <%= email['source'] %><span class="text-muted"><wbr>@<%= @email_domain %></span>
+          <span class="d-inline d-sm-none"><%= email['destinations'].join(', ') %></span>
+        </td>
+        <td class="d-none d-sm-table-cell"><%= email['destinations'].join(', ') %></td>
+        <td>
+          <%= link_to icon_button('Delete', :x, height: 16), email_path(email['source']),
+            class: 'btn btn-danger btn-sm',
             method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>

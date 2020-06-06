@@ -1,9 +1,9 @@
-<%= menu_item glyph(:envelope) + ' Emails', emails_path, class: item_class %>
-<%= menu_item glyph(:globe) + ' Zones', zone_path, class: item_class %>
-<%= menu_item glyph(:briefcase) + ' Domains', domain_path, class: item_class %>
-<%= menu_item glyph(:share) + ' Web Redirs', webredir_path, class: item_class %>
+<%= menu_item icon(:mail) + ' Emails', emails_path, class: item_class %>
+<%= menu_item icon(:globe) + ' Zones', zone_path, class: item_class %>
+<%= menu_item icon(:briefcase) + ' Domains', domain_path, class: item_class %>
+<%= menu_item icon('link-external') + ' Web Redirs', webredir_path, class: item_class %>
 <% if user_signed_in? %>
-  <%= menu_item glyph(:user) + ' Log Out', destroy_user_session_path, class: item_class, method: :delete %>
+  <%= menu_item icon(:person) + ' Log Out', destroy_user_session_path, class: item_class, method: :delete %>
 <% else %>
-  <%= menu_item glyph(:user) + ' Sign In', user_google_oauth2_omniauth_authorize_path, class: item_class %>
+  <%= menu_item icon(:person) + ' Sign In', user_google_oauth2_omniauth_authorize_path, class: item_class %>
 <% end %>
