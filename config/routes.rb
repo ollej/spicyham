@@ -11,7 +11,7 @@ Spicyham::Application.routes.draw do
   get "domain/:domain", to: "domain#show", as: "domain_show"
   get "webredir", to: "domain#webredir"
 
-  resources :emails
+  resources :emails, :constraints => {:id => /[^\/]+/}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

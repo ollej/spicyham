@@ -111,7 +111,15 @@ class EmailsController < ApplicationController
     end
 
     def parse_email_domain(email)
-      email.gsub(/(@|\.[^.]*$)/, "") if email
+      if email
+        email.gsub!(/^https?:\/\//, "") # Strip protocol
+        email.gsub!(/#.*$/, "") # Strip all after anchor
+        email.gsub!(/\?.*$/, "") # Strip argument list
+        email.gsub!(/\/.*/, "") # Strip from first slash
+        email.gsub!(/:\d+$/, "") # Strip port
+        email.gsub!(/@/, "") # Strip @
+        email.gsub!(/\.[^.]*$/, "") # Strip TLD
+      end
     end
 
     def parse_destinations(destinations)
