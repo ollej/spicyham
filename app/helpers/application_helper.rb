@@ -18,6 +18,32 @@ module ApplicationHelper
     end
   end
 
+  def bookmarklet
+    @bookmarklet ||= "javascript:#{uriencode_js_file("public/bookmarklet.js")}"
+  end
+
+  def uriencode_js_file(file)
+    js = File.read(file)
+    URI::escape(uglify_js(js))
+  end
+
+  def uglify_js(js)
+    Uglifier.new(
+      compress: {
+        reduce_vars: true,
+        negate_iife: false,
+        join_vars: true,
+        collapse_vars: true
+    }).compile(js)
+  end
+
+  def minify_js(js)
+    js.gsub!("\/\/.*$", "")
+    js.gsub!("\n", " ")
+    js.gsub!(/\s+/, " ")
+    js
+  end
+
   # Methods from twitter-bootstrap-rails
 
   def menu_item(name=nil, path="#", *args, &block)

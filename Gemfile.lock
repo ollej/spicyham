@@ -71,6 +71,7 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.9.0)
+    execjs (2.7.0)
     faraday (1.0.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.0)
@@ -195,6 +196,8 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
     unicorn (5.5.5)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -231,6 +234,7 @@ DEPENDENCIES
   rails_12factor
   sdoc
   therubyracer
+  uglifier
   unicorn-rails (~> 2.2.1)
   webpacker (~> 5.1)
   xmlrpc

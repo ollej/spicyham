@@ -11,6 +11,7 @@ gem 'xmlrpc'
 gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'octicons_helper'
+gem 'uglifier'
 
 # Use unicorn as the app server
 gem 'unicorn-rails', '~> 2.2.1'
