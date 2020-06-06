@@ -13,5 +13,9 @@ $(function() {
     bsVersion: '4',
     iconCaret: 'dropdown-toggle'
   });
+
+  // Select default address
+  const $address = $("#address");
+  $address[0].setSelectionRange(0, $address.val().length);
 });
 

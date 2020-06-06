@@ -34,6 +34,7 @@ class EmailsController < ApplicationController
     # TODO: Add template helper to select most popular email in destination list.
     @email = Email.new
     @emails = get_emails
+    @default_email = parse_email_domain(index_params[:email])
     @destinations = get_destinations(@emails)
   end
 
@@ -103,6 +104,14 @@ class EmailsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_params
       params.permit(:address, :destinations, :id, :domain)
+    end
+
+    def index_params
+      params.permit(:email)
+    end
+
+    def parse_email_domain(email)
+      email.gsub(/(@|\.[^.]*$)/, "") if email
     end
 
     def parse_destinations(destinations)
