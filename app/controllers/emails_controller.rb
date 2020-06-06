@@ -70,10 +70,11 @@ class EmailsController < ApplicationController
       return
     end
 
-    logger.info "Created email forwarding from #{email_params[:address]}@#{@email_domain} to #{destinations.join(', ')}"
+    created_email = "#{email_params[:address]}@#{@email_domain}"
+    logger.info "Created email forwarding from #{created_email} to #{destinations.join(', ')}"
 
     respond_to do |format|
-      format.html { redirect_to emails_url, notice: "Email forwarding created." }
+      format.html { redirect_to emails_url, notice: "Email forwarding created: #{created_email} to #{destinations.to_sentence}" }
       format.json { head :no_content }
     end
   end
@@ -84,10 +85,11 @@ class EmailsController < ApplicationController
     #@email.destroy
     @email_server.delete(email_params[:id])
 
-    logger.info "Deleted email: #{email_params[:id]}@#{@email_domain}"
+    destroyed_email = "#{email_params[:id]}@#{@email_domain}"
+    logger.info "Deleted email: #{destroyed_email}"
 
     respond_to do |format|
-      format.html { redirect_to emails_url, notice: "Email forwarding deleted." }
+      format.html { redirect_to emails_url, notice: "Email forwarding removed: #{destroyed_email}" }
       format.json { head :no_content }
     end
   end
