@@ -18,5 +18,9 @@ module Spicyham
     # -- all .rb files in that directory are automatically loaded.
 
     config.time_zone = 'Europe/Stockholm'
+
+    config.action_dispatch.rescue_responses.merge!(
+      'AuthorizationException' => :unauthorized
+    )
   end
 end
