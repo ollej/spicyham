@@ -6,7 +6,10 @@ class ApplicationController < ActionController::Base
 
   private
     def setup_api
-      @gandi = Gandi::API.new(ENV['GANDI_HOST'], current_user.api_key)
+      if current_user.api_key.blank?
+        Rails.logger.debug { "Current user has no API key set." }
+      end
+      @gandi = Gandi::API.new(ENV['GANDI_HOST'], current_user.api_key || '')
     end
 
     def email_domain
