@@ -1,6 +1,5 @@
 class EmailsController < ApplicationController
   before_action :authenticate_user!
-  before_action :get_email_server
   #before_action :set_email, only: [:show, :edit, :update, :destroy]
   # TODO: Create Email class instead of calling @gandi directly.
   # TODO: Support editing forwards for other domains.
@@ -34,6 +33,7 @@ class EmailsController < ApplicationController
     @emails = get_emails
     @default_email = parse_email_domain(index_params[:email])
     @destinations = get_destinations(@emails)
+    @email_domain = email_domain
   end
 
   # GET /emails/1
@@ -58,7 +58,7 @@ class EmailsController < ApplicationController
     logger.debug { "Destinations: #{destinations.inspect}" }
 
     begin
-      @email_server.create(email_params[:address], { 'destinations' => destinations })
+      email_server.create(email_params[:address], { 'destinations' => destinations })
     rescue XMLRPC::FaultException => e
       respond_to do |format|
         error = Gandi::parse_error(e.message)
@@ -69,7 +69,7 @@ class EmailsController < ApplicationController
       return
     end
 
-    created_email = "#{email_params[:address]}@#{@email_domain}"
+    created_email = "#{email_params[:address]}@#{email_domain}"
     logger.info { "Created email forwarding from #{created_email} to #{destinations.join(', ')}" }
 
     respond_to do |format|
@@ -82,9 +82,9 @@ class EmailsController < ApplicationController
   # DELETE /emails/1.json
   def destroy
     #@email.destroy
-    @email_server.delete(email_params[:id])
+    email_server.delete(email_params[:id])
 
-    destroyed_email = "#{email_params[:id]}@#{@email_domain}"
+    destroyed_email = "#{email_params[:id]}@#{email_domain}"
     logger.info { "Deleted email: #{destroyed_email}" }
 
     respond_to do |format|
@@ -138,9 +138,8 @@ class EmailsController < ApplicationController
       destinations.to_a
     end
 
-    def get_email_server
-      domain = email_params[:domain] || ENV['GANDI_MAIL_DOMAIN']
-      @email_server = Gandi::Email.new(@gandi, domain)
+    def email_server
+      @email_server ||= Gandi::Email.new(@gandi, email_domain)
     end
 
     def get_emails
@@ -151,7 +150,13 @@ class EmailsController < ApplicationController
       if params[:all].present?
         opts[:items_per_page] = 500
       end
-      @email_server.list(opts)
+      begin
+        return email_server.list(opts)
+      rescue XMLRPC::FaultException => e
+        Rails.logger.error { "Gandi::API error domain.email.list: #{e.message}" }
+        flash[:error] = "Couldn't read emails for domain #{email_domain}"
+        return []
+      end
     end
 
     def get_destinations(emails)

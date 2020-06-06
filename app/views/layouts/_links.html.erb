@@ -1,6 +1,6 @@
-<%= menu_item icon(:mail) + ' Emails', emails_path, class: item_class %>
 <% if user_signed_in? %>
   <% if current_user.admin? %>
+    <%= menu_item icon(:mail) + ' Emails', emails_path, class: item_class %>
     <%= menu_item icon(:globe) + ' Zones', zone_path, class: item_class %>
     <%= menu_item icon(:briefcase) + ' Domains', domain_path, class: item_class %>
     <%= menu_item icon('link-external') + ' Web Redirs', webredir_path, class: item_class %>

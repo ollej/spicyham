@@ -4,6 +4,12 @@ class WebredirController < ApplicationController
   before_action :get_domain_server
 
   def index
-    @webredirs = @domain_server_info.webredirs(@email_domain)
+    begin
+      @webredirs = @domain_server_info.webredirs(email_domain)
+    rescue XMLRPC::FaultException => e
+      Rails.logger.error { "Gandi::API error domain.webredir.list: #{e.message}" }
+      flash[:error] = "Couldn't read webredirs for domain #{email_domain}"
+      @webredirs = []
+    end
   end
 end
