@@ -1,4 +1,13 @@
 {
+  "name": "spicyham",
+  "description": "Site to manage email forwards and domains.",
+  "homepage": "https://spicyham.net",
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Olle Wreede",
+    "email": "olle@spicyham.net",
+    "url": "https://github.com/ollej"
+  },
   "dependencies": {
     "@rails/ujs": "^6.0.3-1",
     "@rails/webpacker": "5.1.1",
