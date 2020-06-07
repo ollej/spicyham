@@ -4,7 +4,7 @@ class ZoneController < ApplicationController
   before_action :get_zone, except: :index
 
   def index
-    @zones = @gandi.call("domain.zone.list")
+    @zones = gandi_api.call("domain.zone.list")
   end
 
   def show
@@ -44,6 +44,6 @@ class ZoneController < ApplicationController
 
     def get_zone
       @zone_id = zone_params[:zone].to_i
-      @zone = Gandi::Zone.new(@gandi, @zone_id)
+      @zone = Gandi::Zone.new(gandi_api, @zone_id)
     end
 end
