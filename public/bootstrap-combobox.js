@@ -430,8 +430,14 @@
       if (!this.selected && val !== '' ) {
         if(that.clearIfNoMatch)
           this.$element.val('');
-        this.$source.val('').trigger('change');
-        this.$target.val('').trigger('change');
+        if (this.options.freeform) {
+          this.$source.val(val).trigger('change');
+          this.$target.val(val).trigger('change');
+          this.$container.addClass('combobox-selected')
+        } else {
+          this.$source.val('').trigger('change');
+          this.$target.val('').trigger('change');
+        }
       }
       if (!this.mousedover && this.shown) {setTimeout(function () { that.hide(); }, 200);}
     }

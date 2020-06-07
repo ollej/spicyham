@@ -11,7 +11,8 @@ $(function() {
   $('.combobox').combobox({
     clearIfNoMatch: false,
     bsVersion: '4',
-    iconCaret: 'dropdown-toggle'
+    iconCaret: 'dropdown-toggle',
+    freeform: true
   });
 
   // Select default address
