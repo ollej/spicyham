@@ -1,6 +1,6 @@
 <h1>Records</h1>
 <div class="btn-group toolbar">
-  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+  <a class="btn btn-primary btn-white dropdown-toggle" data-toggle="dropdown" href="#">
     <%= icon(:plus) %> New record
   </a>
   <div class="dropdown-menu" style="width: 18rem;">
@@ -28,9 +28,9 @@
       <td><%= record['value'] %></td>
       <td><%= record['ttl'] %></td>
       <td>
-        <%= link_to icon_button('Delete', :x),
+        <%= link_to icon_button('Delete', :x, height: 16),
           delete_record_path(@zone_id, record['id']),
-          class: 'btn btn-danger btn-sm',
+          class: 'btn btn-danger btn-sm btn-white',
           method: :delete, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>

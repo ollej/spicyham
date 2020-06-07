@@ -15,28 +15,21 @@ footer {
 }
 
 .octicon {
-  margin-bottom: 0.25rem;
   margin-right: 0.25rem;
-  margin-top: 0.25em;
-}
-
-.btn-inline .octicon {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 .btn-sm .octicon {
   margin-bottom: 0.125rem;
   margin-right: 0;
-  margin-top: 0;
 }
 
-.btn .octicon path {
+.btn-white .octicon path {
   fill: white;
 }
 
 .navbar .octicon {
   margin-top: 0;
+  margin-bottom: 0.25rem;
 }
 
 .navbar-light .navbar-collapse {
