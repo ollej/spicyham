@@ -38,7 +38,7 @@ class DomainController < ApplicationController
       @operation = @domain_server.create(domain_params[:domain])
     rescue XMLRPC::FaultException => e
       respond_to do |format|
-        error = Gandi::parse_error(e.message)
+        error = Gandi::API::parse_error(e.message)
         logger.debug { "Unable to create domain #{domain_params[:domain]}: #{error}" }
         format.html { redirect_to domain_path, alert: "Unable to create domain '#{domain_params[:domain]}': #{error}." }
         format.json { head :no_content, status: :unprocessable_entity }

@@ -20,9 +20,8 @@ module Gandi
       @server.call(command, @api_key, *args)
     end
 
-  end
-
-  def self.parse_error(msg)
-    /\[(?<error>.*)\]\z/.match(msg)[:error]
+    def self.parse_error(msg)
+      /\[(?<error>.*)\]\z/.match(msg)[:error]
+    end
   end
 end

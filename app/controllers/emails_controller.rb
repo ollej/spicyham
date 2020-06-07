@@ -30,7 +30,12 @@ class EmailsController < ApplicationController
     #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
     # TODO: Add template helper to select most popular email in destination list.
     @email = Email.new
-    @emails = get_emails
+    begin
+      @emails = api.emails(all: params[:all])
+    rescue Facade::Error
+      flash[:error] = "Couldn't read emails for domain #{email_domain}"
+      @emails = []
+    end
     @default_email = parse_email_domain(index_params[:email])
     @destinations = get_destinations(@emails)
     @email_domain = email_domain
@@ -58,10 +63,10 @@ class EmailsController < ApplicationController
     logger.debug { "Destinations: #{destinations.inspect}" }
 
     begin
-      email_server.create(email_params[:address], { 'destinations' => destinations })
+      api.create(email: email_params[:address], destinations: destinations)
     rescue XMLRPC::FaultException => e
       respond_to do |format|
-        error = Gandi::parse_error(e.message)
+        error = Gandi::API::parse_error(e.message)
         logger.debug { "Email forwarding creation error: #{error}" }
         format.html { redirect_to emails_path, alert: "Couldn't create email forwarding '#{destinations}': #{error}." }
         format.json { head :no_content, status: :unprocessable_entity }
@@ -82,7 +87,7 @@ class EmailsController < ApplicationController
   # DELETE /emails/1.json
   def destroy
     #@email.destroy
-    email_server.delete(email_params[:id])
+    api.delete(email: email_params[:id])
 
     destroyed_email = "#{email_params[:id]}@#{email_domain}"
     logger.info { "Deleted email: #{destroyed_email}" }
@@ -138,25 +143,8 @@ class EmailsController < ApplicationController
       destinations.to_a
     end
 
-    def email_server
-      @email_server ||= Gandi::Email.new(@gandi, email_domain)
-    end
-
-    def get_emails
-      opts = {
-        items_per_page: 20,
-        sort_by: 'source'
-      }
-      if params[:all].present?
-        opts[:items_per_page] = 500
-      end
-      begin
-        return email_server.list(opts)
-      rescue XMLRPC::FaultException => e
-        Rails.logger.error { "Gandi::API error domain.email.list: #{e.message}" }
-        flash[:error] = "Couldn't read emails for domain #{email_domain}"
-        return []
-      end
+    def api
+      @api ||= Facade::Gandi.new(key: current_user.api_key || '', domain: email_domain)
     end
 
     def get_destinations(emails)
