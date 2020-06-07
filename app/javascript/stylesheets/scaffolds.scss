@@ -27,6 +27,14 @@ footer {
   fill: white;
 }
 
+.test-api-success .octicon path {
+  fill: green;
+}
+
+.test-api-failed .octicon path {
+  fill: red;
+}
+
 .navbar .octicon {
   margin-top: 0;
   margin-bottom: 0.25rem;

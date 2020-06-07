@@ -159,7 +159,6 @@ class EmailsController < ApplicationController
     end
 
     def api
-      #@api ||= Facade::Gandi.new(key: current_user.api_key || '', domain: email_domain)
-      @api ||= Facade::GandiV5.new(key: current_user.api_key || '', domain: email_domain)
+      @api ||= Facade::API.create(api: Facade::API::GANDI_V5, key: current_user.api_key || '', domain: email_domain)
     end
 end

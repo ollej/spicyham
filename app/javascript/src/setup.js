@@ -1,3 +1,5 @@
+import TestApi from "src/test-api"
+
 $(function() {
   // Fix input element click problem
   $('.dropdown-menu form').on('click', function(e) {
@@ -17,6 +19,11 @@ $(function() {
 
   // Select default address
   const $address = $("#address");
-  $address[0].setSelectionRange(0, $address.val().length);
+  if ($address[0]) {
+    $address[0].setSelectionRange(0, $address.val().length);
+  }
+
+  // Setup test API button
+  new TestApi(".test-api-btn").setup();
 });
 

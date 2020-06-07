@@ -33,6 +33,7 @@
   </div>
   -->
 
+  <input type="hidden" id="user_api" name="user[api]" value="gandiv5">
   <div class="form-group row">
     <%= f.label "API Key", class: "col-sm-3 col-form-label" %><br />
     <div class="col-sm-9">
@@ -46,6 +47,13 @@
 
   <div class="actions">
     <%= f.submit "Update", class: "btn btn-primary" %>
+    <%= link_to test_api_path(format: :json), method: :post, class: "btn btn-outline-dark test-api-btn" do %>
+      <span class="test-api-icon test-api-processing d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="test-api-icon test-api-success d-none" aria-hidden="true"><%= icon("check", { height: 24 }) %></span>
+      <span class="test-api-icon test-api-failed d-none" aria-hidden="true"><%= icon("alert", { height: 24 }) %></span>
+      <span class="test-api-icon test-api-untested" aria-hidden="true"><%= icon("question", { height: 24 }) %></span>
+      Test API
+    <% end %>
   </div>
 <% end %>
 <br>

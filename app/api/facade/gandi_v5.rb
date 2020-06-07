@@ -5,12 +5,12 @@ module Facade
       @domain = domain
     end
 
-    def list(all: false)
+    def list(all: false, per_page: 50)
       begin
         Rails.logger.debug { "Listing forwards with all: #{all} -> #{all ? (1..) : 1}" }
         params = {
           sort_by: 'source',
-          per_page: 50
+          per_page: per_page
         }
         params[:page] = 1 unless all
         return ::GandiV5::Email::Forward.list(@domain, **params).map do |forward|
