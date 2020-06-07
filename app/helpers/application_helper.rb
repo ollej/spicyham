@@ -19,12 +19,15 @@ module ApplicationHelper
   end
 
   def bookmarklet
-    @bookmarklet ||= "javascript:#{uriencode_js_file("public/bookmarklet.js")}"
+    @bookmarklet ||= "javascript:#{uri_encode(uglify_js_file("public/bookmarklet.js"))}".html_safe
   end
 
-  def uriencode_js_file(file)
-    js = File.read(file)
-    URI.encode_www_form_component(uglify_js(js))
+  def uri_encode(data)
+    ERB::Util.url_encode(data)
+  end
+
+  def uglify_js_file(file)
+    uglify_js(File.read(file))
   end
 
   def uglify_js(js)
@@ -35,13 +38,6 @@ module ApplicationHelper
         join_vars: true,
         collapse_vars: true
     }).compile(js)
-  end
-
-  def minify_js(js)
-    js.gsub!("\/\/.*$", "")
-    js.gsub!("\n", " ")
-    js.gsub!(/\s+/, " ")
-    js
   end
 
   # Methods from twitter-bootstrap-rails
