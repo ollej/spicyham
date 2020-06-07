@@ -24,7 +24,7 @@ module ApplicationHelper
 
   def uriencode_js_file(file)
     js = File.read(file)
-    URI::escape(uglify_js(js))
+    URI.encode_www_form_component(uglify_js(js))
   end
 
   def uglify_js(js)

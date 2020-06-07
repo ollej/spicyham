@@ -31,7 +31,7 @@ class EmailsController < ApplicationController
     # TODO: Add template helper to select most popular email in destination list.
     @email = Email.new
     begin
-      @emails = api.emails(all: params[:all])
+      @emails = api.list(all: params[:all] == "1")
     rescue Facade::Error
       flash[:error] = "Couldn't read emails for domain #{email_domain}"
       @emails = []
@@ -64,11 +64,10 @@ class EmailsController < ApplicationController
 
     begin
       api.create(email: email_params[:address], destinations: destinations)
-    rescue XMLRPC::FaultException => e
+    rescue Facade::Error => e
+      logger.error { "Email forwarding creation error: #{e.message}" }
       respond_to do |format|
-        error = Gandi::API::parse_error(e.message)
-        logger.debug { "Email forwarding creation error: #{error}" }
-        format.html { redirect_to emails_path, alert: "Couldn't create email forwarding '#{destinations}': #{error}." }
+        format.html { redirect_to emails_path, alert: "Couldn't create email forwarding '#{destinations}': #{e.message}." }
         format.json { head :no_content, status: :unprocessable_entity }
       end
       return
@@ -86,8 +85,16 @@ class EmailsController < ApplicationController
   # DELETE /emails/1
   # DELETE /emails/1.json
   def destroy
-    #@email.destroy
-    api.delete(email: email_params[:id])
+    begin
+      api.delete(email: email_params[:id])
+    rescue Facade::Error => e
+      logger.error { "Email forwarding deletion error: #{e.message}" }
+      respond_to do |format|
+        format.html { redirect_to emails_path, alert: "Couldn't remove email forwarding '#{email_params[:id]}': #{e.message}." }
+        format.json { head :no_content, status: :unprocessable_entity }
+      end
+      return
+    end
 
     destroyed_email = "#{email_params[:id]}@#{email_domain}"
     logger.info { "Deleted email: #{destroyed_email}" }
@@ -135,19 +142,20 @@ class EmailsController < ApplicationController
       destinations.split(/[\s,;]+/)
     end
 
+    def get_destinations(emails)
+      ["", find_email_destinations(emails)].flatten.sort
+    end
+
     def find_email_destinations(emails)
       destinations = Set.new
       emails.map do |email|
-        destinations.merge(email['destinations'])
+        destinations.merge(email.destinations)
       end
       destinations.to_a
     end
 
     def api
-      @api ||= Facade::Gandi.new(key: current_user.api_key || '', domain: email_domain)
-    end
-
-    def get_destinations(emails)
-      ["", find_email_destinations(emails)].flatten.sort
+      #@api ||= Facade::Gandi.new(key: current_user.api_key || '', domain: email_domain)
+      @api ||= Facade::GandiV5.new(key: current_user.api_key || '', domain: email_domain)
     end
 end
