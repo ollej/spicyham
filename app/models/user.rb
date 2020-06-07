@@ -12,13 +12,13 @@ class User < ApplicationRecord
       logger.debug { "logged in user: #{user.inspect}" }
       user
     else
-      #where(auth.slice(:provider, :uid)).first_or_create do |u|
-      #  u.provider = auth.provider
-      #  u.uid = auth.uid
-      #  u.email = auth.info.email
-      #end
-      logger.error { "--------------> User not found." }
-      return nil
+      logger.debug { "User not registered: #{auth.uid} / #{auth.info.email}" }
+      User.new(
+        provider: auth.provider,
+        uid: auth.uid,
+        email: auth.info.email,
+        password: SecureRandom.hex
+      )
     end
   end
 end
