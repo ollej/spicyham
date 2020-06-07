@@ -15,13 +15,28 @@ footer {
 }
 
 .octicon {
-  margin-bottom: 4px;
-  margin-right: 4px;
+  margin-bottom: 0.25rem;
+  margin-right: 0.25rem;
+  margin-top: 0.25em;
+}
+
+.btn-inline .octicon {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .btn-sm .octicon {
-  margin-bottom: 2px;
-  margin-right: 0px;
+  margin-bottom: 0.125rem;
+  margin-right: 0;
+  margin-top: 0;
+}
+
+.btn .octicon path {
+  fill: white;
+}
+
+.navbar .octicon {
+  margin-top: 0;
 }
 
 .navbar-light .navbar-collapse {
@@ -54,8 +69,4 @@ footer {
 
 .list-group-item {
   padding: 0.5rem 1rem;
-}
-
-.btn .octicon path {
-  fill: white;
 }

@@ -37,8 +37,9 @@
       <div class="row">
 
         <div class="col-lg-3 sidebar-nav d-none d-lg-block">
+          <% if user_signed_in? %>
           <ul class="list-group">
-            <li class="list-group-item">Sidebar</li>
+            <li class="list-group-item">Menu</li>
             <%= render partial: 'layouts/links', locals: { item_class: 'list-group-item' } %>
           </ul>
 
@@ -46,6 +47,7 @@
             <br>
             <%= render partial: "shared/bookmarklet" %>
           </div>
+          <% end %>
         </div>
 
         <div class="col-lg-9">
