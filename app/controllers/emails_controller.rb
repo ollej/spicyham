@@ -72,7 +72,7 @@ class EmailsController < ApplicationController
       logger.error { "Email forwarding creation error: #{e.message}" }
       respond_to do |format|
         format.html { redirect_to emails_path, alert: "Couldn't create email forwarding '#{destinations}': #{e.message}." }
-        format.json { head :no_content, status: :unprocessable_entity }
+        format.json { head :unprocessable_entity }
       end
       return
     end
@@ -95,7 +95,7 @@ class EmailsController < ApplicationController
       logger.error { "Email forwarding deletion error: #{e.message}" }
       respond_to do |format|
         format.html { redirect_to emails_path, alert: "Couldn't remove email forwarding '#{email_params[:id]}': #{e.message}." }
-        format.json { head :no_content, status: :unprocessable_entity }
+        format.json { head :unprocessable_entity }
       end
       return
     end
