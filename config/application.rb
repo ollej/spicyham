@@ -22,5 +22,7 @@ module Spicyham
     config.action_dispatch.rescue_responses.merge!(
       'AuthorizationException' => :unauthorized
     )
+
+    config.active_record.schema_format = :sql
   end
 end

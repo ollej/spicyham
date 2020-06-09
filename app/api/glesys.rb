@@ -10,7 +10,7 @@ require "net/https"
 require "json"
 
 # module used for implementing convenience methods for requests
-module GleSYS
+module Glesys
   extend self
 
   BASE_URL = "https://api.glesys.com"

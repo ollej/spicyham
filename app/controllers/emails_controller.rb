@@ -34,7 +34,7 @@ class EmailsController < ApplicationController
       begin
         @emails = api.list(all: params[:all] == "1")
       rescue Facade::Error
-        flash[:error] = "Couldn't read emails for domain #{email_domain}"
+        flash[:error] = "Couldn't read emails for domain #{email_domain} using #{current_user.api} API."
         @emails = []
       end
     else
@@ -159,6 +159,6 @@ class EmailsController < ApplicationController
     end
 
     def api
-      @api ||= Facade::API.create(api: Facade::API::GANDI_V5, key: current_user.api_key || '', domain: email_domain)
+      @api ||= Facade::API.create(api: current_user.api_name, key: current_user.api_key || '', domain: email_domain)
     end
 end

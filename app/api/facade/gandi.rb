@@ -1,8 +1,8 @@
 module Facade
   class Gandi
     def initialize(key:, domain:, user: nil)
-      @gandi = Gandi::API.new(ENV['GANDI_HOST'], key)
-      @email_server = Gandi::Email.new(@gandi, domain)
+      @gandi = ::Gandi::API.new(ENV['GANDI_HOST'], key)
+      @email_server = ::Gandi::Email.new(@gandi, domain)
       @domain = domain
     end
 
@@ -16,7 +16,7 @@ module Facade
         end
       rescue XMLRPC::FaultException => e
         Rails.logger.error { "Gandi::API error domain.email.list: #{e.message}" }
-        error = Gandi::parse_error(e.message)
+        error = ::Gandi::API::parse_error(e.message)
         raise Facade::Error.new(error)
       end
     end
@@ -26,7 +26,7 @@ module Facade
         @email_server.delete(email)
       rescue XMLRPC::FaultException => e
         Rails.logger.error { "Gandi::API error domain.email.delete: #{e.message}" }
-        error = Gandi::parse_error(e.message)
+        error = ::Gandi::API::parse_error(e.message)
         raise Facade::Error.new(error)
       end
     end
@@ -36,7 +36,7 @@ module Facade
         @email_server.create(email, { 'destinations' => destinations })
       rescue XMLRPC::FaultException => e
         Rails.logger.error { "Gandi::API error domain.email.create: #{e.message}" }
-        error = Gandi::parse_error(e.message)
+        error = ::Gandi::API::parse_error(e.message)
         raise Facade::Error.new(error)
       end
     end
