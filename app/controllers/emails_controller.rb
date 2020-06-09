@@ -43,6 +43,7 @@ class EmailsController < ApplicationController
     @default_email = parse_email_domain(index_params[:email])
     @destinations = get_destinations(@emails)
     @email_domain = email_domain
+    @created_email = params[:created_email]
   end
 
   # GET /emails/1
@@ -81,7 +82,7 @@ class EmailsController < ApplicationController
     logger.info { "Created email forwarding from #{created_email} to #{destinations.join(', ')}" }
 
     respond_to do |format|
-      format.html { redirect_to emails_url, notice: "Email forwarding created: #{created_email} to #{destinations.to_sentence}" }
+      format.html { redirect_to emails_path(created_email: created_email), notice: "Email forwarding created: #{created_email} to #{destinations.to_sentence}" }
       format.json { head :no_content }
     end
   end

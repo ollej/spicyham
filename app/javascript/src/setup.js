@@ -1,4 +1,5 @@
 import TestApi from "src/test-api"
+import ClipboardJS from "clipboard/dist/clipboard"
 
 $(function() {
   // Fix input element click problem
@@ -25,5 +26,7 @@ $(function() {
 
   // Setup test API button
   new TestApi(".test-api-btn").setup();
+
+  new ClipboardJS(".copy-clipboard");
 });
 

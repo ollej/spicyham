@@ -2,51 +2,8 @@
   margin-top: 1em;
 }
 
-.sidebar-nav li {
-  list-style-type: none;
-}
-
-footer {
-  margin-top: 1em;
-}
-
-.toolbar {
-  margin-bottom: 1em;
-}
-
-.octicon {
-  margin-right: 0.25rem;
-}
-
-.btn-sm .octicon {
-  margin-bottom: 0.125rem;
-  margin-right: 0;
-}
-
-.nav-item .octicon path,
-.btn-black .octicon path {
-  fill: black;
-}
-
-.octicon path {
-  fill: white;
-}
-
-.test-api-success .octicon path {
-  fill: green;
-}
-
-.test-api-failed .octicon path {
-  fill: red;
-}
-
-.navbar .octicon {
-  margin-top: 0;
-  margin-bottom: 0.25rem;
-}
-
-.navbar-light .navbar-collapse {
-  border-color: #e7e7e7;
+.container, .container-sm, .container-md {
+  max-width: 760px;
 }
 
 .navbar {
@@ -75,4 +32,58 @@ footer {
 
 .list-group-item {
   padding: 0.5rem 1rem;
+}
+
+.sidebar-nav li {
+  list-style-type: none;
+}
+
+footer {
+  margin-top: 1em;
+}
+
+.toolbar {
+  margin-bottom: 1em;
+}
+
+.navbar .octicon {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+}
+
+.octicon {
+  margin-right: 0.25rem;
+}
+
+.btn-sm .octicon {
+  margin-bottom: 0.125rem;
+  margin-right: 0;
+}
+
+.nav-item .octicon path,
+.btn-black .octicon path {
+  fill: black;
+}
+
+.btn-black:hover .octicon path {
+  fill: white;
+}
+.octicon path {
+  fill: white;
+}
+
+.test-api-success .octicon path {
+  fill: green;
+}
+
+.test-api-failed .octicon path {
+  fill: red;
+}
+
+.navbar-light .navbar-collapse {
+  border-color: #e7e7e7;
+}
+
+.combobox-container {
+  width: 100%;
 }

@@ -1,24 +1,34 @@
 <%= form_tag emails_path, method: 'post', class: 'form-inline toolbar' do %>
-  <div class="form-row">
-    <div class="col-12 col-md-5">
-      <div class="input-group">
-        <%= text_field_tag :address, @default_email, class: 'form-control',
-          placeholder: 'Address', autocapitalize: 'none', autofocus: true %>
-        <div class="input-group-append">
-          <span class="input-group-text">@<%= @email_domain %></span>
+  <div class="row w-100">
+    <div class="col-12 col-md-9">
+      <div class="form-row">
+        <div class="col-12 col-md-7">
+          <div class="input-group">
+            <%= text_field_tag :address, @default_email, class: 'form-control',
+              placeholder: 'Address', autocapitalize: 'none', autofocus: true %>
+            <div class="input-group-append">
+              <span class="input-group-text">@<%= @email_domain %></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-5">
+          <div class="input-group">
+            <%= select_tag :destinations, options_for_select(@destinations, selected: current_user.default_forward),
+              class: "form-control combobox" %>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-7 col-md-5">
-      <div class="input-group">
-        <%= select_tag :destinations, options_for_select(@destinations, selected: current_user.default_forward),
-          class: "form-control combobox" %>
-      </div>
-    </div>
-    <div class="col-5 col-md-2">
+    <div class="col-12 col-md-3">
       <button type="submit" class="btn btn-primary btn-white">
         <%= icon(:check) %> Create
       </button>
+      <% if @created_email %>
+        <%= button_tag type: "button", class: "btn btn-outline-info btn-black copy-clipboard", data: { "clipboard-text" => @created_email } do %>
+          <%= icon(:clippy) %>
+          Copy
+        <% end %>
+      <% end %>
     </div>
   </div>
 <% end %>

@@ -53,11 +53,11 @@
     <%= button_tag type: "submit", class: "btn btn-primary" do %>
       <%= icon(:check) %> Update profile
     <% end %>
-    <%= link_to test_api_path(format: :json), method: :post, class: "btn btn-outline-dark test-api-btn" do %>
+    <%= link_to test_api_path(format: :json), method: :post, class: "btn btn-black btn-outline-dark test-api-btn" do %>
       <span class="test-api-icon test-api-processing d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       <span class="test-api-icon test-api-success d-none" aria-hidden="true"><%= icon("check") %></span>
       <span class="test-api-icon test-api-failed d-none" aria-hidden="true"><%= icon("alert") %></span>
-      <span class="test-api-icon test-api-untested btn-black" aria-hidden="true"><%= icon("question") %></span>
+      <span class="test-api-icon test-api-untested" aria-hidden="true"><%= icon("question") %></span>
       Test API
     <% end %>
   </div>
