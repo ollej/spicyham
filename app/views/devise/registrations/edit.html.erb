@@ -50,12 +50,14 @@
   <% end %>
 
   <div class="actions">
-    <%= f.submit "Update", class: "btn btn-primary" %>
+    <%= button_tag type: "submit", class: "btn btn-primary" do %>
+      <%= icon(:check) %> Update profile
+    <% end %>
     <%= link_to test_api_path(format: :json), method: :post, class: "btn btn-outline-dark test-api-btn" do %>
       <span class="test-api-icon test-api-processing d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      <span class="test-api-icon test-api-success d-none" aria-hidden="true"><%= icon("check", { height: 24 }) %></span>
-      <span class="test-api-icon test-api-failed d-none" aria-hidden="true"><%= icon("alert", { height: 24 }) %></span>
-      <span class="test-api-icon test-api-untested" aria-hidden="true"><%= icon("question", { height: 24 }) %></span>
+      <span class="test-api-icon test-api-success d-none" aria-hidden="true"><%= icon("check") %></span>
+      <span class="test-api-icon test-api-failed d-none" aria-hidden="true"><%= icon("alert") %></span>
+      <span class="test-api-icon test-api-untested btn-black" aria-hidden="true"><%= icon("question") %></span>
       Test API
     <% end %>
   </div>
@@ -64,4 +66,8 @@
 
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", delete_user_registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %></p>
+<p>If you don't want to use this service anymore, you can cancel your account.</p>
+<%= button_to delete_user_registration_path(resource_name), method: :delete,
+  data: { confirm: "Are you sure?" }, class: "btn btn-danger" do %>
+  <%= icon(:stop) %> Cancel my account
+<% end %>

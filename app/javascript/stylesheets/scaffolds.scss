@@ -23,7 +23,12 @@ footer {
   margin-right: 0;
 }
 
-.btn-white .octicon path {
+.nav-item .octicon path,
+.btn-black .octicon path {
+  fill: black;
+}
+
+.octicon path {
   fill: white;
 }
 

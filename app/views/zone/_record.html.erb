@@ -5,7 +5,7 @@
   </div>
   <div class="form-group">
     <%= label_tag :type, nil, class: 'col-form-label' %>
-    <%= select_tag :type, options_for_select(Gandi::TYPE::all) %>
+    <%= select_tag :type, options_for_select(Gandi::TYPE::all), class: "custom-select" %>
   </div>
   <div class="form-group">
     <%= label_tag :value, nil, class: 'col-form-label' %>
