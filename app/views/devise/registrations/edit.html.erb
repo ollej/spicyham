@@ -27,7 +27,7 @@
   <div class="form-group row">
     <%= f.label "API", class: "col-sm-3 col-form-label" %><br />
     <div class="col-sm-9">
-      <%= f.select :api, User.apis, selected: resource.api_name, class: "form-control" %>
+      <%= f.select :api, User.apis, { selected: resource.api_name }, { class: "custom-select" } %>
     </div>
   </div>
 
