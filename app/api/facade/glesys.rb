@@ -12,10 +12,10 @@ module Facade
 
     def list(all: false, per_page: 50)
       begin
-        result = request_and_parse("list")
+        result = request_and_parse("list", domainname: @domain)
         return result["emailaliases"].map do |emailalias|
           Facade::Forwarding.new(
-            source: emailalias["emailalias"],
+            source: emailalias["emailalias"].gsub(/@#{Regexp.escape(@domain)}\z/, ""),
             domain: @domain,
             destinations: [emailalias["goto"]]
           )
@@ -29,7 +29,7 @@ module Facade
     def delete(email:)
       begin
         request_and_parse("delete", {
-          "email" => "#{email}@#{@domain}"
+          "email" => "#{email}@#{@domain}",
         })
       rescue ::Glesys::Error => e
         Rails.logger.error { "Glesys error email alias delete: #{e}" }

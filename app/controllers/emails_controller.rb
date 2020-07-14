@@ -160,6 +160,11 @@ class EmailsController < ApplicationController
     end
 
     def api
-      @api ||= Facade::API.create(api: current_user.api_name, key: current_user.api_key || '', domain: email_domain)
+      @api ||= Facade::API.create(
+        api: current_user.api_name,
+        key: current_user.api_key || '',
+        user: current_user.api_user,
+        domain: email_domain
+      )
     end
 end
