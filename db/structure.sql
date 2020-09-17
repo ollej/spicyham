@@ -102,7 +102,8 @@ CREATE TABLE public.users (
     domain character varying,
     api_user character varying,
     api_key character varying,
-    api public.api_enum
+    api public.api_enum,
+    alias_template character varying DEFAULT '{DOMAIN}'::character varying
 );
 
 
@@ -196,6 +197,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20131024201803'),
 ('20200603230312'),
 ('20200606213308'),
-('20200609140731');
+('20200609140731'),
+('20200917131413');
 
 

@@ -4,8 +4,8 @@
       <div class="form-row">
         <div class="col-12 col-md-7">
           <div class="input-group">
-            <%= text_field_tag :address, @default_email, class: 'form-control',
-              placeholder: 'Address', autocapitalize: 'none', autofocus: true %>
+            <%= text_field_tag :address, @email_alias, class: 'form-control',
+              placeholder: 'Alias', autocapitalize: 'none', autofocus: true %>
             <div class="input-group-append">
               <span class="input-group-text">@<%= @email_domain %></span>
             </div>

@@ -45,6 +45,25 @@
     </div>
   </div>
 
+  <div class="form-group row">
+    <%= f.label "Alias Template", class: "col-sm-3 col-form-label" %><br />
+    <div class="col-sm-9">
+      <%= f.text_field :alias_template, class: "form-control" %>
+    <small>
+      <p>
+      Template used to generate email alias. Any text that is not one of
+      the replacements will be used verbatim.
+      Replacements:
+      <b>{DOMAIN}</b> is replaced with main part of domain.
+      <b>{UUID}</b> is replaced with a UUID.
+      <b>{RANDOM}</b> is replaced with a random number.
+      <b>{ALPHA}</b> is replaced with random alphanumeric characters.
+      <b>{HEX}</b> is replaced with a hexadecimal number.
+      </p>
+    </small>
+    </div>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>

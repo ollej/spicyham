@@ -40,7 +40,7 @@ class EmailsController < ApplicationController
     else
       @emails = []
     end
-    @default_email = parse_email_domain(index_params[:email])
+    @email_alias = AliasTemplate.new(index_params[:email], current_user.alias_template).generate
     @destinations = get_destinations(@emails)
     @email_domain = email_domain
     @created_email = params[:created_email]
@@ -123,24 +123,6 @@ class EmailsController < ApplicationController
 
     def index_params
       params.permit(:email)
-    end
-
-    def parse_email_domain(email)
-      if email
-        return email.gsub(/^https?:\/\//, "") # Strip protocol
-          .gsub(/#.*$/, "") # Strip all after anchor
-          .gsub(/\?.*$/, "") # Strip argument list
-          .gsub(/\/.*/, "") # Strip from first slash
-          .gsub(/:\d+$/, "") # Strip port
-          .gsub(/@/, "") # Strip @
-          .gsub(/www\./, "") # Strip sub-domain
-          .gsub(/.(?:co|org|ltd|gov|net|me|mil|ac|mod|nhs|nic|plc|sch)(.uk)$/, '\1') # Strip second level TLD in UK
-          .gsub(/.(?:com|net|org|edu|gov|asn|id|csiro)(.au)$/, '\1') # Strip second level TLD in AU
-          .gsub(/.(?:co|or|priv|ac|gv)(.at)$/, '\1') # Strip second level TLD in AT
-          .gsub(/.(ac|co|geek|gen|kiwi|maori|net|org|school|cri|govt|health|iwi|mil|parliament)(.nz)$/, '\1') # Strip second level TLD in NZ
-          .gsub(/\.[^.]*$/, "") # Strip TLD
-          .gsub(/^.*\./, "") # Leave last sub-domain
-      end
     end
 
     def parse_destinations(destinations)
