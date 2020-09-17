@@ -21,6 +21,9 @@
     "resolve-url-loader": "^3.1.1",
     "node-forge": "^0.10.0"
   },
+  "engines": {
+    "node": "14.11.0"
+  },
   "devDependencies": {
     "webpack-dev-server": "^3.11.0"
   }
