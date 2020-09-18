@@ -4,20 +4,20 @@ class AliasTemplate
 
   def initialize(url, template)
     @url = url
-    @template = template
+    @template = template.presence || "{DOMAIN}"
   end
 
   def generate
     @template
       .gsub(/{DOMAIN}/, parse_email_domain(@url))
-      .gsub(/{RANDOM}/, generate_random_string(LENGTH))
+      .gsub(/{RANDOM}/, generate_random_numbers(LENGTH))
       .gsub(/{UUID}/, SecureRandom.uuid)
       .gsub(/{ALPHA}/, SecureRandom.alphanumeric(LENGTH))
       .gsub(/{HEX}/, SecureRandom.hex(LENGTH/2))
   end
 
   private
-  def generate_random_string(length = 8)
+  def generate_random_numbers(length = 8)
     length.times.map{SecureRandom.rand(10)}.join
   end
 
