@@ -1,6 +1,9 @@
 class EmailsController < ApplicationController
   before_action :authenticate_user!
   #before_action :set_email, only: [:show, :edit, :update, :destroy]
+
+  RANDOM_LENGTH = 16
+
   # TODO: Create Email class instead of calling @gandi directly.
   # TODO: Support editing forwards for other domains.
 
@@ -32,7 +35,7 @@ class EmailsController < ApplicationController
     @email = Email.new
     if user_signed_in? && current_user.api_key.present?
       begin
-        @emails = api.list(all: params[:all] == "1")
+        @emails = api.list(all: index_params[:all] == "1")
       rescue Facade::Error
         flash[:error] = "Couldn't read emails for domain #{email_domain} using #{current_user.api} API."
         @emails = []
@@ -43,7 +46,7 @@ class EmailsController < ApplicationController
     @email_alias = AliasTemplate.new(index_params[:email], current_user.alias_template).generate
     @destinations = get_destinations(@emails)
     @email_domain = email_domain
-    @created_email = params[:created_email]
+    @created_email = index_params[:created_email]
   end
 
   # GET /emails/1
@@ -64,13 +67,13 @@ class EmailsController < ApplicationController
   # POST /emails.json
   def create
     #@email = Email.new(email_params)
-    created_email = "#{email_params[:address]}@#{email_domain}"
+    created_email = build_email(email_alias)
     logger.debug { "Create email alias #{created_email}" }
     destinations = parse_destinations(email_params[:destinations])
     logger.debug { "Destinations: #{destinations.to_sentence}" }
 
     begin
-      api.create(email: email_params[:address], destinations: destinations)
+      api.create(email: email_alias, destinations: destinations)
     rescue Facade::Error => e
       logger.error { "Email forwarding creation error: #{e.message}" }
       respond_to do |format|
@@ -95,18 +98,18 @@ class EmailsController < ApplicationController
   # DELETE /emails/1
   # DELETE /emails/1.json
   def destroy
+    destroyed_email = build_email(email_params[:id])
     begin
       api.delete(email: email_params[:id])
     rescue Facade::Error => e
-      logger.error { "Email forwarding deletion error: #{e.message}" }
+      logger.error { "Error deleting email alias #{destroyed_email}: #{e.message}" }
       respond_to do |format|
-        format.html { redirect_to emails_path, alert: "Couldn't remove email forwarding '#{email_params[:id]}': #{e.message}." }
+        format.html { redirect_to emails_path, alert: "Couldn't remove email forwarding '#{destroyed_email}': #{e.message}." }
         format.json { head :unprocessable_entity }
       end
       return
     end
 
-    destroyed_email = "#{email_params[:id]}@#{email_domain}"
     logger.info { "Deleted email: #{destroyed_email}" }
 
     respond_to do |format|
@@ -127,7 +130,15 @@ class EmailsController < ApplicationController
     end
 
     def index_params
-      params.permit(:email)
+      params.permit(:email, :all, :created_email)
+    end
+
+    def email_alias
+      @email_alias ||= email_params[:address].presence || SecureRandom.alphanumeric(RANDOM_LENGTH)
+    end
+
+    def build_email(email_alias)
+      "#{email_alias}@#{email_domain}"
     end
 
     def parse_destinations(destinations)
