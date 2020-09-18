@@ -64,25 +64,30 @@ class EmailsController < ApplicationController
   # POST /emails.json
   def create
     #@email = Email.new(email_params)
+    created_email = "#{email_params[:address]}@#{email_domain}"
+    logger.debug { "Create email alias #{created_email}" }
     destinations = parse_destinations(email_params[:destinations])
-    logger.debug { "Destinations: #{destinations.inspect}" }
+    logger.debug { "Destinations: #{destinations.to_sentence}" }
 
     begin
       api.create(email: email_params[:address], destinations: destinations)
     rescue Facade::Error => e
       logger.error { "Email forwarding creation error: #{e.message}" }
       respond_to do |format|
-        format.html { redirect_to emails_path, alert: "Couldn't create email forwarding '#{destinations}': #{e.message}." }
+        format.html {
+          redirect_to emails_path(created_email: created_email),
+            alert: "Couldn't create email alias #{created_email} forwarding to #{destinations.to_sentence}. Reason: #{e.message}." }
         format.json { head :unprocessable_entity }
       end
       return
     end
 
-    created_email = "#{email_params[:address]}@#{email_domain}"
-    logger.info { "Created email forwarding from #{created_email} to #{destinations.join(', ')}" }
+    logger.info { "Created email forwarding from #{created_email} to #{destinations.to_sentence}" }
 
     respond_to do |format|
-      format.html { redirect_to emails_path(created_email: created_email), notice: "Email forwarding created: #{created_email} to #{destinations.to_sentence}" }
+      format.html {
+        redirect_to emails_path(created_email: created_email),
+          notice: "Email alias created forwarding from #{created_email} to #{destinations.to_sentence}" }
       format.json { head :no_content }
     end
   end
