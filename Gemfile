@@ -10,9 +10,11 @@ gem 'pg'
 gem 'xmlrpc'
 gem 'devise'
 gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 gem 'octicons_helper'
 gem 'uglifier'
 gem 'gandi_v5', '0.5.0'
+gem 'psych', '< 4'
 
 # Use unicorn as the app server
 gem 'unicorn-rails', '~> 2.2.1'

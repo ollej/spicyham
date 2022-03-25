@@ -23,6 +23,6 @@
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%= link_to icon(:person) + " Sign in with #{provider.to_s.titleize}",
       omniauth_authorize_path(resource_name, provider),
-      class: 'btn btn-primary btn-lg' %><br />
+      method: :post, class: 'btn btn-primary btn-lg' %><br />
   <% end -%>
 <% end -%>
