@@ -5,7 +5,7 @@ A small web app to modify domains and zones on Gandi.
 
 ### Requirements
 
- * Ruby v2.7.5
+ * Ruby v2.7.8
  * Rails 6.0
  * Postgres 12
  * Gandi API Key
