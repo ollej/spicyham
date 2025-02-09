@@ -1,3 +1,5 @@
+require "active_support/core_ext/integer/time"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -12,7 +14,7 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  # Enable server timing
+  # Enable server timing.
   config.server_timing = true
 
   # Enable/disable caching. By default caching is disabled.
@@ -22,9 +24,7 @@ Rails.application.configure do
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
-    config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}"
-    }
+    config.public_file_server.headers = { "Cache-Control" => "public, max-age=#{2.days.to_i}" }
   else
     config.action_controller.perform_caching = false
 
@@ -34,7 +34,11 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Disable caching for Action Mailer templates even if Action Controller
+  # caching is enabled.
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.default_url_options = { host: "localhost", port: 1234 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -60,7 +64,7 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   config.action_view.annotate_rendered_view_with_filenames = true
 
-  # Raise error when a before_action's only/except options reference missing actions
+  # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
