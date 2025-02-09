@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum api: { 'Gandi XML/RPC' => 'gandixmlrpc', 'Gandi v5' => 'gandiv5', 'Glesys' => 'glesys' }
+  enum :api, { 'Gandi XML/RPC' => 'gandixmlrpc', 'Gandi v5' => 'gandiv5', 'Glesys' => 'glesys' }
   validates :api, inclusion: { in: apis.keys }, allow_nil: true
 
   # Include default devise modules. Others available are:
