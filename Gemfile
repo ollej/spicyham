@@ -26,9 +26,6 @@ end
 # Use webpacker for assets
 gem "webpacker", "~> 5.1"
 
-# Fix needed until Rails 7.1
-gem "concurrent-ruby", "1.3.4"
-
 # Needed for Ruby 3.4.x
 gem "rexml"
 
