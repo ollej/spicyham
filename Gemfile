@@ -24,7 +24,7 @@ group :production do
 end
 
 # Use webpacker for assets
-gem "webpacker", "~> 5.1"
+gem "webpacker", "~> 5.4.4"
 
 # Needed for Ruby 3.4.x
 gem "rexml"

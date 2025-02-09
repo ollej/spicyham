@@ -218,7 +218,7 @@ GEM
     rack-protection (3.2.0)
       base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
-    rack-proxy (0.7.2)
+    rack-proxy (0.7.7)
       rack
     rack-session (1.0.2)
       rack (< 3)
@@ -282,7 +282,7 @@ GEM
     sdoc (1.1.0)
       rdoc (>= 5.0)
     securerandom (0.4.1)
-    semantic_range (3.0.0)
+    semantic_range (3.1.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
@@ -303,7 +303,7 @@ GEM
     version_gem (1.1.4)
     warden (1.2.9)
       rack (>= 2.0.9)
-    webpacker (5.4.3)
+    webpacker (5.4.4)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
@@ -340,7 +340,7 @@ DEPENDENCIES
   sdoc
   uglifier
   unicorn-rails (~> 2.2.1)
-  webpacker (~> 5.1)
+  webpacker (~> 5.4.4)
   xmlrpc
 
 RUBY VERSION
