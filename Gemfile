@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.7.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.0.4.7'
+gem 'rails', '6.0.6.1'
 gem 'bootsnap', require: false
 
 gem 'pg'
@@ -27,7 +27,7 @@ end
 gem "webpacker", "~> 5.1"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', platforms: :ruby
+#gem 'therubyracer', platforms: :ruby
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
