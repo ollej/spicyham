@@ -160,7 +160,7 @@ GEM
     mutex_m (0.3.0)
     net-http (0.6.0)
       uri
-    net-imap (0.4.19)
+    net-imap (0.5.6)
       date
       net-protocol
     net-pop (0.1.2)
@@ -181,11 +181,11 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    octicons (11.0.0)
-      nokogiri (>= 1.6.3.1)
-    octicons_helper (11.0.0)
-      octicons (= 11.0.0)
-      rails
+    octicons (19.15.0)
+    octicons_helper (19.15.0)
+      actionview
+      octicons (= 19.15.0)
+      railties
     omniauth (2.1.2)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
