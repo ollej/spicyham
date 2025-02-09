@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.7.8'
+ruby '3.4.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '7.1.5.1'
@@ -13,8 +13,8 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'octicons_helper'
 gem 'uglifier'
-gem 'gandi_v5', '0.5.0'
-gem 'psych', '< 4'
+gem 'gandi_v5'
+gem 'psych'
 
 # Use unicorn as the app server
 gem 'unicorn-rails', '~> 2.2.1'
@@ -29,6 +29,9 @@ gem "webpacker", "~> 5.1"
 # Fix needed until Rails 7.1
 gem "concurrent-ruby", "1.3.4"
 
+# Needed for Ruby 3.4.x
+gem "rexml"
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 #gem 'therubyracer', platforms: :ruby
 
@@ -37,6 +40,9 @@ gem "concurrent-ruby", "1.3.4"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
+
+# missing gems
+gem 'ostruct'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
