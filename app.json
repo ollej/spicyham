@@ -2,7 +2,7 @@
   "name": "Spicyham",
   "description": "A service to setup email aliases for every service you sign up to.",
   "keywords": [
-    "email",
+    "email"
   ],
   "healthchecks": {
     "web": [
