@@ -956,6 +956,13 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@primer/octicons@^19.15.0":
+  version "19.15.0"
+  resolved "https://registry.yarnpkg.com/@primer/octicons/-/octicons-19.15.0.tgz#995ac47d2b12e57c01682f331184f9e6e9d5f9a1"
+  integrity sha512-WaZ3Qno+MJZh0skrZ8nEfYJdrqTLuxxHxJqHjhc/QRLNojcHq57njtqOt9H8d0dCGAem2stQJ3nAK8893Hz5pA==
+  dependencies:
+    object-assign "^4.1.1"
+
 "@rails/ujs@^7.1.501":
   version "7.1.501"
   resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-7.1.501.tgz#e560a7b6885a12a659c4beb47f4336c8a9353056"
@@ -5516,7 +5523,7 @@ num2fraction@^1.2.2:
   resolved "https://registry.npmjs.org/num2fraction/-/num2fraction-1.2.2.tgz"
   integrity sha1-b2gragJ6Tp3fpFZM0lidHU5mnt4=
 
-object-assign@^4.0.1, object-assign@^4.1.0:
+object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
   integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=

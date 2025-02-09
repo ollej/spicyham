@@ -9,6 +9,7 @@
     "url": "https://github.com/ollej"
   },
   "dependencies": {
+    "@primer/octicons": "^19.15.0",
     "@rails/ujs": "^7.1.501",
     "@rails/webpacker": "5.4.3",
     "babel": "^5.8.38",
