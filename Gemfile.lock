@@ -101,7 +101,7 @@ GEM
     dotenv (2.8.1)
     drb (2.2.1)
     erubi (1.13.1)
-    execjs (2.7.0)
+    execjs (2.10.0)
     faraday (2.12.2)
       faraday-net_http (>= 2.0, < 3.5)
       json
@@ -290,7 +290,7 @@ GEM
     timeout (0.4.3)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
+    uglifier (4.2.1)
       execjs (>= 0.3.0, < 3)
     unicorn (5.7.0)
       kgio (~> 2.6)
