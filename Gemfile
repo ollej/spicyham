@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.7.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.0.6.1'
+gem 'rails', '7.1.5.1'
 gem 'bootsnap', require: false
 
 gem 'pg'
@@ -25,6 +25,9 @@ end
 
 # Use webpacker for assets
 gem "webpacker", "~> 5.1"
+
+# Fix needed until Rails 7.1
+gem "concurrent-ruby", "1.3.4"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 #gem 'therubyracer', platforms: :ruby
