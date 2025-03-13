@@ -20,7 +20,7 @@ module Facade
             destinations: forward.destinations
           )
         end
-      rescue RestClient::Unauthorized, RestClient::Forbidden, RestClient::NotFound, ::GandiV5::Error, JSON::ParserError => e
+      rescue RestClient::Unauthorized, RestClient::Forbidden, RestClient::NotFound, RestClient::InternalServerError, XMLRPC::FaultException, ::GandiV5::Error, JSON::ParserError => e
         Rails.logger.error { "GandiV5 error email forward list: #{e}" }
         raise Facade::Error.new(e.message)
       end
@@ -29,7 +29,7 @@ module Facade
     def delete(email:)
       begin
         ::GandiV5::Email::Forward.new(fqdn: @domain, source: email).delete
-      rescue RestClient::Unauthorized, RestClient::Forbidden, RestClient::NotFound, ::GandiV5::Error, JSON::ParserError => e
+      rescue RestClient::Unauthorized, RestClient::Forbidden, RestClient::NotFound, RestClient::InternalServerError, XMLRPC::FaultException, ::GandiV5::Error, JSON::ParserError => e
         Rails.logger.error { "GandiV5 error email forward delete: #{e}" }
         raise Facade::Error.new(e.message)
       end
@@ -38,7 +38,7 @@ module Facade
     def create(email:, destinations:)
       begin
         ::GandiV5::Email::Forward.create(@domain, email, *destinations)
-      rescue RestClient::Unauthorized, RestClient::Forbidden, RestClient::NotFound, ::GandiV5::Error, JSON::ParserError => e
+      rescue RestClient::Unauthorized, RestClient::Forbidden, RestClient::NotFound, RestClient::InternalServerError, XMLRPC::FaultException, ::GandiV5::Error, JSON::ParserError => e
         Rails.logger.error { "GandiV5 error email forward create: #{e}" }
         raise Facade::Error.new(e.message)
       end
