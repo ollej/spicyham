@@ -15,6 +15,7 @@ gem 'octicons_helper'
 gem 'uglifier'
 gem 'gandi_v5'
 gem 'psych'
+gem 'puma'
 
 group :production do
   gem 'rails_12factor'
