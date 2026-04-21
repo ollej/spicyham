@@ -3,12 +3,14 @@ Spicyham
 
 A small web app to modify domains and zones on Gandi.
 
+It also supports editing email aliases on Migadu and Glesys.
+
 ### Requirements
 
  * Ruby v3.4.1
- * Rails 7.1
+ * Rails 8.0
  * Postgres 12
- * Gandi API Key
+ * API Key for Migadu, Glesys or Gandi
  * Google Auth Key
 
 ### Setup
