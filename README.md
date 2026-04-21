@@ -7,7 +7,7 @@ It also supports editing email aliases on Migadu and Glesys.
 
 ### Requirements
 
- * Ruby v3.4.1
+ * Ruby v3.4.9
  * Rails 8.0
  * Postgres 12
  * API Key for Migadu, Glesys or Gandi
