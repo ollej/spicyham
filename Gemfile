@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.4.9'
+ruby '4.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '8.1.3'
@@ -15,9 +15,6 @@ gem 'octicons_helper'
 gem 'uglifier'
 gem 'gandi_v5'
 gem 'psych'
-
-# Use unicorn as the app server
-gem 'unicorn-rails', '~> 2.2.1'
 
 group :production do
   gem 'rails_12factor'
