@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '3.4.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '8.0.1'
+gem 'rails', '8.0.5'
 gem 'bootsnap', require: false
 
 gem 'pg'
