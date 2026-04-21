@@ -11,7 +11,7 @@ module Facade
     def list(all: false, per_page: 50)
       begin
         result = request_and_parse(:get, "domains/#{@domain}/aliases")
-        return result["address_aliases"].map do |a|
+        result["address_aliases"].sort_by { |a| a["local_part"] }.map do |a|
           Facade::Forwarding.new(
             source: a["local_part"],
             domain: @domain,

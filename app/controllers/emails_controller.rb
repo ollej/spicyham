@@ -33,15 +33,13 @@ class EmailsController < ApplicationController
     #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
     # TODO: Add template helper to select most popular email in destination list.
     @email = Email.new
+    @emails = []
     if user_signed_in? && current_user.api_key.present?
       begin
         @emails = api.list(all: index_params[:all] == "1")
       rescue Facade::Error
         flash[:error] = "Couldn't read emails for domain #{email_domain} using #{current_user.api} API."
-        @emails = []
       end
-    else
-      @emails = []
     end
     @email_alias = AliasTemplate.new(index_params[:email], current_user.alias_template).generate
     @destinations = get_destinations(@emails)
@@ -146,7 +144,7 @@ class EmailsController < ApplicationController
     end
 
     def get_destinations(emails)
-      ["", find_email_destinations(emails)].flatten.sort
+      ["", current_user&.default_forward, find_email_destinations(emails)].flatten.compact.sort
     end
 
     def find_email_destinations(emails)
