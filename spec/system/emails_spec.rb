@@ -104,4 +104,51 @@ RSpec.describe "Emails", type: :system do
 
     expect(page).to have_content("Couldn't remove email forwarding")
   end
+
+  it "dismisses flash alert when close button is clicked" do
+    allow(mock_api).to receive(:list).and_return([], [])
+    allow(mock_api).to receive(:delete)
+
+    forwarding = Facade::Forwarding.new(
+      source: 'testalias', domain: 'example.com', destinations: ['fwd@example.com']
+    )
+    allow(mock_api).to receive(:list).and_return([forwarding], [])
+    allow(mock_api).to receive(:delete)
+
+    visit emails_path
+    accept_confirm { click_link "Delete" }
+
+    expect(page).to have_content("Email forwarding removed")
+    find("[data-action='click->alert#dismiss']").click
+    expect(page).not_to have_content("Email forwarding removed")
+  end
+
+  it "shows combobox dropdown when typing in destination field" do
+    forwarding = Facade::Forwarding.new(
+      source: 'existing', domain: 'example.com', destinations: ['alice@example.com']
+    )
+    allow(mock_api).to receive(:list).and_return([forwarding])
+
+    visit emails_path
+    combobox_input = find("[data-combobox-target='input']")
+    combobox_input.click
+
+    expect(page).to have_css("[data-combobox-target='list']:not(.hidden)")
+  end
+
+  it "selects destination from combobox dropdown" do
+    forwarding = Facade::Forwarding.new(
+      source: 'existing', domain: 'example.com', destinations: ['alice@example.com']
+    )
+    allow(mock_api).to receive(:list).and_return([forwarding])
+    allow(mock_api).to receive(:create)
+
+    visit emails_path
+    combobox_input = find("[data-combobox-target='input']")
+    combobox_input.click
+    find("[data-combobox-target='option']", text: "alice@example.com").click
+
+    expect(combobox_input.value).to eq("alice@example.com")
+    expect(find("[data-combobox-target='hidden']", visible: false).value).to eq("alice@example.com")
+  end
 end

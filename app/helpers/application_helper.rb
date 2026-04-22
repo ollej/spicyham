@@ -96,11 +96,12 @@ module ApplicationHelper
       Array(message).each do |msg|
         next unless msg
         messages << content_tag(:div, role: "alert",
+          data: { controller: "alert" },
           class: "border rounded p-4 mb-4 flex justify-between items-start #{style}") do
           content_tag(:span, msg) +
           content_tag(:button, raw("&times;"), type: "button",
             class: "ml-4 text-lg leading-none opacity-50 hover:opacity-100",
-            "data-dismiss-alert" => true, "aria-label" => "Close")
+            data: { action: "click->alert#dismiss" }, "aria-label" => "Close")
         end
       end
     end

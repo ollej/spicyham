@@ -1,10 +1,10 @@
 <h1 class="text-2xl font-bold mb-4">Records</h1>
 
-<div class="relative inline-block mb-4" data-dropdown>
-  <button type="button" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-dropdown-toggle>
+<div class="relative inline-block mb-4" data-controller="dropdown">
+  <button type="button" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" data-action="click->dropdown#toggle">
     <%= icon(:plus) %> New record <span class="ml-1">&#9662;</span>
   </button>
-  <div class="hidden absolute z-10 mt-1 w-72 bg-white border rounded shadow-lg p-4" data-dropdown-menu>
+  <div class="hidden absolute z-10 mt-1 w-72 bg-white border rounded shadow-lg p-4" data-dropdown-target="menu">
     <%= render "record" %>
   </div>
 </div>

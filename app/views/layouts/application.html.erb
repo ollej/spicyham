@@ -16,15 +16,15 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body class="bg-white text-gray-900">
-    <nav class="bg-gray-100 shadow-sm py-2">
+    <nav class="bg-gray-100 shadow-sm py-2" data-controller="toggle">
       <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
         <div class="flex items-center">
-          <button type="button" class="md:hidden mr-2 text-gray-600" data-navbar-toggle>
+          <button type="button" class="md:hidden mr-2 text-gray-600" data-action="click->toggle#toggle">
             &#x2630;
           </button>
           <a class="text-xl font-bold text-gray-800" href="<%= root_path %>">Spicyham</a>
         </div>
-        <div class="hidden md:flex space-x-1" data-navbar-menu>
+        <div class="hidden md:flex space-x-1" data-toggle-target="menu">
           <%= render partial: 'layouts/links', locals: { item_class: 'px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded' } %>
         </div>
       </div>
