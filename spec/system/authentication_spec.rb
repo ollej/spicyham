@@ -16,4 +16,19 @@ RSpec.describe "Authentication", type: :system do
     visit emails_path
     expect(page).to have_content("Email forwards")
   end
+
+  it "signed-in user can log out" do
+    user = create(:user)
+    sign_in user
+
+    mock_api = double("Facade::API", list: [])
+    allow(Facade::API).to receive(:create).and_return(mock_api)
+
+    visit emails_path
+    within("nav") do
+      click_link "Log Out"
+    end
+
+    expect(page).to have_current_path(new_user_session_path)
+  end
 end
