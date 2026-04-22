@@ -25,12 +25,12 @@ RSpec.describe ApplicationHelper, type: :helper do
 
   describe '#icon' do
     it "delegates to lucide_icon with default size 24" do
-      expect(helper).to receive(:lucide_icon).with(:check, class: "inline-block", size: 24)
+      expect(helper).to receive(:lucide_icon).with(:check, class: "inline-block mr-1", size: 24)
       helper.icon(:check)
     end
 
     it "allows overriding size via height option" do
-      expect(helper).to receive(:lucide_icon).with(:check, class: "inline-block", size: 16)
+      expect(helper).to receive(:lucide_icon).with(:check, class: "inline-block mr-1", size: 16)
       helper.icon(:check, height: 16)
     end
   end

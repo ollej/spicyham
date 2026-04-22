@@ -11,9 +11,10 @@
         <%= icon("mail", height: 24) %> <span class="ml-2">Go to Emails</span>
       <% end %>
     <% else %>
-      <%= link_to new_user_session_path,
-        class: "inline-flex items-center bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg text-lg hover:bg-purple-50 shadow-lg" do %>
-        <%= icon("log-in", height: 24) %> <span class="ml-2">Get started</span>
+      <%= button_to user_google_oauth2_omniauth_authorize_path,
+        form: { data: { turbo: false }, class: "inline" },
+        class: "inline-flex items-center bg-white text-purple-700 font-semibold px-8 py-4 rounded-lg text-lg hover:bg-purple-50 shadow-lg cursor-pointer" do %>
+        <%= icon("log-in", height: 24) %> <span class="ml-2">Sign in with Google</span>
       <% end %>
     <% end %>
   </div>
@@ -84,12 +85,13 @@
 
 <%# CTA Section (unauthenticated only) %>
 <% unless user_signed_in? %>
-  <div class="bg-gray-900 text-white py-12 -mx-4 px-4 rounded-lg text-center">
+  <div class="bg-gray-800 text-white py-12 px-4 rounded-lg text-center">
     <h2 class="text-2xl sm:text-3xl font-bold mb-4">Ready to protect your email?</h2>
     <p class="text-gray-300 mb-6">Sign in to start creating email aliases in seconds.</p>
-    <%= link_to new_user_session_path,
-      class: "inline-flex items-center bg-purple-600 text-white font-semibold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 shadow-lg" do %>
-      <%= icon("log-in", height: 24) %> <span class="ml-2">Sign in</span>
+    <%= button_to user_google_oauth2_omniauth_authorize_path,
+      form: { data: { turbo: false }, class: "inline" },
+      class: "inline-flex items-center bg-purple-600 text-white font-semibold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 shadow-lg cursor-pointer" do %>
+      <%= icon("log-in", height: 24) %> <span class="ml-2">Sign in with Google</span>
     <% end %>
   </div>
 <% end %>

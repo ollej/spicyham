@@ -18,16 +18,24 @@ RSpec.describe "Home", type: :system do
       expect(page).to have_css("img[alt='Glesys']")
     end
 
-    it "shows Get started CTA in hero linking to sign-in" do
+    it "shows Sign in with Google button in hero" do
       visit home_path
-      click_link "Get started"
-      expect(page).to have_current_path(new_user_session_path)
+      expect(page).to have_button("Sign in with Google")
     end
 
-    it "shows CTA section with Sign in button" do
+    it "shows CTA section with Sign in with Google button" do
       visit home_path
       expect(page).to have_content("Ready to protect your email?")
-      expect(page).to have_link("Sign in")
+      expect(page).to have_button("Sign in with Google")
+    end
+
+    it "has OAuth buttons as real form POSTs with Turbo disabled" do
+      visit home_path
+      forms = all("form[action*='google_oauth2']")
+      forms.each do |form|
+        expect(form['method']).to eq('post')
+        expect(form['data-turbo']).to eq('false')
+      end
     end
   end
 
