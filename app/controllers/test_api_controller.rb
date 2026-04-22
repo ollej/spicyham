@@ -19,7 +19,7 @@ class TestAPIController < ApplicationController
       if success
         format.json { head :no_content }
       else
-        format.json { head :unprocessable_entity }
+        format.json { head :unprocessable_content }
       end
     end
   end

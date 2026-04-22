@@ -78,7 +78,7 @@ class EmailsController < ApplicationController
         format.html {
           redirect_to emails_path(created_email: created_email),
             alert: "Couldn't create email alias #{created_email} forwarding to #{destinations.to_sentence}. Reason: #{e.message}." }
-        format.json { head :unprocessable_entity }
+        format.json { head :unprocessable_content }
       end
       return
     end
@@ -103,7 +103,7 @@ class EmailsController < ApplicationController
       logger.error { "Error deleting email alias #{destroyed_email}: #{e.message}" }
       respond_to do |format|
         format.html { redirect_to emails_path, alert: "Couldn't remove email forwarding '#{destroyed_email}': #{e.message}." }
-        format.json { head :unprocessable_entity }
+        format.json { head :unprocessable_content }
       end
       return
     end

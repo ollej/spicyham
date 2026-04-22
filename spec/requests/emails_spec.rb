@@ -97,11 +97,11 @@ RSpec.describe "Emails", type: :request do
       expect(response).to have_http_status(:no_content)
     end
 
-    it "returns unprocessable_entity for JSON on API error" do
+    it "returns unprocessable_content for JSON on API error" do
       allow(mock_api).to receive(:create).and_raise(Facade::Error, "fail")
 
       post emails_path(format: :json), params: { address: 'fail', destinations: 'fwd@example.com' }
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -127,11 +127,11 @@ RSpec.describe "Emails", type: :request do
       expect(response).to have_http_status(:no_content)
     end
 
-    it "returns unprocessable_entity for JSON on API error" do
+    it "returns unprocessable_content for JSON on API error" do
       allow(mock_api).to receive(:delete).and_raise(Facade::Error, "fail")
 
       delete email_path('testalias', format: :json)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end

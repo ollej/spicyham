@@ -21,13 +21,13 @@ RSpec.describe "TestAPI", type: :request do
       expect(response).to have_http_status(:no_content)
     end
 
-    it "returns unprocessable_entity on Facade::Error" do
+    it "returns unprocessable_content on Facade::Error" do
       mock_api = double("Facade::API")
       allow(mock_api).to receive(:list).and_raise(Facade::Error, "Auth failed")
       allow(Facade::API).to receive(:create).and_return(mock_api)
 
       post "/test_api", params: { api: 'gandiv5', api_key: 'bad', domain: 'test.com' }, as: :json
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end

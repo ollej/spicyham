@@ -112,13 +112,13 @@ RSpec.describe "Domain", type: :request do
         expect(flash[:alert]).to match(/Unable to create domain/)
       end
 
-      it "returns unprocessable_entity for JSON on XMLRPC error" do
+      it "returns unprocessable_content for JSON on XMLRPC error" do
         allow(mock_domain).to receive(:create).and_raise(
           XMLRPC::FaultException.new(500, "[Error]")
         )
 
         post "/domain/create", params: { domain: 'fail.com', format: :json }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
   end
