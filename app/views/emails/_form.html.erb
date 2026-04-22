@@ -2,7 +2,7 @@
   <div class="sm:flex-1 min-w-0">
     <div class="flex">
       <%= text_field_tag :address, @email_alias, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded-l px-3 py-2 w-full',
-        placeholder: 'Alias', autocapitalize: 'none', autofocus: true, "data-1p-ignore" => true %>
+        placeholder: 'Alias', autocapitalize: 'none', autofocus: true, "data-1p-ignore" => true, data: { controller: "autoselect" } %>
       <span class="bg-gray-700 border border-l-0 border-gray-600 rounded-r px-3 py-2 text-sm text-gray-400">@<%= @email_domain %></span>
     </div>
   </div>

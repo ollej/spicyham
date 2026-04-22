@@ -173,6 +173,17 @@ RSpec.describe "Emails", type: :system do
     expect(find("[data-combobox-target='hidden']", visible: false).value).to eq("alice@example.com")
   end
 
+  it "autoselects generated alias when email param is provided" do
+    allow(mock_api).to receive(:list).and_return([])
+
+    visit emails_path(email: "https://www.shop.example.com/page")
+    address = find("#address")
+
+    expect(address.value).not_to be_empty
+    selection_length = page.evaluate_script("document.getElementById('address').selectionEnd - document.getElementById('address').selectionStart")
+    expect(selection_length).to eq(address.value.length)
+  end
+
   context "without API credentials" do
     let(:user) { create(:user, :no_api) }
 
