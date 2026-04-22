@@ -22,7 +22,9 @@
           <button type="button" class="md:hidden mr-2 text-gray-400" data-action="click->toggle#toggle">
             &#x2630;
           </button>
-          <a class="text-xl font-bold text-gray-100" href="<%= root_path %>">Spicyham</a>
+          <a class="inline-flex items-center gap-1 text-xl font-bold text-gray-100" href="<%= root_path %>">
+            <%= icon("ham", height: 24) %> Spicyham
+          </a>
         </div>
         <div class="hidden md:flex space-x-1" data-toggle-target="menu">
           <%= render partial: 'layouts/links', locals: { item_class: 'px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded' } %>
