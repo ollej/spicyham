@@ -15,7 +15,7 @@ vendor/bundle
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-bin/start.sh
+.env
 
 .DS_Store
 

@@ -110,6 +110,9 @@ GEM
     diff-lcs (1.6.2)
     domain_name (0.6.20240107)
     dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     drb (2.2.3)
     erb (6.0.4)
     erubi (1.13.1)
@@ -378,6 +381,7 @@ DEPENDENCIES
   capybara
   cssbundling-rails
   devise
+  dotenv-rails
   factory_bot_rails
   gandi_v5
   jbuilder
