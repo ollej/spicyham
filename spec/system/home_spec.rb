@@ -20,4 +20,12 @@ RSpec.describe "Home", type: :system do
     click_link "Sign in"
     expect(page).to have_current_path(new_user_session_path)
   end
+
+  it "has OAuth sign-in button as a real form POST with Turbo disabled" do
+    visit new_user_session_path
+    form = find("form[action*='google_oauth2']")
+    expect(form['method']).to eq('post')
+    expect(form['action']).to include('/users/auth/google_oauth2')
+    expect(form['data-turbo']).to eq('false')
+  end
 end
