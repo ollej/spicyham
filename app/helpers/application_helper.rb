@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def icon(name, options = {})
-    lucide_icon(name, class: "inline-block", size: options.fetch(:height, 24))
+    lucide_icon(name, class: "inline-block mr-1", size: options.fetch(:height, 24))
   end
 
   def format_date(date)

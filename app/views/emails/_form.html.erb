@@ -1,8 +1,8 @@
-<%= form_tag emails_path, method: 'post', class: 'flex flex-col sm:flex-row sm:items-end gap-2' do %>
+<%= form_tag emails_path, method: 'post', class: 'flex flex-col sm:flex-row sm:items-center gap-2' do %>
   <div class="sm:flex-1 min-w-0">
     <div class="flex">
       <%= text_field_tag :address, @email_alias, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded-l px-3 py-2 w-full',
-        placeholder: 'Alias', autocapitalize: 'none', autofocus: true %>
+        placeholder: 'Alias', autocapitalize: 'none', autofocus: true, "data-1p-ignore" => true %>
       <span class="bg-gray-700 border border-l-0 border-gray-600 rounded-r px-3 py-2 text-sm text-gray-400">@<%= @email_domain %></span>
     </div>
   </div>
@@ -24,12 +24,12 @@
       </ul>
     </div>
   </div>
-  <div>
+  <div class="flex items-center gap-2">
     <button type="submit" class="inline-flex items-center bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
       <%= icon(:check) %> Create
     </button>
     <% if @created_email %>
-      <%= button_tag type: "button", class: "inline-flex items-center border border-gray-600 text-gray-300 px-4 py-2 rounded hover:bg-gray-800 copy-clipboard", data: { "clipboard-text" => @created_email } do %>
+      <%= button_tag type: "button", class: "inline-flex items-center justify-center min-w-[6rem] border border-gray-600 text-gray-300 px-4 py-2 rounded hover:bg-gray-800 copy-clipboard", data: { controller: "clipboard", "clipboard-text" => @created_email } do %>
         <%= icon(:paperclip) %>
         Copy
       <% end %>

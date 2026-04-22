@@ -34,7 +34,8 @@ class EmailsController < ApplicationController
       respond_to do |format|
         format.html {
           redirect_to emails_path(created_email: created_email),
-            alert: "Couldn't create email alias #{created_email} forwarding to #{destinations.to_sentence}. Reason: #{e.message}." }
+            alert: "Couldn't create email alias #{created_email} forwarding to #{destinations.to_sentence}. Reason: #{e.message}.",
+            status: :see_other }
         format.json { head :unprocessable_content }
       end
       return
@@ -45,7 +46,8 @@ class EmailsController < ApplicationController
     respond_to do |format|
       format.html {
         redirect_to emails_path(created_email: created_email),
-          notice: "Email alias created forwarding from #{created_email} to #{destinations.to_sentence}" }
+          notice: "Email alias created forwarding from #{created_email} to #{destinations.to_sentence}",
+          status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -59,7 +61,7 @@ class EmailsController < ApplicationController
     rescue Facade::Error => e
       logger.error { "Error deleting email alias #{destroyed_email}: #{e.message}" }
       respond_to do |format|
-        format.html { redirect_to emails_path, alert: "Couldn't remove email forwarding '#{destroyed_email}': #{e.message}." }
+        format.html { redirect_to emails_path, alert: "Couldn't remove email forwarding '#{destroyed_email}': #{e.message}.", status: :see_other }
         format.json { head :unprocessable_content }
       end
       return
@@ -68,7 +70,7 @@ class EmailsController < ApplicationController
     logger.info { "Deleted email: #{destroyed_email}" }
 
     respond_to do |format|
-      format.html { redirect_to emails_url, notice: "Email forwarding removed: #{destroyed_email}" }
+      format.html { redirect_to emails_url, notice: "Email forwarding removed: #{destroyed_email}", status: :see_other }
       format.json { head :no_content }
     end
   end
