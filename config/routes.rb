@@ -30,7 +30,7 @@ Spicyham::Application.routes.draw do
   # root 'welcome#index'
   #root 'emails#index'
 
-  get '/health', to: proc { [200, {}, ['success']] }
+  get '/up', to: proc { [200, {}, ['success']] }
   get '/home', to: 'pages#home', as: :home
 
   authenticated :user do
