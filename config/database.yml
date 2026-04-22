@@ -8,8 +8,8 @@ development:
   encoding: unicode
   database: spicyham_dev
   pool: 5
-  username: Olle
-  password:
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -19,8 +19,8 @@ test:
   encoding: unicode
   database: spicyham_test
   pool: 5
-  username: Olle
-  password:
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 production:
   adapter: postgresql
