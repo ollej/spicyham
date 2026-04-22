@@ -21,7 +21,7 @@
       <td class="py-2">
       <% if price == 'unavailable' %>
         <%= link_to 'Whois', "http://en.gandi.net/whois/details?search=#{domain}",
-          target: '_blank', class: 'text-blue-400 hover:underline' %>
+          target: '_blank', class: 'text-purple-400 hover:underline' %>
       <% else %>
         <%= link_to icon_button('Buy', :'credit-card'),
           domain_create_path + '?' + { domain: domain }.to_param,

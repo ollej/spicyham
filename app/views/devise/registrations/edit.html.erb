@@ -88,7 +88,7 @@
 
   <%# Save Button %>
   <div class="mb-8">
-    <%= button_tag type: "submit", class: "inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" do %>
+    <%= button_tag type: "submit", class: "inline-flex items-center bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" do %>
       <%= icon("check") %> Update profile
     <% end %>
   </div>
@@ -99,7 +99,7 @@
   <h3 class="text-lg font-semibold text-red-400 mb-2"><%= icon("alert-triangle", height: 20) %> Danger zone</h3>
 
   <p class="mb-4 text-sm text-gray-400">If you don't want to use this service anymore, you can cancel your account.</p>
-  <button type="button" class="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+  <button type="button" class="inline-flex items-center bg-amber-700 text-white px-4 py-2 rounded hover:bg-amber-800"
     data-action="click->confirm-delete#reveal">
     <%= icon("ban") %> Cancel my account
   </button>
@@ -117,7 +117,7 @@
       </button>
       <%= button_to delete_user_registration_path(resource_name), method: :delete,
         data: { confirm_delete_target: "submit" }, disabled: true,
-        class: "inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm" do %>
+        class: "inline-flex items-center bg-amber-700 text-white px-4 py-2 rounded hover:bg-amber-800 disabled:opacity-50 disabled:cursor-not-allowed text-sm" do %>
         <%= icon("trash-2", height: 16) %> Confirm deletion
       <% end %>
     </div>

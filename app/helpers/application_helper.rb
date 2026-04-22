@@ -75,7 +75,7 @@ module ApplicationHelper
 
   ALERT_STYLES = {
     success: "bg-green-900 text-green-200 border-green-700",
-    info: "bg-blue-900 text-blue-200 border-blue-700",
+    info: "bg-purple-900 text-purple-200 border-purple-700",
     warning: "bg-yellow-900 text-yellow-200 border-yellow-700",
     danger: "bg-red-900 text-red-200 border-red-700"
   }.freeze

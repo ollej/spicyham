@@ -10,7 +10,7 @@
   <tbody class="divide-y divide-gray-700">
   <% @zones.each do |zone| %>
     <tr class="hover:bg-gray-800">
-      <td class="py-2"><%= link_to zone['name'], zone_show_path(zone['id']), class: 'text-blue-400 hover:underline' %></td>
+      <td class="py-2"><%= link_to zone['name'], zone_show_path(zone['id']), class: 'text-purple-400 hover:underline' %></td>
       <td class="py-2"><%= format_date(zone['date_updated']) %></td>
       <td class="py-2"><%= zone['version'] %></td>
     </tr>
