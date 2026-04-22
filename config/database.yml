@@ -8,7 +8,7 @@ development:
   encoding: unicode
   database: spicyham_dev
   pool: 5
-  username: olle
+  username: Olle
   password:
 
 # Warning: The database defined as "test" will be erased and

@@ -1,38 +1,10 @@
 class EmailsController < ApplicationController
   before_action :authenticate_user!
-  #before_action :set_email, only: [:show, :edit, :update, :destroy]
-
   RANDOM_LENGTH = 16
-
-  # TODO: Create Email class instead of calling @gandi directly.
-  # TODO: Support editing forwards for other domains.
 
   # GET /emails
   # GET /emails.json
   def index
-
-    #server.call("domain.forward.count", apikey, 'mydomain.net')
-    #1
-    #[{'destinations' => ['stephanie@example.com'], 'source' => 'admin'}]
-
-    #server.call("domain.forward.create", apikey, 'mydomain.net', 'admin',
-    #  {'destinations' => ['stephanie@example.com']})
-    #{'destinations' => ['stephanie@example.com'], 'source': 'admin'}
-
-    #server.call("domain.forward.update", apikey, 'mydomain.net', 'admin',
-    #  {'destinations' => ['stephanie@example.com', 'steph@example.com']})
-    #{'destinations' => ['stephanie@example.com', 'steph@example.com'],
-    #... 'source' => 'admin'}
-
-    #server.call("domain.forward.delete", apikey, 'mydomain.net', 'admin')
-    #True
-
-    #@emails = Email.all
-    #puts "GANDI API Version", @server.call("domain.info", @apikey, 'ollej.com')
-
-    #@emails = server.call("domain.forward.list", @apikey, @mail_domain)
-    # TODO: Add template helper to select most popular email in destination list.
-    @email = Email.new
     @emails = []
     if user_signed_in? && current_user.api_key.present?
       begin
@@ -47,24 +19,9 @@ class EmailsController < ApplicationController
     @created_email = index_params[:created_email]
   end
 
-  # GET /emails/1
-  # GET /emails/1.json
-  def show
-  end
-
-  # GET /emails/new
-  def new
-    @email = Email.new
-  end
-
-  # GET /emails/1/edit
-  def edit
-  end
-
   # POST /emails
   # POST /emails.json
   def create
-    #@email = Email.new(email_params)
     created_email = build_email(email_alias)
     logger.debug { "Create email alias #{created_email}" }
     destinations = parse_destinations(email_params[:destinations])
@@ -117,11 +74,6 @@ class EmailsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_email
-      @email = Email.find(params[:id])
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def email_params
       params.permit(:address, :destinations, :id, :domain)

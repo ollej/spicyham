@@ -21,7 +21,7 @@ Spicyham::Application.routes.draw do
   get "webredir", to: "webredir#index"
   post "test_api", to: "test_api#create"
 
-  resources :emails, :constraints => {:id => /[^\/]+/}
+  resources :emails, only: [:index, :create, :destroy], constraints: { id: /[^\/]+/ }
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
