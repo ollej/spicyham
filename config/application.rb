@@ -42,6 +42,9 @@ module Spicyham
       'AuthorizationException' => :unauthorized
     )
 
+    # Session configuration
+    config.session_store :cookie_store, key: '_spicyham_session', expire_after: 30.days
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

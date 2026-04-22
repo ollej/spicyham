@@ -28,7 +28,7 @@ class DomainController < ApplicationController
     #logger.info "Contacts: #{contacts.inspect}"
 
     respond_to do |format|
-      format.html { render action: "search" }
+      format.html { render :search }
       format.json { render json: @domain_info }
     end
   end
