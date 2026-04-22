@@ -6,7 +6,7 @@ Spicyham::Application.routes.draw do
   as :user do
     get 'users/edit' => 'users/registrations#edit', :as => 'edit_user_registration'
     put 'users/:id' => 'users/registrations#update', :as => 'user_registration'
-    delete 'users/:id' => 'users/registrations#update', :as => 'delete_user_registration'
+    delete 'users/:id' => 'users/registrations#destroy', :as => 'delete_user_registration'
   end
 
   get "zone", to: "zone#index"

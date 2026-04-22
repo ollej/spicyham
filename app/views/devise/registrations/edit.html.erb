@@ -81,10 +81,31 @@
 <% end %>
 <br>
 
-<h3 class="text-xl font-bold mt-6 mb-2">Cancel my account</h3>
+<div data-controller="confirm-delete" data-confirm-delete-phrase-value="DELETE">
+  <h3 class="text-xl font-bold mt-6 mb-2">Cancel my account</h3>
 
-<p class="mb-2 text-sm text-gray-600">If you don't want to use this service anymore, you can cancel your account.</p>
-<%= button_to delete_user_registration_path(resource_name), method: :delete,
-  data: { turbo_confirm: "Are you sure?" }, class: "inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700" do %>
-  <%= icon(:stop) %> Cancel my account
-<% end %>
+  <p class="mb-2 text-sm text-gray-600">If you don't want to use this service anymore, you can cancel your account.</p>
+  <button type="button" class="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+    data-action="click->confirm-delete#reveal">
+    <%= icon(:stop) %> Cancel my account
+  </button>
+
+  <dialog data-confirm-delete-target="dialog" class="rounded-lg p-6 shadow-xl backdrop:bg-black/50 max-w-md">
+    <h4 class="text-lg font-semibold text-red-800 mb-2">Confirm account deletion</h4>
+    <p class="text-sm text-red-700 font-medium mb-2">This action cannot be undone. Your account will be permanently removed. Your email aliases will remain stored with your email provider.</p>
+    <p class="text-sm text-gray-600 mb-4">Type <b>DELETE</b> to confirm:</p>
+    <input type="text" data-confirm-delete-target="input" data-action="input->confirm-delete#verify"
+      class="border rounded px-3 py-2 text-sm w-full mb-4" autocomplete="off" placeholder="DELETE">
+    <div class="flex items-center justify-end gap-2">
+      <button type="button" class="px-4 py-2 text-sm text-gray-700 border rounded hover:bg-gray-50"
+        data-action="click->confirm-delete#cancel">
+        Cancel
+      </button>
+      <%= button_to delete_user_registration_path(resource_name), method: :delete,
+        data: { confirm_delete_target: "submit" }, disabled: true,
+        class: "inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm" do %>
+        Confirm deletion
+      <% end %>
+    </div>
+  </dialog>
+</div>

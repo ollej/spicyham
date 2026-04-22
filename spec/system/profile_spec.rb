@@ -42,4 +42,33 @@ RSpec.describe "Profile", type: :system do
     expect(page).to have_css(".test-api-btn.border-red-600", wait: 5)
     expect(page).to have_css(".test-api-failed:not(.hidden)")
   end
+
+  it "reveals confirmation input when Cancel my account is clicked" do
+    visit edit_user_registration_path
+    click_button "Cancel my account"
+
+    expect(page).to have_content("Type DELETE to confirm")
+    expect(page).to have_button("Confirm deletion", disabled: true)
+  end
+
+  it "keeps confirm button disabled until DELETE is typed" do
+    visit edit_user_registration_path
+    click_button "Cancel my account"
+
+    fill_in placeholder: "DELETE", with: "DELE"
+    expect(page).to have_button("Confirm deletion", disabled: true)
+
+    fill_in placeholder: "DELETE", with: "DELETE"
+    expect(page).to have_button("Confirm deletion", disabled: false)
+  end
+
+  it "deletes user account after typing DELETE and confirming" do
+    visit edit_user_registration_path
+    click_button "Cancel my account"
+    fill_in placeholder: "DELETE", with: "DELETE"
+    click_button "Confirm deletion"
+
+    expect(page).to have_current_path(new_user_session_path)
+    expect(User.find_by(id: user.id)).to be_nil
+  end
 end
