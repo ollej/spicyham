@@ -31,7 +31,7 @@ RSpec.describe "Emails", type: :system do
 
     visit emails_path
     expect(page).to have_field("address")
-    expect(page).to have_css(".combobox-container")
+    expect(page).to have_css("[data-controller='combobox']")
     expect(page).to have_button("Create")
   end
 
@@ -46,8 +46,8 @@ RSpec.describe "Emails", type: :system do
 
     visit emails_path
     fill_in "address", with: "newalias"
-    # The bootstrap-combobox plugin hides the native select; set value via JS
-    page.execute_script("document.getElementById('destinations').value = 'fwd@example.com'")
+    # Set the hidden field value for the Stimulus combobox
+    page.execute_script("document.querySelector('[data-combobox-target=\"hidden\"]').value = 'fwd@example.com'")
     click_button "Create"
 
     expect(page).to have_content("Email alias created")

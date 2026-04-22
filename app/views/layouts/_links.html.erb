@@ -7,6 +7,4 @@
   <% end %>
   <%= menu_item icon(:person) + ' Profile', edit_user_registration_path(current_user), class: item_class %>
   <%= menu_item icon("sign-out") + ' Log Out', destroy_user_session_path, class: item_class, data: { turbo_method: :delete } %>
-<% else %>
-  <%#= menu_item icon("sign-in") + ' Sign In', user_google_oauth2_omniauth_authorize_path, method: :post, class: item_class %>
 <% end %>

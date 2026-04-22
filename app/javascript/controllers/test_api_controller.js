@@ -29,32 +29,32 @@ export default class extends Controller {
 
   processing() {
     this.reset()
-    this.untestedTarget.classList.add("d-none")
-    this.processingTarget.classList.remove("d-none")
+    this.untestedTarget.classList.add("hidden")
+    this.processingTarget.classList.remove("hidden")
   }
 
   success() {
     this.reset()
-    this.buttonTarget.classList.remove("btn-outline-dark")
-    this.buttonTarget.classList.add("btn-outline-success")
-    this.successTarget.classList.remove("d-none")
-    this.untestedTarget.classList.add("d-none")
+    this.buttonTarget.classList.add("border-green-600", "text-green-600")
+    this.buttonTarget.classList.remove("border-gray-700", "text-gray-700")
+    this.successTarget.classList.remove("hidden")
+    this.untestedTarget.classList.add("hidden")
   }
 
   fail() {
     this.reset()
-    this.buttonTarget.classList.remove("btn-outline-dark")
-    this.buttonTarget.classList.add("btn-outline-danger")
-    this.failedTarget.classList.remove("d-none")
-    this.untestedTarget.classList.add("d-none")
+    this.buttonTarget.classList.add("border-red-600", "text-red-600")
+    this.buttonTarget.classList.remove("border-gray-700", "text-gray-700")
+    this.failedTarget.classList.remove("hidden")
+    this.untestedTarget.classList.add("hidden")
   }
 
   reset() {
-    this.buttonTarget.classList.add("btn-outline-dark")
-    this.buttonTarget.classList.remove("btn-outline-danger", "btn-outline-success")
-    this.processingTarget.classList.add("d-none")
-    this.successTarget.classList.add("d-none")
-    this.failedTarget.classList.add("d-none")
-    this.untestedTarget.classList.remove("d-none")
+    this.buttonTarget.classList.add("border-gray-700", "text-gray-700")
+    this.buttonTarget.classList.remove("border-green-600", "text-green-600", "border-red-600", "text-red-600")
+    this.processingTarget.classList.add("hidden")
+    this.successTarget.classList.add("hidden")
+    this.failedTarget.classList.add("hidden")
+    this.untestedTarget.classList.remove("hidden")
   }
 }

@@ -1,34 +1,38 @@
-<%= form_tag emails_path, method: 'post', class: 'form-inline toolbar' do %>
-  <div class="row w-100">
-    <div class="col-12 col-md-9">
-      <div class="form-row">
-        <div class="col-12 col-md-7">
-          <div class="input-group">
-            <%= text_field_tag :address, @email_alias, class: 'form-control',
-              placeholder: 'Alias', autocapitalize: 'none', autofocus: true %>
-            <div class="input-group-append">
-              <span class="input-group-text">@<%= @email_domain %></span>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-5">
-          <div class="input-group">
-            <%= select_tag :destinations, options_for_select(@destinations, selected: current_user.default_forward),
-              class: "form-control combobox" %>
-          </div>
-        </div>
-      </div>
+<%= form_tag emails_path, method: 'post', class: 'flex flex-wrap items-end gap-2' do %>
+  <div class="flex-1 min-w-0">
+    <div class="flex">
+      <%= text_field_tag :address, @email_alias, class: 'border rounded-l px-3 py-2 w-full',
+        placeholder: 'Alias', autocapitalize: 'none', autofocus: true %>
+      <span class="bg-gray-100 border border-l-0 rounded-r px-3 py-2 text-sm text-gray-500">@<%= @email_domain %></span>
     </div>
-    <div class="col-12 col-md-3">
-      <button type="submit" class="btn btn-primary btn-white">
-        <%= icon(:check) %> Create
-      </button>
-      <% if @created_email %>
-        <%= button_tag type: "button", class: "btn btn-outline-info btn-black copy-clipboard", data: { "clipboard-text" => @created_email } do %>
-          <%= icon(:paperclip) %>
-          Copy
+  </div>
+  <div class="flex-1 min-w-0" data-controller="combobox">
+    <input type="hidden" name="destinations" data-combobox-target="hidden" value="<%= current_user.default_forward %>">
+    <div class="relative">
+      <input type="text"
+        data-combobox-target="input"
+        data-action="input->combobox#filter focus->combobox#show change->combobox#commit"
+        value="<%= current_user.default_forward %>"
+        class="border rounded px-3 py-2 w-full"
+        autocomplete="off">
+      <ul data-combobox-target="list" class="hidden absolute z-10 w-full bg-white border rounded shadow-lg max-h-48 overflow-auto mt-1">
+        <% @destinations.each do |dest| %>
+          <% next if dest.blank? %>
+          <li data-combobox-target="option" data-value="<%= dest %>" data-action="click->combobox#select"
+            class="px-3 py-2 cursor-pointer hover:bg-gray-100 text-sm"><%= dest %></li>
         <% end %>
-      <% end %>
+      </ul>
     </div>
+  </div>
+  <div>
+    <button type="submit" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      <%= icon(:check) %> Create
+    </button>
+    <% if @created_email %>
+      <%= button_tag type: "button", class: "inline-flex items-center border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-50 copy-clipboard", data: { "clipboard-text" => @created_email } do %>
+        <%= icon(:paperclip) %>
+        Copy
+      <% end %>
+    <% end %>
   </div>
 <% end %>

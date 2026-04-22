@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : 'Spicyham' %></title>
     <%= csrf_meta_tags %>
@@ -13,57 +12,50 @@
     <%= favicon_link_tag asset_path('apple-touch-icon-precomposed.png'), :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
     <%= favicon_link_tag asset_path('favicon.ico'), :rel => 'shortcut icon' %>
 
-    <link rel="stylesheet" media="all" href="/bootstrap-combobox.css">
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
-  <body>
-    <nav class="navbar navbar-light bg-light navbar-expand-md" role="navigation">
-      <div class="container">
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span> &#x2630;
-        </button>
-        <a class="navbar-brand" href="<%= root_path %>">Spicyham</a>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav ">
-            <%= render partial: 'layouts/links', locals: { item_class: 'nav-link' } %>
-          </ul>
+  <body class="bg-white text-gray-900">
+    <nav class="bg-gray-100 shadow-sm py-2">
+      <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+        <div class="flex items-center">
+          <button type="button" class="md:hidden mr-2 text-gray-600" data-navbar-toggle>
+            &#x2630;
+          </button>
+          <a class="text-xl font-bold text-gray-800" href="<%= root_path %>">Spicyham</a>
+        </div>
+        <div class="hidden md:flex space-x-1" data-navbar-menu>
+          <%= render partial: 'layouts/links', locals: { item_class: 'px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded' } %>
         </div>
       </div>
     </nav>
 
-    <div class="main-content container-fluid">
-      <div class="row">
+    <div class="max-w-7xl mx-auto px-4 mt-4">
+      <div class="flex flex-col lg:flex-row gap-6">
 
-        <div class="col-lg-3 sidebar-nav d-none d-lg-block">
+        <div class="hidden lg:block w-64 shrink-0">
           <% if user_signed_in? %>
-          <ul class="list-group">
-            <li class="list-group-item">Menu</li>
-            <%= render partial: 'layouts/links', locals: { item_class: 'list-group-item' } %>
+          <ul class="border rounded divide-y text-sm">
+            <li class="px-4 py-2 font-semibold bg-gray-50">Menu</li>
+            <%= render partial: 'layouts/links', locals: { item_class: 'block px-4 py-2 text-gray-700 hover:bg-gray-50' } %>
           </ul>
 
-          <br>
-          <%= render partial: "shared/bookmarklet" %>
+          <div class="mt-4">
+            <%= render partial: "shared/bookmarklet" %>
+          </div>
           <% end %>
         </div>
 
-        <div class="col-lg-9">
-          <%= bootstrap_flash %>
+        <div class="flex-1 min-w-0">
+          <%= flash_messages %>
           <%= yield %>
         </div>
 
-      </div><!--/row-->
+      </div>
 
-      <footer>
-        <p>
-          <small>
-            &copy; <a href="http://github.com/ollej">Olle Wreede</a> 2013-2025
-          </small>
-        </p>
+      <footer class="mt-8 py-4 text-center text-sm text-gray-400">
+        &copy; <a href="http://github.com/ollej" class="hover:underline">Olle Wreede</a> 2013-2025
       </footer>
-
-    </div> <!-- /container -->
-
-    <a href="http://utopianrealms.org/dextral.php?pg=8792"><!-- gala --></a>
+    </div>
   </body>
 </html>

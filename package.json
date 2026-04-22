@@ -12,20 +12,19 @@
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.23",
     "@primer/octicons": "^19.15.0",
-    "bootstrap": "^4.5.3",
-    "clipboard": "^2.0.6",
-    "jquery": "^3.7.1",
-    "popper.js": "^1.16.1",
-    "sass": "^1.99.0"
+    "clipboard": "^2.0.6"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4",
+    "@tailwindcss/forms": "^0.5.11",
     "esbuild": "^0.28.0",
     "jsdom": "^29.0.2",
+    "tailwindcss": "^4.2.4",
     "vitest": "^4.1.5"
   },
   "scripts": {
     "build": "esbuild app/javascript/application.js --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",
-    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules",
+    "build:css": "npx @tailwindcss/cli -i app/assets/stylesheets/application.tailwind.css -o app/assets/builds/application.css --minify",
     "test": "vitest run"
   }
 }

@@ -2,7 +2,7 @@ module ApplicationHelper
   def icon_button(label = "", icon = nil, icon_options = {})
     btn = ""
     btn += icon(icon.to_sym, icon_options) if icon
-    btn += "<span class='d-none d-sm-inline'> #{label}</span>" unless label.blank?
+    btn += "<span class='hidden sm:inline'> #{label}</span>" unless label.blank?
     btn.html_safe
   end
 
@@ -30,32 +30,22 @@ module ApplicationHelper
     File.read(file).gsub(/\s+/, ' ').strip
   end
 
-  # Methods from twitter-bootstrap-rails
-
   def menu_item(name=nil, path="#", *args, &block)
     path = name || path if block_given?
     options = args.extract_options!
-    content_tag :li, :class => ['nav-item', is_active?(path, options)] do
-      if block_given?
-        link_to path, options, &block
-      else
-        link_to name, path, options, &block
-      end
+    active_class = is_active?(path, options) ? "font-semibold" : ""
+    if block_given?
+      link_to path, options.merge(class: "#{options[:class]} #{active_class}".strip), &block
+    else
+      link_to name, path, options.merge(class: "#{options[:class]} #{active_class}".strip), &block
     end
   end
 
   def is_active?(path, options = {})
     state = uri_state(path, options)
-    "active" if state.in?([:active, :chosen]) || state === true
+    state.in?([:active, :chosen]) || state === true
   end
 
-  # Returns current url or path state (useful for buttons).
-  # Example:
-  #   # Assume we'r currently at blog/categories/test
-  #   uri_state('/blog/categories/test', {})               # :active
-  #   uri_state('/blog/categories', {})                    # :chosen
-  #   uri_state('/blog/categories/test', {method: delete}) # :inactive
-  #   uri_state('/blog/categories/test/3', {})             # :inactive
   def uri_state(uri, options={})
     return options[:status] if options.key?(:status)
 
@@ -83,14 +73,16 @@ module ApplicationHelper
 
   ALERT_TYPES = [:success, :info, :warning, :danger] unless const_defined?(:ALERT_TYPES)
 
-  def bootstrap_flash_close_button
-    content_tag(:button, raw("&times;"), type: "button", class: "close", "data-dismiss" => "alert", "aria-label" => "Close")
-  end
+  ALERT_STYLES = {
+    success: "bg-green-100 text-green-800 border-green-300",
+    info: "bg-blue-100 text-blue-800 border-blue-300",
+    warning: "bg-yellow-100 text-yellow-800 border-yellow-300",
+    danger: "bg-red-100 text-red-800 border-red-300"
+  }.freeze
 
-  def bootstrap_flash(options = {})
-    flash_messages = []
+  def flash_messages
+    messages = []
     flash.each do |type, message|
-      # Skip empty messages, e.g. for devise messages set to nothing in a locale file.
       next if message.blank?
 
       type = type.to_sym
@@ -99,16 +91,19 @@ module ApplicationHelper
       type = :danger  if type == :error
       next unless ALERT_TYPES.include?(type)
 
-      tag_class = options.extract!(:class)[:class]
-      tag_options = {
-        class: "alert fade show alert-dismissible alert-#{type} #{tag_class}",
-        role: "alert"
-      }.merge(options)
+      style = ALERT_STYLES[type]
 
       Array(message).each do |msg|
-        flash_messages << content_tag(:div, bootstrap_flash_close_button + msg, tag_options) if msg
+        next unless msg
+        messages << content_tag(:div, role: "alert",
+          class: "border rounded p-4 mb-4 flex justify-between items-start #{style}") do
+          content_tag(:span, msg) +
+          content_tag(:button, raw("&times;"), type: "button",
+            class: "ml-4 text-lg leading-none opacity-50 hover:opacity-100",
+            "data-dismiss-alert" => true, "aria-label" => "Close")
+        end
       end
     end
-    flash_messages.join("\n").html_safe
+    messages.join("\n").html_safe
   end
 end

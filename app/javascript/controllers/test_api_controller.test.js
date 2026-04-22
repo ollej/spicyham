@@ -11,10 +11,10 @@ const HTML = `
   <input data-test-api-target="apiKey" value="test-key" data-action="change->test-api#reset">
   <input data-test-api-target="apiUser" value="test-user" data-action="change->test-api#reset">
   <input data-test-api-target="domain" value="example.com" data-action="change->test-api#reset">
-  <a href="#" class="btn btn-outline-dark test-api-btn" data-test-api-target="button" data-action="click->test-api#test">
-    <span data-test-api-target="processing" class="d-none"></span>
-    <span data-test-api-target="success" class="d-none"></span>
-    <span data-test-api-target="failed" class="d-none"></span>
+  <a href="#" class="border-gray-700 text-gray-700 test-api-btn" data-test-api-target="button" data-action="click->test-api#test">
+    <span data-test-api-target="processing" class="hidden"></span>
+    <span data-test-api-target="success" class="hidden"></span>
+    <span data-test-api-target="failed" class="hidden"></span>
     <span data-test-api-target="untested"></span>
     Test API
   </a>
@@ -32,7 +32,6 @@ beforeEach(async () => {
   document.body.innerHTML = HTML
   application = Application.start()
   application.register("test-api", TestApiController)
-  // Wait for Stimulus to connect the controller
   await new Promise(resolve => setTimeout(resolve, 0))
   button = findTarget("button")
 })
@@ -73,29 +72,29 @@ describe("TestApiController", () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }))
 
     button.click()
-    await vi.waitFor(() => expect(button.classList.contains("btn-outline-success")).toBe(true))
+    await vi.waitFor(() => expect(button.classList.contains("border-green-600")).toBe(true))
 
-    expect(findTarget("success").classList.contains("d-none")).toBe(false)
-    expect(findTarget("untested").classList.contains("d-none")).toBe(true)
+    expect(findTarget("success").classList.contains("hidden")).toBe(false)
+    expect(findTarget("untested").classList.contains("hidden")).toBe(true)
   })
 
   it("shows fail state on 4xx response", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false }))
 
     button.click()
-    await vi.waitFor(() => expect(button.classList.contains("btn-outline-danger")).toBe(true))
+    await vi.waitFor(() => expect(button.classList.contains("border-red-600")).toBe(true))
 
-    expect(findTarget("failed").classList.contains("d-none")).toBe(false)
-    expect(findTarget("untested").classList.contains("d-none")).toBe(true)
+    expect(findTarget("failed").classList.contains("hidden")).toBe(false)
+    expect(findTarget("untested").classList.contains("hidden")).toBe(true)
   })
 
   it("shows fail state on network error", async () => {
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new Error("Network error")))
 
     button.click()
-    await vi.waitFor(() => expect(button.classList.contains("btn-outline-danger")).toBe(true))
+    await vi.waitFor(() => expect(button.classList.contains("border-red-600")).toBe(true))
 
-    expect(findTarget("failed").classList.contains("d-none")).toBe(false)
+    expect(findTarget("failed").classList.contains("hidden")).toBe(false)
   })
 
   it("shows processing state during request", async () => {
@@ -103,9 +102,9 @@ describe("TestApiController", () => {
     vi.stubGlobal("fetch", vi.fn().mockImplementation(() => new Promise(r => { resolveRequest = r })))
 
     button.click()
-    await vi.waitFor(() => expect(findTarget("processing").classList.contains("d-none")).toBe(false))
+    await vi.waitFor(() => expect(findTarget("processing").classList.contains("hidden")).toBe(false))
 
-    expect(findTarget("untested").classList.contains("d-none")).toBe(true)
+    expect(findTarget("untested").classList.contains("hidden")).toBe(true)
 
     resolveRequest({ ok: true })
   })
@@ -113,14 +112,13 @@ describe("TestApiController", () => {
   it("reset restores default state", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true }))
     button.click()
-    await vi.waitFor(() => expect(button.classList.contains("btn-outline-success")).toBe(true))
+    await vi.waitFor(() => expect(button.classList.contains("border-green-600")).toBe(true))
 
-    // Trigger reset via change event on a field
     findTarget("api").dispatchEvent(new Event("change"))
-    await vi.waitFor(() => expect(button.classList.contains("btn-outline-dark")).toBe(true))
+    await vi.waitFor(() => expect(button.classList.contains("border-gray-700")).toBe(true))
 
-    expect(button.classList.contains("btn-outline-success")).toBe(false)
-    expect(findTarget("untested").classList.contains("d-none")).toBe(false)
-    expect(findTarget("success").classList.contains("d-none")).toBe(true)
+    expect(button.classList.contains("border-green-600")).toBe(false)
+    expect(findTarget("untested").classList.contains("hidden")).toBe(false)
+    expect(findTarget("success").classList.contains("hidden")).toBe(true)
   })
 })

@@ -9,7 +9,7 @@ RSpec.describe ApplicationHelper, type: :helper do
     it "returns label in a responsive span with icon" do
       result = helper.icon_button("Delete", :x)
       expect(result).to include('<svg class="octicon">')
-      expect(result).to include("<span class='d-none d-sm-inline'> Delete</span>")
+      expect(result).to include("<span class='hidden sm:inline'> Delete</span>")
     end
 
     it "returns only icon when label is blank" do
@@ -65,7 +65,7 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   describe '#bookmarklet' do
-    it "returns javascript: URI with encoded uglified JS" do
+    it "returns javascript: URI with encoded minified JS" do
       result = helper.bookmarklet
       expect(result).to start_with('javascript:')
       expect(result).to be_html_safe
@@ -79,16 +79,15 @@ RSpec.describe ApplicationHelper, type: :helper do
       allow(helper.request).to receive(:path).and_return('/emails')
     end
 
-    it "renders li with nav-item class containing a link" do
+    it "renders link with text and path" do
       result = helper.menu_item('Emails', '/emails')
-      expect(result).to include('nav-item')
       expect(result).to include('href="/emails"')
       expect(result).to include('Emails')
     end
 
-    it "adds active class when path matches current request" do
+    it "adds font-semibold class when path matches current request" do
       result = helper.menu_item('Emails', '/emails')
-      expect(result).to include('nav-item active')
+      expect(result).to include('font-semibold')
     end
   end
 
@@ -99,12 +98,12 @@ RSpec.describe ApplicationHelper, type: :helper do
       allow(helper.request).to receive(:path).and_return('/emails')
     end
 
-    it "returns 'active' when path matches current request" do
-      expect(helper.is_active?('/emails')).to eq('active')
+    it "returns true when path matches current request" do
+      expect(helper.is_active?('/emails')).to be true
     end
 
-    it "returns nil when path does not match" do
-      expect(helper.is_active?('/domain')).to be_nil
+    it "returns false when path does not match" do
+      expect(helper.is_active?('/domain')).to be false
     end
   end
 
@@ -137,33 +136,24 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe '#bootstrap_flash_close_button' do
-    it "returns button with close class and data-dismiss" do
-      result = helper.bootstrap_flash_close_button
-      expect(result).to include('class="close"')
-      expect(result).to include('data-dismiss="alert"')
-      expect(result).to include('<button')
-    end
-  end
-
-  describe '#bootstrap_flash' do
+  describe '#flash_messages' do
     it "renders alert div for notice flash mapped to success" do
       flash[:notice] = "It worked!"
-      result = helper.bootstrap_flash
-      expect(result).to include('alert-success')
+      result = helper.flash_messages
+      expect(result).to include('bg-green-100')
       expect(result).to include('It worked!')
     end
 
     it "renders alert div for error flash mapped to danger" do
       flash[:error] = "Something broke"
-      result = helper.bootstrap_flash
-      expect(result).to include('alert-danger')
+      result = helper.flash_messages
+      expect(result).to include('bg-red-100')
       expect(result).to include('Something broke')
     end
 
     it "skips blank messages" do
       flash[:notice] = ""
-      result = helper.bootstrap_flash
+      result = helper.flash_messages
       expect(result).to eq('')
     end
   end

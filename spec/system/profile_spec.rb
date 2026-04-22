@@ -29,8 +29,8 @@ RSpec.describe "Profile", type: :system do
     visit edit_user_registration_path
     click_link "Test API"
 
-    expect(page).to have_css(".test-api-btn.btn-outline-success", wait: 5)
-    expect(page).to have_css(".test-api-success:not(.d-none)")
+    expect(page).to have_css(".test-api-btn.border-green-600", wait: 5)
+    expect(page).to have_css(".test-api-success:not(.hidden)")
   end
 
   it "shows red alert icon when API test fails" do
@@ -39,7 +39,7 @@ RSpec.describe "Profile", type: :system do
     visit edit_user_registration_path
     click_link "Test API"
 
-    expect(page).to have_css(".test-api-btn.btn-outline-danger", wait: 5)
-    expect(page).to have_css(".test-api-failed:not(.d-none)")
+    expect(page).to have_css(".test-api-btn.border-red-600", wait: 5)
+    expect(page).to have_css(".test-api-failed:not(.hidden)")
   end
 end
