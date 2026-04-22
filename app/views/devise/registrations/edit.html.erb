@@ -1,6 +1,6 @@
 <h2>Edit profile</h2>
 
-<%= form_for(resource, as: resource_name, url: user_registration_path(resource), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: user_registration_path(resource), html: { method: :put, data: { controller: "test-api", test_api_url_value: test_api_path(format: :json) } }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="form-group row">
@@ -20,28 +20,28 @@
   <div class="form-group row">
     <%= f.label :domain, class: "col-sm-3 col-form-label" %><br />
     <div class="col-sm-9">
-      <%= f.text_field :domain, class: "form-control" %>
+      <%= f.text_field :domain, class: "form-control", data: { test_api_target: "domain", action: "change->test-api#reset" } %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= f.label "API", class: "col-sm-3 col-form-label" %><br />
     <div class="col-sm-9">
-      <%= f.select :api, User.apis, { selected: resource.api_name }, { class: "custom-select" } %>
+      <%= f.select :api, User.apis, { selected: resource.api_name }, { class: "custom-select", data: { test_api_target: "api", action: "change->test-api#reset" } } %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= f.label "API User", class: "col-sm-3 col-form-label" %><br />
     <div class="col-sm-9">
-      <%= f.text_field :api_user, class: "form-control" %>
+      <%= f.text_field :api_user, class: "form-control", data: { test_api_target: "apiUser", action: "change->test-api#reset" } %>
     </div>
   </div>
 
   <div class="form-group row">
     <%= f.label "API Key", class: "col-sm-3 col-form-label" %><br />
     <div class="col-sm-9">
-      <%= f.text_field :api_key, class: "form-control" %>
+      <%= f.text_field :api_key, class: "form-control", data: { test_api_target: "apiKey", action: "change->test-api#reset" } %>
     </div>
   </div>
 
@@ -72,13 +72,13 @@
     <%= button_tag type: "submit", class: "btn btn-primary" do %>
       <%= icon(:check) %> Update profile
     <% end %>
-    <%= link_to "#", data: { test_api_url: test_api_path(format: :json) }, class: "btn btn-black btn-outline-dark test-api-btn" do %>
-      <span class="test-api-icon test-api-processing d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      <span class="test-api-icon test-api-success d-none" aria-hidden="true"><%= icon("check") %></span>
-      <span class="test-api-icon test-api-failed d-none" aria-hidden="true"><%= icon("alert") %></span>
-      <span class="test-api-icon test-api-untested" aria-hidden="true"><%= icon("question") %></span>
+    <a href="#" class="btn btn-black btn-outline-dark test-api-btn" data-test-api-target="button" data-action="click->test-api#test">
+      <span data-test-api-target="processing" class="test-api-icon test-api-processing d-none spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span data-test-api-target="success" class="test-api-icon test-api-success d-none" aria-hidden="true"><%= icon("check") %></span>
+      <span data-test-api-target="failed" class="test-api-icon test-api-failed d-none" aria-hidden="true"><%= icon("alert") %></span>
+      <span data-test-api-target="untested" class="test-api-icon test-api-untested" aria-hidden="true"><%= icon("question") %></span>
       Test API
-    <% end %>
+    </a>
   </div>
 <% end %>
 <br>

@@ -1,4 +1,3 @@
-import TestApi from "./test_api"
 import ClipboardJS from "clipboard/dist/clipboard"
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -25,9 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (address) {
     address.setSelectionRange(0, address.value.length)
   }
-
-  // Setup test API button
-  new TestApi(".test-api-btn").setup()
 
   new ClipboardJS(".copy-clipboard")
 })
