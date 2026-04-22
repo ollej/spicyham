@@ -61,6 +61,22 @@ RSpec.describe "Emails", type: :request do
     end
   end
 
+  describe "GET /emails with email param" do
+    before { sign_in user }
+
+    it "strips URL to hostname for the address field" do
+      get emails_path, params: { email: "https://www.shop.example.com/page?q=1" }
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include('value="example"')
+    end
+
+    it "handles .co.uk second-level TLD" do
+      get emails_path, params: { email: "https://shop.co.uk/path" }
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include('value="shop"')
+    end
+  end
+
   describe "GET /emails without API credentials" do
     it "shows API not configured warning" do
       sign_in create(:user, :no_api)

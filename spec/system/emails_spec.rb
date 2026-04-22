@@ -173,6 +173,13 @@ RSpec.describe "Emails", type: :system do
     expect(find("[data-combobox-target='hidden']", visible: false).value).to eq("alice@example.com")
   end
 
+  it "strips domain from email param and uses it as alias" do
+    allow(mock_api).to receive(:list).and_return([])
+
+    visit emails_path(email: "https://www.shop.example.com/page?q=1#top")
+    expect(find("#address").value).to eq("example")
+  end
+
   it "autoselects generated alias when email param is provided" do
     allow(mock_api).to receive(:list).and_return([])
 
