@@ -1,33 +1,33 @@
-import $ from "jquery"
 import TestApi from "./test_api"
 import ClipboardJS from "clipboard/dist/clipboard"
 
-$(function() {
+document.addEventListener("DOMContentLoaded", function() {
   // Fix input element click problem
-  $('.dropdown-menu form').on('click', function(e) {
-    e.stopPropagation();
-  });
-  $('.dropdown-menu').on('touchstart.dropdown.data-api', function(e) {
-    e.stopPropagation()
+  document.querySelectorAll('.dropdown-menu form').forEach(function(el) {
+    el.addEventListener('click', function(e) { e.stopPropagation() })
+  })
+  document.querySelectorAll('.dropdown-menu').forEach(function(el) {
+    el.addEventListener('touchstart', function(e) { e.stopPropagation() })
   })
 
-  // Instantiate Twitter Combobox plugin
-  $('.combobox').combobox({
-    clearIfNoMatch: false,
-    bsVersion: '4',
-    iconCaret: 'dropdown-toggle',
-    freeform: true
-  });
+  // Instantiate Twitter Combobox plugin (still uses jQuery)
+  if (window.jQuery) {
+    window.jQuery('.combobox').combobox({
+      clearIfNoMatch: false,
+      bsVersion: '4',
+      iconCaret: 'dropdown-toggle',
+      freeform: true
+    })
+  }
 
   // Select default address
-  const $address = $("#address");
-  if ($address[0]) {
-    $address[0].setSelectionRange(0, $address.val().length);
+  const address = document.getElementById("address")
+  if (address) {
+    address.setSelectionRange(0, address.value.length)
   }
 
   // Setup test API button
-  new TestApi(".test-api-btn").setup();
+  new TestApi(".test-api-btn").setup()
 
-  new ClipboardJS(".copy-clipboard");
-});
-
+  new ClipboardJS(".copy-clipboard")
+})
