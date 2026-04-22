@@ -31,6 +31,7 @@ Spicyham::Application.routes.draw do
   #root 'emails#index'
 
   get '/health', to: proc { [200, {}, ['success']] }
+  get '/home', to: 'pages#home', as: :home
 
   authenticated :user do
     root 'emails#index', as: :authenticated_root

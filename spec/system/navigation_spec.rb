@@ -12,6 +12,7 @@ RSpec.describe "Navigation", type: :system do
       visit emails_path
       within("nav") do
         expect(page).to have_content("Spicyham")
+        expect(page).to have_content("Home")
         expect(page).to have_content("Emails")
         expect(page).to have_content("Zones")
         expect(page).to have_content("Domains")
@@ -49,10 +50,12 @@ RSpec.describe "Navigation", type: :system do
   context "as regular user" do
     before { sign_in create(:user) }
 
-    it "renders navbar with only Profile and Log Out" do
+    it "renders navbar with Home, Emails, Profile and Log Out" do
       visit emails_path
       within("nav") do
         expect(page).to have_content("Spicyham")
+        expect(page).to have_content("Home")
+        expect(page).to have_content("Emails")
         expect(page).to have_content("Profile")
         expect(page).to have_content("Log Out")
         expect(page).not_to have_content("Zones")
