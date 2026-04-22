@@ -6,8 +6,8 @@ module ApplicationHelper
     btn.html_safe
   end
 
-  def icon(icon, options = {})
-    octicon(icon, { height: 24 }.merge(options))
+  def icon(name, options = {})
+    lucide_icon(name, class: "inline-block", size: options.fetch(:height, 24))
   end
 
   def format_date(date)

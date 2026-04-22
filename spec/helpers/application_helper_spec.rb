@@ -2,19 +2,19 @@ require 'rails_helper'
 
 RSpec.describe ApplicationHelper, type: :helper do
   before do
-    allow(helper).to receive(:octicon).and_return('<svg class="octicon"></svg>'.html_safe)
+    allow(helper).to receive(:lucide_icon).and_return('<svg class="lucide"></svg>'.html_safe)
   end
 
   describe '#icon_button' do
     it "returns label in a responsive span with icon" do
       result = helper.icon_button("Delete", :x)
-      expect(result).to include('<svg class="octicon">')
+      expect(result).to include('<svg class="lucide">')
       expect(result).to include("<span class='hidden sm:inline'> Delete</span>")
     end
 
     it "returns only icon when label is blank" do
       result = helper.icon_button("", :x)
-      expect(result).to include('<svg class="octicon">')
+      expect(result).to include('<svg class="lucide">')
       expect(result).not_to include('<span')
     end
 
@@ -24,13 +24,13 @@ RSpec.describe ApplicationHelper, type: :helper do
   end
 
   describe '#icon' do
-    it "delegates to octicon with default height 24" do
-      expect(helper).to receive(:octicon).with(:check, { height: 24 })
+    it "delegates to lucide_icon with default size 24" do
+      expect(helper).to receive(:lucide_icon).with(:check, class: "inline-block", size: 24)
       helper.icon(:check)
     end
 
-    it "allows overriding height" do
-      expect(helper).to receive(:octicon).with(:check, { height: 16 })
+    it "allows overriding size via height option" do
+      expect(helper).to receive(:lucide_icon).with(:check, class: "inline-block", size: 16)
       helper.icon(:check, height: 16)
     end
   end

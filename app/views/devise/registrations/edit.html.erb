@@ -68,13 +68,13 @@
 
   <div class="flex items-center gap-2 mt-6">
     <%= button_tag type: "submit", class: "inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" do %>
-      <%= icon(:check) %> Update profile
+      <%= icon("check") %> Update profile
     <% end %>
     <a href="#" class="inline-flex items-center border border-gray-700 text-gray-700 px-4 py-2 rounded hover:bg-gray-100 test-api-btn" data-test-api-target="button" data-action="click->test-api#test">
       <span data-test-api-target="processing" class="test-api-icon test-api-processing hidden animate-spin" aria-hidden="true">&#9696;</span>
       <span data-test-api-target="success" class="test-api-icon test-api-success hidden text-green-600" aria-hidden="true"><%= icon("check") %></span>
-      <span data-test-api-target="failed" class="test-api-icon test-api-failed hidden text-red-600" aria-hidden="true"><%= icon("alert") %></span>
-      <span data-test-api-target="untested" class="test-api-icon test-api-untested text-gray-400" aria-hidden="true"><%= icon("question") %></span>
+      <span data-test-api-target="failed" class="test-api-icon test-api-failed hidden text-red-600" aria-hidden="true"><%= icon("alert-triangle") %></span>
+      <span data-test-api-target="untested" class="test-api-icon test-api-untested text-gray-400" aria-hidden="true"><%= icon("help-circle") %></span>
       Test API
     </a>
   </div>
@@ -87,7 +87,7 @@
   <p class="mb-2 text-sm text-gray-600">If you don't want to use this service anymore, you can cancel your account.</p>
   <button type="button" class="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
     data-action="click->confirm-delete#reveal">
-    <%= icon(:stop) %> Cancel my account
+    <%= icon("ban") %> Cancel my account
   </button>
 
   <dialog data-confirm-delete-target="dialog" class="rounded-lg p-6 shadow-xl backdrop:bg-black/50 max-w-md">
@@ -97,14 +97,14 @@
     <input type="text" data-confirm-delete-target="input" data-action="input->confirm-delete#verify"
       class="border rounded px-3 py-2 text-sm w-full mb-4" autocomplete="off" placeholder="DELETE">
     <div class="flex items-center justify-end gap-2">
-      <button type="button" class="px-4 py-2 text-sm text-gray-700 border rounded hover:bg-gray-50"
+      <button type="button" class="inline-flex items-center px-4 py-2 text-sm text-gray-700 border rounded hover:bg-gray-50"
         data-action="click->confirm-delete#cancel">
-        Cancel
+        <%= icon("x", height: 16) %> Cancel
       </button>
       <%= button_to delete_user_registration_path(resource_name), method: :delete,
         data: { confirm_delete_target: "submit" }, disabled: true,
         class: "inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm" do %>
-        Confirm deletion
+        <%= icon("trash-2", height: 16) %> Confirm deletion
       <% end %>
     </div>
   </dialog>

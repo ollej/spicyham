@@ -399,13 +399,6 @@
     "@parcel/watcher-win32-ia32" "2.5.6"
     "@parcel/watcher-win32-x64" "2.5.6"
 
-"@primer/octicons@^19.15.0":
-  version "19.15.0"
-  resolved "https://registry.yarnpkg.com/@primer/octicons/-/octicons-19.15.0.tgz#995ac47d2b12e57c01682f331184f9e6e9d5f9a1"
-  integrity sha512-WaZ3Qno+MJZh0skrZ8nEfYJdrqTLuxxHxJqHjhc/QRLNojcHq57njtqOt9H8d0dCGAem2stQJ3nAK8893Hz5pA==
-  dependencies:
-    object-assign "^4.1.1"
-
 "@rails/actioncable@>=7.0":
   version "8.1.300"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.1.300.tgz#bfd50813be0225a0403bddb11e8ba9a00b1fb135"
@@ -1015,11 +1008,6 @@ node-addon-api@^7.0.0:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-7.1.1.tgz#1aba6693b0f255258a049d621329329322aad558"
   integrity sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==
-
-object-assign@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
-  integrity sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=
 
 obug@^2.1.1:
   version "2.1.1"
