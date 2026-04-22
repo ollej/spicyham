@@ -64,6 +64,31 @@ RSpec.describe AliasTemplate do
       expect(result).to eq('shop')
     end
 
+    it "handles .co.jp second-level TLD" do
+      result = described_class.new('https://shop.co.jp', '{DOMAIN}').generate
+      expect(result).to eq('shop')
+    end
+
+    it "handles .com.br second-level TLD" do
+      result = described_class.new('https://shop.com.br', '{DOMAIN}').generate
+      expect(result).to eq('shop')
+    end
+
+    it "handles .co.za second-level TLD" do
+      result = described_class.new('https://shop.co.za', '{DOMAIN}').generate
+      expect(result).to eq('shop')
+    end
+
+    it "handles .com.sg second-level TLD" do
+      result = described_class.new('https://shop.com.sg', '{DOMAIN}').generate
+      expect(result).to eq('shop')
+    end
+
+    it "handles subdomains correctly" do
+      result = described_class.new('https://sub.example.com', '{DOMAIN}').generate
+      expect(result).to eq('example')
+    end
+
     it "extracts domain from email-like input" do
       result = described_class.new('user@example.com', '{DOMAIN}').generate
       expect(result).to eq('example')

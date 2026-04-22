@@ -35,6 +35,7 @@ gem "rexml"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
+gem 'public_suffix'
 
 # missing gems
 gem 'ostruct'
