@@ -19,23 +19,23 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body class="bg-gray-900 text-gray-100">
-    <nav class="bg-gray-800 shadow-sm py-2" data-controller="toggle">
+    <nav class="bg-purple-900 shadow-sm py-2" data-controller="toggle">
       <div class="max-w-7xl mx-auto px-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
-            <button type="button" class="md:hidden mr-2 text-gray-400" data-action="click->toggle#toggle">
+            <button type="button" class="md:hidden mr-2 text-purple-300" data-action="click->toggle#toggle">
               &#x2630;
             </button>
-            <a class="inline-flex items-center gap-1 text-xl font-bold text-purple-400" href="<%= root_path %>">
-              <span class="text-amber-700"><%= icon("ham", height: 24) %></span> Spicyham
+            <a class="inline-flex items-center gap-1 text-xl font-bold text-white" href="<%= root_path %>">
+              <span class="text-amber-400"><%= icon("ham", height: 24) %></span> Spicyham
             </a>
           </div>
           <div class="hidden md:flex space-x-1" data-toggle-target="menu">
-            <%= render partial: 'layouts/links', locals: { item_class: 'px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded' } %>
+            <%= render partial: 'layouts/links', locals: { item_class: 'px-3 py-2 text-sm text-purple-200 hover:text-white hover:bg-purple-800 rounded' } %>
           </div>
         </div>
-        <div class="hidden md:hidden flex-col gap-1 pt-2 border-t border-gray-700 mt-2" data-toggle-target="mobileMenu">
-          <%= render partial: 'layouts/links', locals: { item_class: 'block px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded' } %>
+        <div class="hidden md:hidden flex-col gap-1 pt-2 border-t border-purple-700 mt-2" data-toggle-target="mobileMenu">
+          <%= render partial: 'layouts/links', locals: { item_class: 'block px-3 py-2 text-sm text-purple-200 hover:text-white hover:bg-purple-800 rounded' } %>
         </div>
       </div>
     </nav>
