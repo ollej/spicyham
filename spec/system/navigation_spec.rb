@@ -30,20 +30,20 @@ RSpec.describe "Navigation", type: :system do
     it "toggles mobile menu when hamburger button is clicked" do
       visit emails_path
 
-      # Make hamburger visible and strip desktop md:flex to test toggle in isolation
+      # Make hamburger visible for the test
       page.execute_script <<~JS
         document.querySelector('[data-action="click->toggle\\\\#toggle"]').style.display = 'block';
-        document.querySelector('[data-toggle-target="menu"]').classList.remove('md:flex');
       JS
 
-      menu = find("[data-toggle-target='menu']", visible: :all)
-      expect(menu[:class]).to include("hidden")
+      mobile_menu = find("[data-toggle-target='mobileMenu']", visible: :all)
+      expect(mobile_menu[:class].split).to include("hidden")
 
       find("[data-action='click->toggle#toggle']").click
-      expect(menu[:class]).not_to include("hidden")
+      expect(mobile_menu[:class].split).not_to include("hidden")
+      expect(mobile_menu[:class].split).to include("flex")
 
       find("[data-action='click->toggle#toggle']").click
-      expect(menu[:class]).to include("hidden")
+      expect(mobile_menu[:class].split).to include("hidden")
     end
   end
 
