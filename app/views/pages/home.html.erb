@@ -1,51 +1,95 @@
-<div class="max-w-2xl mx-auto">
-  <h1 class="text-3xl font-bold mb-4">Email alias creation</h1>
-
-  <p class="text-lg text-gray-600 mb-8">Register a new email alias for every site you register on.</p>
-
-  <div class="space-y-6 mb-8">
-    <div>
-      <h2 class="text-xl font-semibold mb-1"><%= icon("shield", height: 20) %> Increased security</h2>
-      <p class="text-gray-600">Increase security with a unique combination of email address and password for every service.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold mb-1"><%= icon("shield-off", height: 20) %> Spam protection</h2>
-      <p class="text-gray-600">If the site is hacked or they start to send spam, just remove the alias and you will never receive emails from them again.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold mb-1"><%= icon("eye-off", height: 20) %> Improved privacy</h2>
-      <p class="text-gray-600">Make it harder for companies to track you across sites using your email address.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold mb-1"><%= icon("database", height: 20) %> Own your data</h2>
-      <p class="text-gray-600">Uses your account at one of the supported email providers.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold mb-1"><%= icon("file-text", height: 20) %> Alias template</h2>
-      <p class="text-gray-600">Use a template for generating aliases based on the domain you register on, a randomized string or a UUID.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold mb-1"><%= icon("bookmark", height: 20) %> Bookmarklet</h2>
-      <p class="text-gray-600">Add the bookmarklet to your browser and click on it when on a website to open Spicyham with an alias automatically generated.</p>
-    </div>
-  </div>
-
-  <div class="mb-8">
-    <h2 class="text-xl font-semibold mb-2">Supported email providers</h2>
-    <ul class="list-disc list-inside text-gray-600">
-      <li><a href="https://www.migadu.com/" class="text-blue-600 hover:underline">Migadu</a></li>
-      <li><a href="https://www.gandi.net" class="text-blue-600 hover:underline">Gandi</a></li>
-      <li><a href="https://www.glesys.se" class="text-blue-600 hover:underline">Glesys</a></li>
-    </ul>
-  </div>
-
-  <div class="border-t pt-6">
-    <%= link_to icon("log-in") + " Sign in", new_user_session_path,
-      class: "inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded text-lg hover:bg-blue-700" %>
+<%# Hero Section %>
+<div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white py-24 px-4 mt-4 mb-10 rounded-lg">
+  <div class="max-w-3xl mx-auto text-center">
+    <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Email alias creation</h1>
+    <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+      Register a new email alias for every site you register on. Protect your inbox with unique addresses you control.
+    </p>
+    <% if user_signed_in? %>
+      <%= link_to emails_path,
+        class: "inline-flex items-center bg-white text-blue-700 font-semibold px-8 py-4 rounded-lg text-lg hover:bg-blue-50 shadow-lg" do %>
+        <%= icon("mail", height: 24) %> <span class="ml-2">Go to Emails</span>
+      <% end %>
+    <% else %>
+      <%= link_to new_user_session_path,
+        class: "inline-flex items-center bg-white text-blue-700 font-semibold px-8 py-4 rounded-lg text-lg hover:bg-blue-50 shadow-lg" do %>
+        <%= icon("log-in", height: 24) %> <span class="ml-2">Get started</span>
+      <% end %>
+    <% end %>
   </div>
 </div>
+
+<%# Logo Cloud (Providers) %>
+<div class="text-center mb-16">
+  <p class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-4">Works with</p>
+  <div class="flex flex-wrap justify-center items-center gap-10 sm:gap-16">
+    <a href="https://www.migadu.com/" class="opacity-60 hover:opacity-100 transition"><%= image_tag "migadu.svg", alt: "Migadu", class: "h-8" %></a>
+    <a href="https://www.gandi.net" class="opacity-60 hover:opacity-100 transition"><%= image_tag "gandi.svg", alt: "Gandi", class: "h-8" %></a>
+    <a href="https://www.glesys.se" class="opacity-60 hover:opacity-100 transition"><%= image_tag "glesys.svg", alt: "Glesys", class: "h-8" %></a>
+  </div>
+</div>
+
+<%# Feature Grid %>
+<div class="max-w-5xl mx-auto mb-16">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-blue-100 text-blue-600 mb-4">
+        <%= icon("shield", height: 40) %>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Increased security</h3>
+      <p class="text-gray-600 text-sm">Increase security with a unique combination of email address and password for every service.</p>
+    </div>
+
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-red-100 text-red-600 mb-4">
+        <%= icon("shield-off", height: 40) %>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Spam protection</h3>
+      <p class="text-gray-600 text-sm">If the site is hacked or they start to send spam, just remove the alias and you will never receive emails from them again.</p>
+    </div>
+
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-purple-100 text-purple-600 mb-4">
+        <%= icon("eye-off", height: 40) %>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Improved privacy</h3>
+      <p class="text-gray-600 text-sm">Make it harder for companies to track you across sites using your email address.</p>
+    </div>
+
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-green-100 text-green-600 mb-4">
+        <%= icon("database", height: 40) %>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Own your data</h3>
+      <p class="text-gray-600 text-sm">Uses your account at one of the supported email providers. Your data stays with you.</p>
+    </div>
+
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-amber-100 text-amber-600 mb-4">
+        <%= icon("file-text", height: 40) %>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Alias template</h3>
+      <p class="text-gray-600 text-sm">Use a template for generating aliases based on the domain you register on, a randomized string or a UUID.</p>
+    </div>
+
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-cyan-100 text-cyan-600 mb-4">
+        <%= icon("bookmark", height: 40) %>
+      </div>
+      <h3 class="text-lg font-semibold mb-2">Bookmarklet</h3>
+      <p class="text-gray-600 text-sm">Add the bookmarklet to your browser and click on it when on a website to open Spicyham with an alias automatically generated.</p>
+    </div>
+  </div>
+</div>
+
+<%# CTA Section (unauthenticated only) %>
+<% unless user_signed_in? %>
+  <div class="bg-gray-900 text-white py-12 -mx-4 px-4 rounded-lg text-center">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-4">Ready to protect your email?</h2>
+    <p class="text-gray-300 mb-6">Sign in to start creating email aliases in seconds.</p>
+    <%= link_to new_user_session_path,
+      class: "inline-flex items-center bg-blue-600 text-white font-semibold px-8 py-4 rounded-lg text-lg hover:bg-blue-700 shadow-lg" do %>
+      <%= icon("log-in", height: 24) %> <span class="ml-2">Sign in</span>
+    <% end %>
+  </div>
+<% end %>
