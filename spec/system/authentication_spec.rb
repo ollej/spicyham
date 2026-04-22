@@ -1,0 +1,19 @@
+require 'rails_helper'
+
+RSpec.describe "Authentication", type: :system do
+  it "redirects unauthenticated user to sign-in page" do
+    visit root_path
+    expect(page).to have_current_path(new_user_session_path)
+  end
+
+  it "signed-in user sees emails index" do
+    user = create(:user)
+    sign_in user
+
+    mock_api = double("Facade::API", list: [])
+    allow(Facade::API).to receive(:create).and_return(mock_api)
+
+    visit emails_path
+    expect(page).to have_content("Email forwards")
+  end
+end

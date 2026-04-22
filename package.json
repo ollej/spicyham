@@ -26,6 +26,7 @@
     "resolve-url-loader": "^5.0.0"
   },
   "devDependencies": {
+    "webpack-cli": "4",
     "webpack-dev-server": "^4.15.1"
   }
 }

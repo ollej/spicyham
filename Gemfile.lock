@@ -75,6 +75,8 @@ GEM
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
       uri (>= 0.13.1)
+    addressable (2.9.0)
+      public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
     bcrypt (3.1.22)
     bigdecimal (4.1.2)
@@ -83,6 +85,15 @@ GEM
     builder (3.3.0)
     byebug (13.0.0)
       reline (>= 0.6.0)
+    capybara (3.40.0)
+      addressable
+      matrix
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.11)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (>= 1.5, < 3.0)
+      xpath (~> 3.2)
     coderay (1.1.3)
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
@@ -153,6 +164,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.1.0)
+    matrix (0.4.3)
     method_source (1.1.0)
     mime-types (3.7.0)
       logger
@@ -286,6 +298,7 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
+    regexp_parser (2.12.0)
     reline (0.6.3)
       io-console (~> 0.5)
     responders (3.2.0)
@@ -314,9 +327,16 @@ GEM
       rspec-mocks (>= 3.13.0, < 5.0.0)
       rspec-support (>= 3.13.0, < 5.0.0)
     rspec-support (3.13.7)
+    rubyzip (3.2.2)
     sdoc (2.6.5)
       rdoc (>= 5.0)
     securerandom (0.4.1)
+    selenium-webdriver (4.43.0)
+      base64 (~> 0.2)
+      logger (~> 1.4)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 4.0)
+      websocket (~> 1.0)
     semantic_range (3.1.1)
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
@@ -340,6 +360,7 @@ GEM
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
     webrick (1.9.2)
+    websocket (1.2.11)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
@@ -347,6 +368,8 @@ GEM
     xmlrpc (0.3.4)
       rexml
       webrick
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
     zeitwerk (2.7.5)
 
 PLATFORMS
@@ -355,6 +378,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   byebug
+  capybara
   devise
   factory_bot_rails
   gandi_v5
@@ -374,6 +398,7 @@ DEPENDENCIES
   rexml
   rspec-rails
   sdoc
+  selenium-webdriver
   uglifier
   webpacker (~> 5.4.4)
   xmlrpc
