@@ -1,6 +1,6 @@
 <h2 class="text-2xl font-bold mb-6">Edit profile</h2>
 
-<%= form_for(resource, as: resource_name, url: user_registration_path(resource), html: { method: :put, data: { controller: "test-api", test_api_url_value: test_api_path(format: :json) } }) do |f| %>
+<%= form_with model: resource, as: resource_name, url: user_registration_path(resource), method: :put, data: { controller: "test-api", test_api_url_value: test_api_path(format: :json) } do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <%# Profile Section %>
