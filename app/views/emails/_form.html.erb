@@ -1,12 +1,12 @@
-<%= form_tag emails_path, method: 'post', class: 'flex flex-wrap items-end gap-2' do %>
-  <div class="flex-1 min-w-0">
+<%= form_tag emails_path, method: 'post', class: 'flex flex-col sm:flex-row sm:items-end gap-2' do %>
+  <div class="sm:flex-1 min-w-0">
     <div class="flex">
       <%= text_field_tag :address, @email_alias, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded-l px-3 py-2 w-full',
         placeholder: 'Alias', autocapitalize: 'none', autofocus: true %>
       <span class="bg-gray-700 border border-l-0 border-gray-600 rounded-r px-3 py-2 text-sm text-gray-400">@<%= @email_domain %></span>
     </div>
   </div>
-  <div class="flex-1 min-w-0" data-controller="combobox">
+  <div class="sm:flex-1 min-w-0" data-controller="combobox">
     <input type="hidden" name="destinations" data-combobox-target="hidden" value="<%= current_user.default_forward %>">
     <div class="relative">
       <input type="text"
