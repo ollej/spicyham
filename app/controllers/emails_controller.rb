@@ -13,10 +13,10 @@ class EmailsController < ApplicationController
         flash[:error] = "Couldn't read emails for domain #{email_domain} using #{current_user.api} API."
       end
     end
-    @email_alias = AliasTemplate.new(index_params[:email], current_user.alias_template).generate
+    @created_email = index_params[:created_email]
+    @email_alias = @created_email.present? ? "" : AliasTemplate.new(index_params[:email], current_user.alias_template).generate
     @destinations = get_destinations(@emails)
     @email_domain = email_domain
-    @created_email = index_params[:created_email]
   end
 
   # POST /emails
