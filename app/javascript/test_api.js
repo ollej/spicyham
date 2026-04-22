@@ -1,3 +1,5 @@
+import $ from "jquery"
+
 class TestApi {
   constructor(elementId) {
     this.element = $(elementId);

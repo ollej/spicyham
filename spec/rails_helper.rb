@@ -78,16 +78,6 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include FactoryBot::Syntax::Methods
 
-  # Stub Webpacker manifest to avoid needing compiled assets in tests
-  config.before(:each, type: :request) do
-    allow(Webpacker.instance.manifest).to receive(:lookup!).and_return("/packs-test/stub")
-    allow(Webpacker.instance.manifest).to receive(:lookup).and_return("/packs-test/stub")
-  end
-  config.before(:each, type: :helper) do
-    allow(Webpacker.instance.manifest).to receive(:lookup!).and_return("/packs-test/stub")
-    allow(Webpacker.instance.manifest).to receive(:lookup).and_return("/packs-test/stub")
-  end
-
   # System specs use headless Chrome
   config.before(:each, type: :system) do
     driven_by :selenium, using: :headless_chrome

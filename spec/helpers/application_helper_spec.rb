@@ -56,11 +56,11 @@ RSpec.describe ApplicationHelper, type: :helper do
     end
   end
 
-  describe '#uglify_js' do
-    it "compiles JavaScript through Uglifier" do
-      result = helper.uglify_js('var x = 1; var y = 2;')
+  describe '#minify_js_file' do
+    it "reads and minifies whitespace from a JS file" do
+      result = helper.minify_js_file('public/bookmarklet.js')
       expect(result).to be_a(String)
-      expect(result.length).to be < 'var x = 1; var y = 2;'.length
+      expect(result).not_to include("\n")
     end
   end
 

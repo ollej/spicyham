@@ -26,7 +26,7 @@
         <%= link_to icon_button('Buy', :'credit-card'),
           domain_create_path + '?' + { domain: domain }.to_param,
           class: 'btn btn-success btn-sm',
-          method: :post, data: { confirm: "Are you sure you want to buy domain #{domain}?" } %>
+          data: { turbo_method: :post, turbo_confirm: "Are you sure you want to buy domain #{domain}?" } %>
       <% end %>
     </td>
   </tr>

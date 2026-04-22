@@ -12,7 +12,6 @@ gem 'devise'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'octicons_helper'
-gem 'uglifier'
 gem 'gandi_v5'
 gem 'psych'
 gem 'puma'
@@ -21,17 +20,13 @@ group :production do
   gem 'rails_12factor'
 end
 
-# Use webpacker for assets
-gem "webpacker", "~> 5.4.4"
+gem 'propshaft'
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'
+gem 'turbo-rails'
 
 # Needed for Ruby 3.4.x
 gem "rexml"
-
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-#gem 'therubyracer', platforms: :ruby
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-#gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'

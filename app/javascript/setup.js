@@ -1,4 +1,5 @@
-import TestApi from "src/test-api"
+import $ from "jquery"
+import TestApi from "./test_api"
 import ClipboardJS from "clipboard/dist/clipboard"
 
 $(function() {

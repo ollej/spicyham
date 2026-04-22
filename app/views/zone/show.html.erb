@@ -31,7 +31,7 @@
         <%= link_to icon_button("Delete", :x, height: 16),
           delete_record_path(@zone_id, record["id"]),
           class: "btn btn-danger btn-sm",
-          method: :delete, data: { confirm: "Are you sure?" } %>
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
       </td>
     </tr>
   <% end %>
