@@ -1,0 +1,51 @@
+<div class="max-w-2xl mx-auto">
+  <h1 class="text-3xl font-bold mb-4">Email alias creation</h1>
+
+  <p class="text-lg text-gray-600 mb-8">Register a new email alias for every site you register on.</p>
+
+  <div class="space-y-6 mb-8">
+    <div>
+      <h2 class="text-xl font-semibold mb-1"><%= icon("shield", height: 20) %> Increased security</h2>
+      <p class="text-gray-600">Increase security with a unique combination of email address and password for every service.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-1"><%= icon("shield-off", height: 20) %> Spam protection</h2>
+      <p class="text-gray-600">If the site is hacked or they start to send spam, just remove the alias and you will never receive emails from them again.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-1"><%= icon("eye-off", height: 20) %> Improved privacy</h2>
+      <p class="text-gray-600">Make it harder for companies to track you across sites using your email address.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-1"><%= icon("database", height: 20) %> Own your data</h2>
+      <p class="text-gray-600">Uses your account at one of the supported email providers.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-1"><%= icon("file-text", height: 20) %> Alias template</h2>
+      <p class="text-gray-600">Use a template for generating aliases based on the domain you register on, a randomized string or a UUID.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold mb-1"><%= icon("bookmark", height: 20) %> Bookmarklet</h2>
+      <p class="text-gray-600">Add the bookmarklet to your browser and click on it when on a website to open Spicyham with an alias automatically generated.</p>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-xl font-semibold mb-2">Supported email providers</h2>
+    <ul class="list-disc list-inside text-gray-600">
+      <li><a href="https://www.migadu.com/" class="text-blue-600 hover:underline">Migadu</a></li>
+      <li><a href="https://www.gandi.net" class="text-blue-600 hover:underline">Gandi</a></li>
+      <li><a href="https://www.glesys.se" class="text-blue-600 hover:underline">Glesys</a></li>
+    </ul>
+  </div>
+
+  <div class="border-t pt-6">
+    <%= link_to icon("log-in") + " Sign in", new_user_session_path,
+      class: "inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded text-lg hover:bg-blue-700" %>
+  </div>
+</div>

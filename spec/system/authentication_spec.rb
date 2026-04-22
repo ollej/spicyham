@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Authentication", type: :system do
-  it "redirects unauthenticated user to sign-in page" do
+  it "shows home page for unauthenticated user" do
     visit root_path
-    expect(page).to have_current_path(new_user_session_path)
+    expect(page).to have_content("Email alias creation")
   end
 
   it "signed-in user sees emails index" do
@@ -29,6 +29,6 @@ RSpec.describe "Authentication", type: :system do
       click_link "Log Out"
     end
 
-    expect(page).to have_current_path(new_user_session_path)
+    expect(page).to have_current_path(root_path)
   end
 end

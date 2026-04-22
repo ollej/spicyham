@@ -68,7 +68,7 @@ RSpec.describe "Profile", type: :system do
     fill_in placeholder: "DELETE", with: "DELETE"
     click_button "Confirm deletion"
 
-    expect(page).to have_current_path(new_user_session_path)
+    expect(page).to have_current_path(root_path)
     expect(User.find_by(id: user.id)).to be_nil
   end
 end
