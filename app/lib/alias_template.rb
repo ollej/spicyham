@@ -28,7 +28,7 @@ class AliasTemplate
       .gsub(/\?.*$/, "") # Strip argument list
       .gsub(/\/.*/, "") # Strip from first slash
       .gsub(/:\d+$/, "") # Strip port
-      .gsub(/@/, "") # Strip @
+      .gsub(/.*@/, "") # Strip everything before and including @
       .gsub(/www\./, "") # Strip sub-domain
       .gsub(/.(?:co|org|ltd|gov|net|me|mil|ac|mod|nhs|nic|plc|sch)(.uk)$/, '\1') # Strip second level TLD in UK
       .gsub(/.(?:com|net|org|edu|gov|asn|id|csiro)(.au)$/, '\1') # Strip second level TLD in AU
