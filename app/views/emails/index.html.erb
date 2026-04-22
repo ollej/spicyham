@@ -9,35 +9,62 @@
     <%= render partial: "shared/bookmarklet" %>
   </div>
 
-  <table class="w-full text-left text-sm">
-    <thead>
-      <tr class="border-b border-gray-700 font-semibold">
-        <th class="py-2">
-          Address
-          <span class="inline sm:hidden"><br>Destinations</span>
-        </th>
-        <th class="hidden sm:table-cell py-2">Destinations</th>
-        <th class="py-2"></th>
-      </tr>
-    </thead>
-
-    <tbody class="divide-y divide-gray-700">
-      <% @emails.each do |email| %>
-        <tr class="hover:bg-gray-800">
-          <td class="py-2">
-            <%= email.source %><span class="text-gray-500"><wbr>@<%= @email_domain %></span>
-            <span class="inline sm:hidden"><%= email.destinations_string %></span>
-          </td>
-          <td class="hidden sm:table-cell py-2"><%= email.destinations_string %></td>
-          <td class="py-2">
-            <%= link_to icon_button("Delete", :x, height: 16), email_path(email.source),
-              class: "inline-flex items-center bg-red-600 text-white text-sm px-2 py-1 rounded hover:bg-red-700",
-              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-          </td>
+  <div data-controller="confirm-dialog">
+    <table class="w-full text-left text-sm">
+      <thead>
+        <tr class="border-b border-gray-700 font-semibold">
+          <th class="py-2">
+            Address
+            <span class="inline sm:hidden"><br>Destinations</span>
+          </th>
+          <th class="hidden sm:table-cell py-2">Destinations</th>
+          <th class="py-2"></th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody class="divide-y divide-gray-700">
+        <% @emails.each do |email| %>
+          <tr class="hover:bg-gray-800">
+            <td class="py-2">
+              <%= email.source %><span class="text-gray-500"><wbr>@<%= @email_domain %></span>
+              <span class="inline sm:hidden"><%= email.destinations_string %></span>
+            </td>
+            <td class="hidden sm:table-cell py-2"><%= email.destinations_string %></td>
+            <td class="py-2">
+              <button type="button"
+                class="inline-flex items-center bg-red-600 text-white text-sm px-2 py-1 rounded hover:bg-red-700"
+                data-action="click->confirm-dialog#open"
+                data-label="<%= email.source %>@<%= @email_domain %>"
+                data-destinations="<%= email.destinations_string %>"
+                data-url="<%= email_path(email.source) %>">
+                <%= icon_button("Delete", :x, height: 16) %>
+              </button>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <dialog data-confirm-dialog-target="dialog" class="fixed inset-0 m-auto h-fit bg-gray-800 text-gray-100 rounded-lg p-6 shadow-xl backdrop:bg-black/70 max-w-md">
+      <h4 class="text-lg font-semibold text-red-400 mb-2"><%= icon("alert-triangle", height: 20) %> Delete email alias</h4>
+      <p class="text-sm text-gray-300 mb-1">Are you sure you want to delete this email alias?</p>
+      <p class="text-sm font-mono font-semibold text-gray-100 mb-1" data-confirm-dialog-target="message"></p>
+      <p class="text-xs text-gray-400 mb-4"><%= icon("arrow-right", height: 14) %> <span data-confirm-dialog-target="destinations"></span></p>
+      <div class="flex items-center justify-end gap-2">
+        <button type="button" class="inline-flex items-center px-4 py-2 text-sm text-gray-300 border border-gray-600 rounded hover:bg-gray-700"
+          data-action="click->confirm-dialog#cancel">
+          <%= icon("x", height: 16) %> Cancel
+        </button>
+        <form data-confirm-dialog-target="form" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+          <button type="submit" class="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm">
+            <%= icon("trash-2", height: 16) %> Delete
+          </button>
+        </form>
+      </div>
+    </dialog>
+  </div>
 
   <p class="mt-4 text-sm text-gray-500">Listed <b><%= @emails.size %></b> emails.</p>
 

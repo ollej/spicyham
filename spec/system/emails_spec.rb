@@ -65,10 +65,26 @@ RSpec.describe "Emails", type: :system do
 
     visit emails_path
     expect(page).to have_content("testalias")
-    expect(page).to have_link("Delete")
+    expect(page).to have_button("Delete")
   end
 
-  it "removes email and shows flash after clicking delete" do
+  it "opens confirm dialog showing email and destinations when clicking delete" do
+    forwarding = Facade::Forwarding.new(
+      source: 'testalias',
+      domain: 'example.com',
+      destinations: ['fwd@example.com']
+    )
+    allow(mock_api).to receive(:list).and_return([forwarding])
+
+    visit emails_path
+    click_button "Delete"
+
+    expect(page).to have_content("Delete email alias")
+    expect(page).to have_content("testalias@example.com")
+    expect(page).to have_content("fwd@example.com")
+  end
+
+  it "removes email and shows flash after confirming delete" do
     forwarding = Facade::Forwarding.new(
       source: 'testalias',
       domain: 'example.com',
@@ -78,8 +94,9 @@ RSpec.describe "Emails", type: :system do
     allow(mock_api).to receive(:delete)
 
     visit emails_path
-    accept_confirm do
-      click_link "Delete"
+    click_button "Delete"
+    within("dialog") do
+      click_button "Delete"
     end
 
     expect(page).to have_content("Email forwarding removed")
@@ -98,8 +115,9 @@ RSpec.describe "Emails", type: :system do
     allow(mock_api).to receive(:delete).and_raise(Facade::Error, "Not found")
 
     visit emails_path
-    accept_confirm do
-      click_link "Delete"
+    click_button "Delete"
+    within("dialog") do
+      click_button "Delete"
     end
 
     expect(page).to have_content("Couldn't remove email forwarding")
@@ -116,7 +134,10 @@ RSpec.describe "Emails", type: :system do
     allow(mock_api).to receive(:delete)
 
     visit emails_path
-    accept_confirm { click_link "Delete" }
+    click_button "Delete"
+    within("dialog") do
+      click_button "Delete"
+    end
 
     expect(page).to have_content("Email forwarding removed")
     find("[data-action='click->alert#dismiss']").click
