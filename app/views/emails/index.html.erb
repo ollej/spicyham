@@ -1,43 +1,54 @@
 <h1 class="text-2xl font-bold mb-4">Email forwards</h1>
 
-<div class="mb-4">
-  <%= render 'form' %>
-</div>
+<% if current_user.api_key.present? %>
+  <div class="mb-4">
+    <%= render 'form' %>
+  </div>
 
-<div class="lg:hidden mb-4">
-  <%= render partial: "shared/bookmarklet" %>
-</div>
+  <div class="lg:hidden mb-4">
+    <%= render partial: "shared/bookmarklet" %>
+  </div>
 
-<table class="w-full text-left text-sm">
-  <thead>
-    <tr class="border-b border-gray-700 font-semibold">
-      <th class="py-2">
-        Address
-        <span class="inline sm:hidden"><br>Destinations</span>
-      </th>
-      <th class="hidden sm:table-cell py-2">Destinations</th>
-      <th class="py-2"></th>
-    </tr>
-  </thead>
-
-  <tbody class="divide-y divide-gray-700">
-    <% @emails.each do |email| %>
-      <tr class="hover:bg-gray-800">
-        <td class="py-2">
-          <%= email.source %><span class="text-gray-500"><wbr>@<%= @email_domain %></span>
-          <span class="inline sm:hidden"><%= email.destinations_string %></span>
-        </td>
-        <td class="hidden sm:table-cell py-2"><%= email.destinations_string %></td>
-        <td class="py-2">
-          <%= link_to icon_button("Delete", :x, height: 16), email_path(email.source),
-            class: "inline-flex items-center bg-red-600 text-white text-sm px-2 py-1 rounded hover:bg-red-700",
-            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-        </td>
+  <table class="w-full text-left text-sm">
+    <thead>
+      <tr class="border-b border-gray-700 font-semibold">
+        <th class="py-2">
+          Address
+          <span class="inline sm:hidden"><br>Destinations</span>
+        </th>
+        <th class="hidden sm:table-cell py-2">Destinations</th>
+        <th class="py-2"></th>
       </tr>
+    </thead>
+
+    <tbody class="divide-y divide-gray-700">
+      <% @emails.each do |email| %>
+        <tr class="hover:bg-gray-800">
+          <td class="py-2">
+            <%= email.source %><span class="text-gray-500"><wbr>@<%= @email_domain %></span>
+            <span class="inline sm:hidden"><%= email.destinations_string %></span>
+          </td>
+          <td class="hidden sm:table-cell py-2"><%= email.destinations_string %></td>
+          <td class="py-2">
+            <%= link_to icon_button("Delete", :x, height: 16), email_path(email.source),
+              class: "inline-flex items-center bg-red-600 text-white text-sm px-2 py-1 rounded hover:bg-red-700",
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p class="mt-4 text-sm text-gray-500">Listed <b><%= @emails.size %></b> emails.</p>
+
+  <p><a href="?all=1" class="text-blue-400 hover:underline">List all emails</a></p>
+<% else %>
+  <div class="border border-yellow-700 bg-yellow-900 text-yellow-200 rounded p-6 mt-4">
+    <h2 class="text-lg font-semibold mb-2"><%= icon("alert-triangle", height: 20) %> API not configured</h2>
+    <p class="mb-4">You need to configure your email provider API credentials before you can manage email aliases.</p>
+    <%= link_to edit_user_registration_path(current_user),
+      class: "inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" do %>
+      <%= icon("settings", height: 16) %> Go to Profile settings
     <% end %>
-  </tbody>
-</table>
-
-<p class="mt-4 text-sm text-gray-500">Listed <b><%= @emails.size %></b> emails.</p>
-
-<p><a href="?all=1" class="text-blue-400 hover:underline">List all emails</a></p>
+  </div>
+<% end %>

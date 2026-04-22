@@ -61,6 +61,16 @@ RSpec.describe "Emails", type: :request do
     end
   end
 
+  describe "GET /emails without API credentials" do
+    it "shows API not configured warning" do
+      sign_in create(:user, :no_api)
+      get emails_path
+      expect(response).to have_http_status(:success)
+      expect(response.body).to include("API not configured")
+      expect(response.body).not_to include("<table")
+    end
+  end
+
   describe "POST /emails" do
     before { sign_in user }
 

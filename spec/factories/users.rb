@@ -16,5 +16,11 @@ FactoryBot.define do
       admin { true }
       uid { '67890' }
     end
+
+    trait :no_api do
+      api_key { nil }
+      api_user { nil }
+      api { nil }
+    end
   end
 end

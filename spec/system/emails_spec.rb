@@ -151,4 +151,16 @@ RSpec.describe "Emails", type: :system do
     expect(combobox_input.value).to eq("alice@example.com")
     expect(find("[data-combobox-target='hidden']", visible: false).value).to eq("alice@example.com")
   end
+
+  context "without API credentials" do
+    let(:user) { create(:user, :no_api) }
+
+    it "shows warning and hides the form" do
+      visit emails_path
+      expect(page).to have_content("API not configured")
+      expect(page).to have_link("Go to Profile settings")
+      expect(page).not_to have_button("Create")
+      expect(page).not_to have_css("table")
+    end
+  end
 end
