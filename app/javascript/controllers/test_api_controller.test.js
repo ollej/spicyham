@@ -11,7 +11,7 @@ const HTML = `
   <input data-test-api-target="apiKey" value="test-key" data-action="change->test-api#reset">
   <input data-test-api-target="apiUser" value="test-user" data-action="change->test-api#reset">
   <input data-test-api-target="domain" value="example.com" data-action="change->test-api#reset">
-  <a href="#" class="border-gray-700 text-gray-700 test-api-btn" data-test-api-target="button" data-action="click->test-api#test">
+  <a href="#" class="border-gray-600 text-gray-300 test-api-btn" data-test-api-target="button" data-action="click->test-api#test">
     <span data-test-api-target="processing" class="hidden"></span>
     <span data-test-api-target="success" class="hidden"></span>
     <span data-test-api-target="failed" class="hidden"></span>
@@ -115,7 +115,7 @@ describe("TestApiController", () => {
     await vi.waitFor(() => expect(button.classList.contains("border-green-600")).toBe(true))
 
     findTarget("api").dispatchEvent(new Event("change"))
-    await vi.waitFor(() => expect(button.classList.contains("border-gray-700")).toBe(true))
+    await vi.waitFor(() => expect(button.classList.contains("border-gray-600")).toBe(true))
 
     expect(button.classList.contains("border-green-600")).toBe(false)
     expect(findTarget("untested").classList.contains("hidden")).toBe(false)

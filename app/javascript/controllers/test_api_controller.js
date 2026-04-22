@@ -36,7 +36,7 @@ export default class extends Controller {
   success() {
     this.reset()
     this.buttonTarget.classList.add("border-green-600", "text-green-600")
-    this.buttonTarget.classList.remove("border-gray-700", "text-gray-700")
+    this.buttonTarget.classList.remove("border-gray-600", "text-gray-300")
     this.successTarget.classList.remove("hidden")
     this.untestedTarget.classList.add("hidden")
   }
@@ -44,13 +44,13 @@ export default class extends Controller {
   fail() {
     this.reset()
     this.buttonTarget.classList.add("border-red-600", "text-red-600")
-    this.buttonTarget.classList.remove("border-gray-700", "text-gray-700")
+    this.buttonTarget.classList.remove("border-gray-600", "text-gray-300")
     this.failedTarget.classList.remove("hidden")
     this.untestedTarget.classList.add("hidden")
   }
 
   reset() {
-    this.buttonTarget.classList.add("border-gray-700", "text-gray-700")
+    this.buttonTarget.classList.add("border-gray-600", "text-gray-300")
     this.buttonTarget.classList.remove("border-green-600", "text-green-600", "border-red-600", "text-red-600")
     this.processingTarget.classList.add("hidden")
     this.successTarget.classList.add("hidden")

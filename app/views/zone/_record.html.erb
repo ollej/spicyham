@@ -1,19 +1,19 @@
 <%= form_tag add_record_path(@zone_id), method: 'post' do %>
   <div class="mb-3">
     <%= label_tag :name, nil, class: 'block text-sm font-medium mb-1' %>
-    <%= text_field_tag :name, nil, class: 'border rounded px-3 py-2 w-full' %>
+    <%= text_field_tag :name, nil, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded px-3 py-2 w-full' %>
   </div>
   <div class="mb-3">
     <%= label_tag :type, nil, class: 'block text-sm font-medium mb-1' %>
-    <%= select_tag :type, options_for_select(Gandi::TYPE::all), class: "border rounded px-3 py-2 w-full" %>
+    <%= select_tag :type, options_for_select(Gandi::TYPE::all), class: "bg-gray-800 border border-gray-600 text-gray-100 rounded px-3 py-2 w-full" %>
   </div>
   <div class="mb-3">
     <%= label_tag :value, nil, class: 'block text-sm font-medium mb-1' %>
-    <%= text_area_tag :value, nil, class: 'border rounded px-3 py-2 w-full' %>
+    <%= text_area_tag :value, nil, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded px-3 py-2 w-full' %>
   </div>
   <div class="mb-3">
     <%= label_tag :ttl, 'TTL', class: 'block text-sm font-medium mb-1' %>
-    <%= text_field_tag :ttl, nil, placeholder: 3.hours, class: 'border rounded px-3 py-2 w-full' %>
+    <%= text_field_tag :ttl, nil, placeholder: 3.hours, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded px-3 py-2 w-full' %>
   </div>
   <button type="submit" class="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
     <%= icon(:check) %> Add record

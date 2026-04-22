@@ -1,6 +1,6 @@
 <%= form_tag domain_search_path, method: 'get', class: 'flex gap-2' do %>
   <div class="flex-1">
-    <%= text_field_tag :domain, nil, class: 'border rounded px-3 py-2 w-full', placeholder: 'Search domain...' %>
+    <%= text_field_tag :domain, nil, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded px-3 py-2 w-full', placeholder: 'Search domain...' %>
   </div>
   <button name="submit" type="submit" class="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
     <%= icon_button("Search", :search) %>

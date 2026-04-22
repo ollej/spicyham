@@ -1,9 +1,9 @@
 <%= form_tag emails_path, method: 'post', class: 'flex flex-wrap items-end gap-2' do %>
   <div class="flex-1 min-w-0">
     <div class="flex">
-      <%= text_field_tag :address, @email_alias, class: 'border rounded-l px-3 py-2 w-full',
+      <%= text_field_tag :address, @email_alias, class: 'bg-gray-800 border border-gray-600 text-gray-100 rounded-l px-3 py-2 w-full',
         placeholder: 'Alias', autocapitalize: 'none', autofocus: true %>
-      <span class="bg-gray-100 border border-l-0 rounded-r px-3 py-2 text-sm text-gray-500">@<%= @email_domain %></span>
+      <span class="bg-gray-700 border border-l-0 border-gray-600 rounded-r px-3 py-2 text-sm text-gray-400">@<%= @email_domain %></span>
     </div>
   </div>
   <div class="flex-1 min-w-0" data-controller="combobox">
@@ -13,13 +13,13 @@
         data-combobox-target="input"
         data-action="input->combobox#filter focus->combobox#show change->combobox#commit"
         value="<%= current_user.default_forward %>"
-        class="border rounded px-3 py-2 w-full"
+        class="bg-gray-800 border border-gray-600 text-gray-100 rounded px-3 py-2 w-full"
         autocomplete="off">
-      <ul data-combobox-target="list" class="hidden absolute z-10 w-full bg-white border rounded shadow-lg max-h-48 overflow-auto mt-1">
+      <ul data-combobox-target="list" class="hidden absolute z-10 w-full bg-gray-800 border border-gray-600 rounded shadow-lg max-h-48 overflow-auto mt-1">
         <% @destinations.each do |dest| %>
           <% next if dest.blank? %>
           <li data-combobox-target="option" data-value="<%= dest %>" data-action="click->combobox#select"
-            class="px-3 py-2 cursor-pointer hover:bg-gray-100 text-sm"><%= dest %></li>
+            class="px-3 py-2 cursor-pointer hover:bg-gray-700 text-sm text-gray-200"><%= dest %></li>
         <% end %>
       </ul>
     </div>
@@ -29,7 +29,7 @@
       <%= icon(:check) %> Create
     </button>
     <% if @created_email %>
-      <%= button_tag type: "button", class: "inline-flex items-center border border-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-50 copy-clipboard", data: { "clipboard-text" => @created_email } do %>
+      <%= button_tag type: "button", class: "inline-flex items-center border border-gray-600 text-gray-300 px-4 py-2 rounded hover:bg-gray-800 copy-clipboard", data: { "clipboard-text" => @created_email } do %>
         <%= icon(:paperclip) %>
         Copy
       <% end %>

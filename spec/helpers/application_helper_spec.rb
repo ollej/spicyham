@@ -140,14 +140,14 @@ RSpec.describe ApplicationHelper, type: :helper do
     it "renders alert div for notice flash mapped to success" do
       flash[:notice] = "It worked!"
       result = helper.flash_messages
-      expect(result).to include('bg-green-100')
+      expect(result).to include('bg-green-900')
       expect(result).to include('It worked!')
     end
 
     it "renders alert div for error flash mapped to danger" do
       flash[:error] = "Something broke"
       result = helper.flash_messages
-      expect(result).to include('bg-red-100')
+      expect(result).to include('bg-red-900')
       expect(result).to include('Something broke')
     end
 

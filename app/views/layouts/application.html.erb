@@ -15,17 +15,17 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
-  <body class="bg-white text-gray-900">
-    <nav class="bg-gray-100 shadow-sm py-2" data-controller="toggle">
+  <body class="bg-gray-900 text-gray-100">
+    <nav class="bg-gray-800 shadow-sm py-2" data-controller="toggle">
       <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
         <div class="flex items-center">
-          <button type="button" class="md:hidden mr-2 text-gray-600" data-action="click->toggle#toggle">
+          <button type="button" class="md:hidden mr-2 text-gray-400" data-action="click->toggle#toggle">
             &#x2630;
           </button>
-          <a class="text-xl font-bold text-gray-800" href="<%= root_path %>">Spicyham</a>
+          <a class="text-xl font-bold text-gray-100" href="<%= root_path %>">Spicyham</a>
         </div>
         <div class="hidden md:flex space-x-1" data-toggle-target="menu">
-          <%= render partial: 'layouts/links', locals: { item_class: 'px-3 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded' } %>
+          <%= render partial: 'layouts/links', locals: { item_class: 'px-3 py-2 text-sm text-gray-300 hover:text-white hover:bg-gray-700 rounded' } %>
         </div>
       </div>
     </nav>
@@ -35,9 +35,9 @@
 
         <div class="hidden lg:block w-64 shrink-0 mt-4">
           <% if user_signed_in? %>
-          <ul class="border rounded divide-y text-sm">
-            <li class="px-4 py-2 font-semibold bg-gray-50">Menu</li>
-            <%= render partial: 'layouts/links', locals: { item_class: 'block px-4 py-2 text-gray-700 hover:bg-gray-50' } %>
+          <ul class="border border-gray-700 rounded divide-y divide-gray-700 text-sm">
+            <li class="px-4 py-2 font-semibold bg-gray-800">Menu</li>
+            <%= render partial: 'layouts/links', locals: { item_class: 'block px-4 py-2 text-gray-300 hover:bg-gray-800' } %>
           </ul>
 
           <div class="mt-4">
@@ -46,14 +46,14 @@
           <% end %>
         </div>
 
-        <div class="flex-1 min-w-0">
+        <div class="flex-1 min-w-0 mt-4">
           <%= flash_messages %>
           <%= yield %>
         </div>
 
       </div>
 
-      <footer class="mt-8 py-4 text-center text-sm text-gray-400">
+      <footer class="mt-8 py-4 text-center text-sm text-gray-500">
         &copy; <a href="http://github.com/ollej" class="hover:underline">Olle Wreede</a> 2013-2025
       </footer>
     </div>
