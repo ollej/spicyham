@@ -1,7 +1,7 @@
 Spicyham
 ========
 
-A small web app to modify domains and zones on Gandi.
+A small web app to modify email aliases, domains, zones and web redirects on Gandi.
 
 It also supports editing email aliases on Migadu and Glesys.
 
@@ -15,20 +15,45 @@ It also supports editing email aliases on Migadu and Glesys.
 
 ### Setup
 
-```bash
- $ git clone git@github.com:ollej/spicyham.git
- $ cd spicyham
- $ bundle install
- $ export GOOGLE_CLIENT_ID='XXXXXX.apps.googleusercontent.com'
- $ export GOOGLE_CLIENT_SECRET='<secret>'
- $ export GANDI_API_KEY="<gandi api key>"
- $ export GANDI_HOST="rpc.gandi.net"
- $ export GANDI_MAIL_DOMAIN="example.com"
- $ export GANDI_NAMESERVERS="a.dns.gandi.net b.dns.gandi.net c.dns.gandi.net"
- $ export GANDI_DOMAIN_API_KEY="<gandi api key>"
- $ export GANDI_DOMAIN_HOST="rpc.gandi.net"
- $ export GANDI_CONTACT="XXNNN-GANDI"
- $ export GANDI_CONTACT_OWNER="XXNNN-GANDI"
- $ export SECRET_TOKEN="`rails secret`"
- $ rails s
+Clone code repository, run bundle install and create database.
+
+```sh
+git clone git@github.com:ollej/spicyham.git
+cd spicyham
+bundle install
+bin/rails db:setup
+```
+
+Copy `.env.sample` to `.env` and update the variables.
+
+Google OAuth2 credentials are needed for authentication.
+
+```
+GOOGLE_CLIENT_ID='XXXXXX.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET='<secret>'
+```
+
+Gandi XMLRPC API is needed to use the admin pages for editing Zones, Domains and Web Redirects.
+
+```
+GANDI_API_KEY="<gandi api key>"
+GANDI_HOST="rpc.gandi.net"
+GANDI_MAIL_DOMAIN="example.com"
+GANDI_NAMESERVERS="a.dns.gandi.net b.dns.gandi.net c.dns.gandi.net"
+GANDI_DOMAIN_API_KEY="<gandi api key>"
+GANDI_DOMAIN_HOST="rpc.gandi.net"
+GANDI_CONTACT="XXNNN-GANDI"
+GANDI_CONTACT_OWNER="XXNNN-GANDI"
+```
+
+Generate a secret token for Rails using `bin/rails secret`.
+
+```
+SECRET_TOKEN="secret token"
+```
+
+Run development server:
+
+```sh
+bin/dev
 ```
